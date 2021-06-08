@@ -94,7 +94,7 @@ public class VerbTenseRule implements Rule {
     public Predicate<Edit<Token>> case3() {
         return edit -> edit
                 .filter(sameLemma())
-                .filter(TokenEditPredicates.tokensShareSamePos().negate())
+                .filter(e -> !e.source().first().tag().equals(e.target().first().tag()))
                 .map(e -> e.target().first())
                 .filter(isPastTenseVerbForm())
                 .isPresent();

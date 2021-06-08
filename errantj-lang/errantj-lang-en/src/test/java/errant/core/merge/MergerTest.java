@@ -4,8 +4,10 @@ import edu.guym.errantj.lang.en.aligner.AlignerSupplier;
 import edu.guym.errantj.lang.en.lemmatize.Lemmatizer;
 import edu.guym.errantj.lang.en.lemmatize.WordNetLemmatizer;
 import edu.guym.errantj.lang.en.merge.ErrantMerger;
+import edu.guym.spacyj.api.Spacy;
 import edu.guym.spacyj.api.containers.Doc;
 import edu.guym.spacyj.api.containers.Token;
+import edu.guym.spacyj.clients.corenlp.StanfordCoreNlpSpacyClient;
 import io.squarebunny.aligner.Aligner;
 import io.squarebunny.aligner.alignment.Alignment;
 import io.squarebunny.aligner.edit.Edit;
@@ -14,17 +16,17 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static errant.TestTools.parse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class MergerTest {
 
     private final Lemmatizer lemmatizer = new WordNetLemmatizer();
+    private final Spacy spacy = Spacy.create(new StanfordCoreNlpSpacyClient());
 
     @Test
     public void testMergeInfinitivalSamePos() {
-        Doc source = parse("I like to eat food.");
-        Doc target = parse("I like eating food.");
+        Doc source = spacy.nlp("I like to eat food.");
+        Doc target = spacy.nlp("I like eating food.");
         Aligner<Token> aligner = AlignerSupplier.create(lemmatizer).get();
         Alignment<Token> alignment = aligner.align(source.tokens(), target.tokens());
         ErrantMerger merger = new ErrantMerger();
@@ -37,8 +39,8 @@ public class MergerTest {
 
     @Test
     public void testMergeInfinitivalSamePos2() {
-        Doc source = parse("I eated dinner yesterday");
-        Doc target = parse("I have eaten dinner yesterday");
+        Doc source = spacy.nlp("I eated dinner yesterday");
+        Doc target = spacy.nlp("I have eaten dinner yesterday");
         Aligner<Token> aligner = AlignerSupplier.create(lemmatizer).get();
         Alignment<Token> alignment = aligner.align(source.tokens(), target.tokens());
         ErrantMerger merger = new ErrantMerger();

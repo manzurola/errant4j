@@ -23,11 +23,6 @@
             <version>0.1-dev</version>
         </dependency>
         <dependency>
-            <groupId>edu.guym.spacyj</groupId>
-            <artifactId>spacyj-clients-corenlp</artifactId>
-            <version>0.1-dev</version>
-        </dependency>
-        <dependency>
             <groupId>io.squarebunny.aligner</groupId>
             <artifactId>aligner</artifactId>
             <version>1.0-SNAPSHOT</version>

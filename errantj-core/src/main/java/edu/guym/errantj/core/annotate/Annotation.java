@@ -77,8 +77,9 @@ public final class Annotation<T> {
     @Override
     public final String toString() {
         return "Annotation{" +
+                "edit=" + edit +
                 "error=" + error +
-                "} " + super.toString();
+                "} ";
     }
 
 

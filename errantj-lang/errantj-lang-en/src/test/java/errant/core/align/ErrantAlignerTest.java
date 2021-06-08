@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ErrantAlignerTest {
 
-    private final static Spacy nlp = Spacy.create(new StanfordCoreNlpSpacyClient());
+    private final static Spacy spacy = Spacy.create(new StanfordCoreNlpSpacyClient());
     private final Lemmatizer lemmatizer = new WordNetLemmatizer();
 
     @Test
@@ -43,7 +43,7 @@ public class ErrantAlignerTest {
     }
 
     private Doc parse(String text) {
-        return nlp.fromText(text);
+        return spacy.nlp(text);
     }
 
 }

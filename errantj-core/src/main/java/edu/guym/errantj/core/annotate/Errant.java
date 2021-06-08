@@ -29,7 +29,7 @@ public class Errant implements Annotator {
 
     @Override
     public Doc nlp(String value) {
-        return spacy.fromText(value);
+        return spacy.nlp(value);
     }
 
     public Alignment<Token> align(List<Token> source, List<Token> target) {

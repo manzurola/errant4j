@@ -17,9 +17,15 @@ import static org.junit.jupiter.api.Assertions.*;
 public abstract class AnnotatorTestBase {
 
     private static final Logger logger = LoggerFactory.getLogger(AnnotatorTestBase.class);
+    private final Annotator annotator;
 
-    protected abstract Annotator getAnnotator();
+    public AnnotatorTestBase(Annotator annotator) {
+        this.annotator = annotator;
+    }
 
+    protected final Doc nlp(String text) {
+        return annotator.nlp(text);
+    }
 
     protected void assertSingleExpectedError(Annotation<String> expected, Doc source, Doc target) {
         logger.info("Asserting single expected grammatical classify: " + expected);
@@ -37,7 +43,7 @@ public abstract class AnnotatorTestBase {
         logger.info("Running classifier...");
         logger.info("Source sentence: " + source);
         logger.info("Target sentence: " + target);
-        return getAnnotator()
+        return annotator
                 .annotate(source.tokens(), target.tokens())
                 .stream()
                 .map(annotation -> annotation.map(edit -> edit.map(Token::text)))
@@ -58,23 +64,23 @@ public abstract class AnnotatorTestBase {
         try {
             assertEquals(expected, actual);
         } catch (AssertionError e) {
-            System.out.println(source);
-            System.out.println(target);
+            logger.info(source.toString());
+            logger.info(target.toString());
             throw e;
         }
     }
 
     protected void assertContainsError(Annotation<String> expected, Doc source, Doc target) {
         List<Annotation<String>> actual = annotate(source, target);
-        System.out.println(actual);
+        logger.info(actual.toString());
         if (actual.isEmpty()) {
             throw new AssertionError("Could not matchError expected " + expected + ".\nSource: " + source + "\nTarget: " + target);
         }
         try {
             assertTrue(actual.contains(expected));
         } catch (AssertionError e) {
-            System.out.println(source);
-            System.out.println(target);
+            logger.info(source.toString());
+            logger.info(target.toString());
             throw e;
         }
     }
