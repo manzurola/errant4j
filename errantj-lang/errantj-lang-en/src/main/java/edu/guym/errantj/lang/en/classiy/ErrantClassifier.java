@@ -1,7 +1,7 @@
 package edu.guym.errantj.lang.en.classiy;
 
 import edu.guym.errantj.core.classify.RuleBasedClassifier;
-import edu.guym.errantj.core.classify.rules.UnknownErrorCleanupRule;
+import edu.guym.errantj.lang.en.classiy.rules.UnknownErrorCleanupRule;
 import edu.guym.errantj.lang.en.classiy.rules.morphtier.*;
 import edu.guym.errantj.lang.en.classiy.rules.postier.*;
 import edu.guym.errantj.lang.en.classiy.rules.tokentier.*;

@@ -1,9 +1,8 @@
 package edu.guym.errantj.lang.en.classiy.rules.morphtier;
 
-import edu.guym.errantj.core.classify.Category;
 import edu.guym.errantj.core.classify.GrammaticalError;
+import edu.guym.errantj.core.classify.CategoryMatchRule;
 import edu.guym.errantj.lang.en.classiy.common.TokenPredicates;
-import edu.guym.errantj.core.classify.rules.Rule;
 import edu.guym.errantj.wordlist.WordList;
 import io.squarebunny.aligner.edit.Edit;
 import io.squarebunny.aligner.edit.predicates.EditPredicates;
@@ -22,7 +21,7 @@ import java.util.function.Predicate;
  * 5. The original and corrected tokens have the same lemma, and
  * 6. The original and corrected tokens are both POS tagged as VERB.
  */
-public class VerbInflectionRule implements Rule {
+public class VerbInflectionRule extends CategoryMatchRule {
 
     private final WordList wordList;
 
@@ -31,15 +30,19 @@ public class VerbInflectionRule implements Rule {
     }
 
     @Override
-    public GrammaticalError apply(Edit<Token> edit) {
+    public GrammaticalError.Category getCategory() {
+        return GrammaticalError.Category.VERB_INFL;
+    }
+
+    @Override
+    public boolean isSatisfied(Edit<Token> edit) {
         return edit
                 .filter(EditPredicates.ofSizeOneToOne())
                 .filter(e -> e.source().allMatch(Token::isAlpha))
                 .filter(e -> e.source().allMatch(isNotRealWord()))
                 .filter(sameLemma())
                 .filter(e -> e.stream().allMatch(TokenPredicates.isVerb()))
-                .map(classify(Category.VERB_INFL))
-                .orElse(unknown(edit));
+                .isPresent();
     }
 
     public Predicate<Token> isNotRealWord() {

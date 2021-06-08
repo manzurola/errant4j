@@ -1,8 +1,7 @@
 package edu.guym.errantj.lang.en.classiy.rules.tokentier;
 
-import edu.guym.errantj.core.classify.Category;
 import edu.guym.errantj.core.classify.GrammaticalError;
-import edu.guym.errantj.core.classify.rules.Rule;
+import edu.guym.errantj.core.classify.CategoryMatchRule;
 import io.squarebunny.aligner.edit.Edit;
 import edu.guym.spacyj.api.containers.Token;
 
@@ -17,15 +16,19 @@ import static io.squarebunny.aligner.edit.predicates.EditPredicates.isSubstitute
  * e.g. [first → First] or [Bestfriend → best friend].
  * 1. The lower cased form of both sides of the edit with all whitespace removed results in the same string.
  */
-public class OrthographyErrorRule implements Rule {
+public class OrthographyErrorRule extends CategoryMatchRule {
 
     @Override
-    public GrammaticalError apply(Edit<Token> edit) {
+    public GrammaticalError.Category getCategory() {
+        return GrammaticalError.Category.ORTH;
+    }
+
+    @Override
+    public boolean isSatisfied(Edit<Token> edit) {
         return edit
                 .filter(isSubstitute())
                 .filter(normalizedSidesAreEqual())
-                .map(classify(Category.ORTH))
-                .orElse(unknown(edit));
+                .isPresent();
     }
 
     public Predicate<Edit<Token>> normalizedSidesAreEqual() {

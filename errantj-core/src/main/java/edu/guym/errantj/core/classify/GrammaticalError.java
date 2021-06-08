@@ -1,88 +1,126 @@
 package edu.guym.errantj.core.classify;
 
+import io.squarebunny.aligner.edit.Edit;
+
 public enum GrammaticalError {
 
-    MISSING_ADJECTIVE(Category.ADJ, Type.MISSING, "Missing Adjective"),
-    UNNECESSARY_ADJECTIVE(Category.ADJ, Type.UNNECESSARY, "Unnecessary Adjective"),
-    REPLACEMENT_ADJECTIVE(Category.ADJ, Type.REPLACEMENT, "Replacement Adjective"),
-    MISSING_ADVERB(Category.ADV, Type.MISSING, "Missing Adverb"),
-    UNNECESSARY_ADVERB(Category.ADV, Type.UNNECESSARY, "Unnecessary Adverb"),
-    REPLACEMENT_ADVERB(Category.ADV, Type.REPLACEMENT, "Replacement Adverb"),
-    MISSING_CONJUNCTION(Category.CONJ, Type.MISSING, "Missing Conjunction"),
-    UNNECESSARY_CONJUNCTION(Category.CONJ, Type.UNNECESSARY, "Unnecessary Conjunction"),
-    REPLACEMENT_CONJUNCTION(Category.CONJ, Type.REPLACEMENT, "Replacement Conjunction"),
-    MISSING_DETERMINER(Category.DET, Type.MISSING, "Missing Determiner"),
-    UNNECESSARY_DETERMINER(Category.DET, Type.UNNECESSARY, "Unnecessary Determiner"),
-    REPLACEMENT_DETERMINER(Category.DET, Type.REPLACEMENT, "Replacement Determiner"),
-    MISSING_NOUN(Category.NOUN, Type.MISSING, " Missing Noun"),
-    UNNECESSARY_NOUN(Category.NOUN, Type.UNNECESSARY, "Unnecessary Noun"),
-    REPLACEMENT_NOUN(Category.NOUN, Type.REPLACEMENT, "Replacement Noun"),
-    MISSING_PARTICLE(Category.PART, Type.MISSING, "Missing Part"),
-    UNNECESSARY_PARTICLE(Category.PART, Type.UNNECESSARY, "Unnecessary Particle"),
-    REPLACEMENT_PARTICLE(Category.PART, Type.REPLACEMENT, "Replacement Particle"),
-    MISSING_PREPOSITION(Category.PREP, Type.MISSING, "Missing Preposition"),
-    UNNECESSARY_PREPOSITION(Category.PREP, Type.UNNECESSARY, "Unnecessary Preposition"),
-    REPLACEMENT_PREPOSITION(Category.PREP, Type.REPLACEMENT, "Replacement Preposition"),
-    MISSING_PRONOUN(Category.PRON, Type.MISSING, "Missing Pronoun"),
-    UNNECESSARY_PRONOUN(Category.PRON, Type.UNNECESSARY, "Unnecessary Pronoun"),
-    REPLACEMENT_PRONOUN(Category.PRON, Type.REPLACEMENT, "Replacement Pronoun"),
-    MISSING_PUNCTUATION(Category.PUNCT, Type.MISSING, "Missing Punctuation"),
-    UNNECESSARY_PUNCTUATION(Category.PUNCT, Type.UNNECESSARY, "Unnecessary Punctuation"),
-    REPLACEMENT_PUNCTUATION(Category.PUNCT, Type.REPLACEMENT, "Replacement Punctuation"),
-    MISSING_VERB(Category.VERB, Type.MISSING, "Missing Verb"),
-    UNNECESSARY_VERB(Category.VERB, Type.UNNECESSARY, "Unnecessary Verb"),
-    REPLACEMENT_VERB(Category.VERB, Type.REPLACEMENT, "Replacement Verb"),
+    MISSING_ADJECTIVE(Type.MISSING, Category.ADJ),
+    UNNECESSARY_ADJECTIVE(Type.UNNECESSARY, Category.ADJ),
+    REPLACEMENT_ADJECTIVE(Type.REPLACEMENT, Category.ADJ),
+    MISSING_ADVERB(Type.MISSING, Category.ADV),
+    UNNECESSARY_ADVERB(Type.UNNECESSARY, Category.ADV),
+    REPLACEMENT_ADVERB(Type.REPLACEMENT, Category.ADV),
+    MISSING_CONJUNCTION(Type.MISSING, Category.CONJ),
+    UNNECESSARY_CONJUNCTION(Type.UNNECESSARY, Category.CONJ),
+    REPLACEMENT_CONJUNCTION(Type.REPLACEMENT, Category.CONJ),
+    MISSING_DETERMINER(Type.MISSING, Category.DET),
+    UNNECESSARY_DETERMINER(Type.UNNECESSARY, Category.DET),
+    REPLACEMENT_DETERMINER(Type.REPLACEMENT, Category.DET),
+    MISSING_NOUN(Type.MISSING, Category.NOUN),
+    UNNECESSARY_NOUN(Type.UNNECESSARY, Category.NOUN),
+    REPLACEMENT_NOUN(Type.REPLACEMENT, Category.NOUN),
+    MISSING_PARTICLE(Type.MISSING, Category.PART),
+    UNNECESSARY_PARTICLE(Type.UNNECESSARY, Category.PART),
+    REPLACEMENT_PARTICLE(Type.REPLACEMENT, Category.PART),
+    MISSING_PREPOSITION(Type.MISSING, Category.PREP),
+    UNNECESSARY_PREPOSITION(Type.UNNECESSARY, Category.PREP),
+    REPLACEMENT_PREPOSITION(Type.REPLACEMENT, Category.PREP),
+    MISSING_PRONOUN(Type.MISSING, Category.PRON),
+    UNNECESSARY_PRONOUN(Type.UNNECESSARY, Category.PRON),
+    REPLACEMENT_PRONOUN(Type.REPLACEMENT, Category.PRON),
+    MISSING_PUNCTUATION(Type.MISSING, Category.PUNCT),
+    UNNECESSARY_PUNCTUATION(Type.UNNECESSARY, Category.PUNCT),
+    REPLACEMENT_PUNCTUATION(Type.REPLACEMENT, Category.PUNCT),
+    MISSING_VERB(Type.MISSING, Category.VERB),
+    UNNECESSARY_VERB(Type.UNNECESSARY, Category.VERB),
+    REPLACEMENT_VERB(Type.REPLACEMENT, Category.VERB),
 
-    MISSING_CONTRACTION(Category.CONTR, Type.MISSING, "Missing Contraction"),
-    UNNECESSARY_CONTRACTION(Category.CONTR, Type.UNNECESSARY, "Unnecessary Contraction"),
-    REPLACEMENT_CONTRACTION(Category.CONTR, Type.REPLACEMENT, "Replacement Contraction"),
-    REPLACEMENT_MORPHOLOGY(Category.MORPH, Type.REPLACEMENT, "Replacement Morphology"),
-    REPLACEMENT_ORTHOGRAPHY(Category.ORTH, Type.REPLACEMENT, "Replacement Orthography"),
+    MISSING_CONTRACTION(Type.MISSING, Category.CONTR),
+    UNNECESSARY_CONTRACTION(Type.UNNECESSARY, Category.CONTR),
+    REPLACEMENT_CONTRACTION(Type.REPLACEMENT, Category.CONTR),
+    REPLACEMENT_MORPHOLOGY(Type.REPLACEMENT, Category.MORPH),
+    REPLACEMENT_ORTHOGRAPHY(Type.REPLACEMENT, Category.ORTH),
 
-    MISSING_OTHER(Category.OTHER, Type.MISSING, "Missing Other"),
-    UNNECESSARY_OTHER(Category.OTHER, Type.UNNECESSARY, "Unnecessary Other"),
-    REPLACEMENT_OTHER(Category.OTHER, Type.REPLACEMENT, "Replacement Other"),
-    TRANSPOSE_OTHER(Category.OTHER, Type.REPLACEMENT, "Transpose Other"),
+    MISSING_OTHER(Type.MISSING, Category.OTHER),
+    UNNECESSARY_OTHER(Type.UNNECESSARY, Category.OTHER),
+    REPLACEMENT_OTHER(Type.REPLACEMENT, Category.OTHER),
+    TRANSPOSE_OTHER(Type.REPLACEMENT, Category.OTHER),
 
-    REPLACEMENT_SPELLING(Category.SPELL, Type.REPLACEMENT, "Replacement Spelling"),
-    REPLACEMENT_WORD_ORDER(Category.WO, Type.REPLACEMENT, "Replacement Word Order"),
+    REPLACEMENT_SPELLING(Type.REPLACEMENT, Category.SPELL),
+    REPLACEMENT_WORD_ORDER(Type.REPLACEMENT, Category.WO),
 
-    REPLACEMENT_ADJECTIVE_FORM(Category.ADJ_FORM, Type.REPLACEMENT, "Replacement Adjective Form"),
-    REPLACEMENT_NOUN_INFLECTION(Category.NOUN_INFL, Type.REPLACEMENT, "Replacement Noun Inflection"),
-    REPLACEMENT_NOUN_NUMBER(Category.NOUN_NUM, Type.REPLACEMENT, "Replacement Noun Number"),
-    MISSING_NOUN_POSSESSIVE(Category.NOUN_POSS, Type.MISSING, "Missing Noun Possessive"),
-    UNNECESSARY_NOUN_POSSESSIVE(Category.NOUN_POSS, Type.UNNECESSARY, "Unnecessary Noun Possessive"),
-    REPLACEMENT_NOUN_POSSESSIVE(Category.NOUN_POSS, Type.REPLACEMENT, "Replacement Noun Possessive"),
-    MISSING_VERB_FORM(Category.VERB_FORM, Type.MISSING, "Missing Verb Form"),
-    UNNECESSARY_VERB_FORM(Category.VERB_FORM, Type.UNNECESSARY, "Unnecessary Verb Form"),
-    REPLACEMENT_VERB_FORM(Category.VERB_FORM, Type.REPLACEMENT, "Replacement Verb Form"),
-    REPLACEMENT_VERB_INFLECTION(Category.VERB_INFL, Type.REPLACEMENT, "Replacement Verb Inflection"),
-    REPLACEMENT_SUBJECT_VERB_AGREEMENT(Category.VERB_SVA, Type.REPLACEMENT, "Replacement Subject Verb Agreement"),
-    MISSING_VERB_TENSE(Category.VERB_TENSE, Type.MISSING, "Missing Verb Tense"),
-    UNNECESSARY_VERB_TENSE(Category.VERB_TENSE, Type.UNNECESSARY, "Unnecessary Verb Tense"),
-    REPLACEMENT_VERB_TENSE(Category.VERB_TENSE, Type.REPLACEMENT, "Replacement Verb Tense"),
+    REPLACEMENT_ADJECTIVE_FORM(Type.REPLACEMENT, Category.ADJ_FORM),
+    REPLACEMENT_NOUN_INFLECTION(Type.REPLACEMENT, Category.NOUN_INFL),
+    REPLACEMENT_NOUN_NUMBER(Type.REPLACEMENT, Category.NOUN_NUM),
+    MISSING_NOUN_POSSESSIVE(Type.MISSING, Category.NOUN_POSS),
+    UNNECESSARY_NOUN_POSSESSIVE(Type.UNNECESSARY, Category.NOUN_POSS),
+    REPLACEMENT_NOUN_POSSESSIVE(Type.REPLACEMENT, Category.NOUN_POSS),
+    MISSING_VERB_FORM(Type.MISSING, Category.VERB_FORM),
+    UNNECESSARY_VERB_FORM(Type.UNNECESSARY, Category.VERB_FORM),
+    REPLACEMENT_VERB_FORM(Type.REPLACEMENT, Category.VERB_FORM),
+    REPLACEMENT_VERB_INFLECTION(Type.REPLACEMENT, Category.VERB_INFL),
+    REPLACEMENT_SUBJECT_VERB_AGREEMENT(Type.REPLACEMENT, Category.VERB_SVA),
+    MISSING_VERB_TENSE(Type.MISSING, Category.VERB_TENSE),
+    UNNECESSARY_VERB_TENSE(Type.UNNECESSARY, Category.VERB_TENSE),
+    REPLACEMENT_VERB_TENSE(Type.REPLACEMENT, Category.VERB_TENSE),
 
-    NONE(Category.OTHER, Type.NONE, "None");
+    NONE(Type.NONE, Category.OTHER);
 
     private final Category category;
     private final Type type;
-    private final String tag;
 
-    public enum Type {
-        MISSING,
-        UNNECESSARY,
-        REPLACEMENT,
-        NONE
-    }
-
-    GrammaticalError(Category category, Type type, String tag) {
+    GrammaticalError(Type type, Category category) {
         this.category = category;
         this.type = type;
-        this.tag = tag;
     }
 
-    public boolean ofCategory(Category category) {
+    public static GrammaticalError unknown(Edit<?> edit) {
+        return create(edit, Category.OTHER);
+    }
+
+    public static GrammaticalError create(Edit<?> edit, Category category) {
+        GrammaticalError.Type type;
+        switch (edit.operation()) {
+            case INSERT:
+                type = GrammaticalError.Type.MISSING;
+                break;
+            case DELETE:
+                type = GrammaticalError.Type.UNNECESSARY;
+                break;
+            case SUBSTITUTE:
+            case TRANSPOSE:
+                type = GrammaticalError.Type.REPLACEMENT;
+                break;
+            case EQUAL:
+            default:
+                type = GrammaticalError.Type.NONE;
+        }
+
+        return create(type, category);
+    }
+
+    public static GrammaticalError create(Type type, Category category) {
+        for (GrammaticalError value : GrammaticalError.values()) {
+            if (value.type().equals(type) && value.category().equals(category)) {
+                return value;
+            }
+        }
+
+        throw new RuntimeException(String.format(
+                "Could not match Grammatical Error for Op[%s] and Cat[%s]", type, category
+        ));
+    }
+
+    public static GrammaticalError none() {
+        return GrammaticalError.NONE;
+    }
+
+    public boolean create(Category category) {
         return category().equals(category);
+    }
+
+    public String tag() {
+        return String.format("%s:%s", type.tag(), category.tag());
     }
 
     public Category category() {
@@ -93,12 +131,70 @@ public enum GrammaticalError {
         return type;
     }
 
-    public String tag() {
-        return tag;
-    }
-
     public boolean isNone() {
         return this.equals(GrammaticalError.NONE);
     }
 
+    public boolean isOther() {
+        return category().equals(Category.OTHER);
+    }
+
+    public boolean isUnknown() {
+        return false;
+    }
+
+    public enum Type {
+        MISSING("M"),
+        UNNECESSARY("U"),
+        REPLACEMENT("R"),
+        NONE("E");
+
+        private final String tag;
+
+        Type(String tag) {
+            this.tag = tag;
+        }
+
+        public String tag() {
+            return tag;
+        }
+    }
+
+    public enum Category {
+
+        ADJ("ADJ"),
+        ADJ_FORM("ADJ:FORM"),
+        ADV("ADVERB"),
+        CONJ("CONJUNCTION"),
+        CONTR("CONTRACTION"),
+        DET("DETERMINER"),
+        MORPH("MORPHOLOGY"),
+        NOUN("NOUN"),
+        NOUN_INFL("NOUN:INFL"),
+        NOUN_NUM("NOUN:NUMBER"),
+        NOUN_POSS("NOUN:POSSESSIVE"),
+        ORTH("ORTHOGRAPHY"),
+        OTHER("OTHER"),
+        PART("PARTICLE"),
+        PREP("PREPOSITION"),
+        PRON("PRONOUN"),
+        PUNCT("PUNCTUATION"),
+        SPELL("SPELLING"),
+        VERB("VERB"),
+        VERB_FORM("VERB:FORM"),
+        VERB_INFL("VERB:INFLECTION"),
+        VERB_SVA("VERB:SVA"),
+        VERB_TENSE("VERB:TENSE"),
+        WO("WO");
+
+        private final String tag;
+
+        Category(String tag) {
+            this.tag = tag;
+        }
+
+        public String tag() {
+            return tag;
+        }
+    }
 }

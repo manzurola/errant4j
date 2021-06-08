@@ -1,6 +1,5 @@
 package edu.guym.errantj.core.classify;
 
-import edu.guym.errantj.core.classify.rules.Rule;
 import io.squarebunny.aligner.edit.Edit;
 import edu.guym.spacyj.api.containers.Token;
 
@@ -25,8 +24,8 @@ public class RuleBasedClassifier implements Classifier {
         }
         GrammaticalError error = null;
         for (Rule classifier : policy) {
-            error = classifier.apply(edit);
-            if (!error.category().equals(Category.OTHER)) {
+            error = classifier.classify(edit);
+            if (!error.category().equals(GrammaticalError.Category.OTHER)) {
                 return error;
             }
         }

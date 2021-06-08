@@ -1,8 +1,7 @@
 package edu.guym.errantj.lang.en.classiy.rules.morphtier;
 
-import edu.guym.errantj.core.classify.Category;
 import edu.guym.errantj.core.classify.GrammaticalError;
-import edu.guym.errantj.core.classify.rules.Rule;
+import edu.guym.errantj.core.classify.CategoryMatchRule;
 import edu.guym.errantj.lang.en.classiy.common.TokenEditPredicates;
 import edu.guym.errantj.lang.en.classiy.common.TokenPredicates;
 import edu.guym.errantj.lang.en.lemmatize.Lemmatizer;
@@ -35,7 +34,7 @@ import java.util.function.Predicate;
  * (d)      i. Both tokens do not have the same lemma, and
  * ii. Both tokens are parsed as an auxiliary verb (aux or auxpass).
  */
-public class VerbTenseRule implements Rule {
+public class VerbTenseRule extends CategoryMatchRule {
 
     private final Lemmatizer lemmatizer;
 
@@ -44,7 +43,12 @@ public class VerbTenseRule implements Rule {
     }
 
     @Override
-    public GrammaticalError apply(Edit<Token> edit) {
+    public GrammaticalError.Category getCategory() {
+        return GrammaticalError.Category.VERB_TENSE;
+    }
+
+    @Override
+    public boolean isSatisfied(Edit<Token> edit) {
         return edit
                 .filter(EditPredicates.ofSizeOneToOne())
                 .filter(case1()
@@ -52,8 +56,7 @@ public class VerbTenseRule implements Rule {
                         .or(case3())
                         .or(case4())
                 )
-                .map(classify(Category.VERB_TENSE))
-                .orElse(unknown(edit));
+                .isPresent();
     }
 
     /**

@@ -1,8 +1,7 @@
 package edu.guym.errantj.lang.en.classiy.rules.morphtier;
 
-import edu.guym.errantj.core.classify.Category;
 import edu.guym.errantj.core.classify.GrammaticalError;
-import edu.guym.errantj.core.classify.rules.Rule;
+import edu.guym.errantj.core.classify.CategoryMatchRule;
 import edu.guym.spacyj.api.containers.Token;
 import edu.guym.spacyj.api.features.PtbPos;
 import edu.guym.spacyj.api.features.UdPos;
@@ -22,17 +21,21 @@ import static io.squarebunny.aligner.edit.predicates.EditPredicates.ofSizeOneToO
  * (c) i. Both tokens do not have the same POS tag, and
  * ii. The corrected token is POS tagged as 3rd-person present tense verb form (VBZ).
  */
-public class SubjectVerbAgreementRule implements Rule {
+public class SubjectVerbAgreementRule extends CategoryMatchRule {
 
     @Override
-    public GrammaticalError apply(Edit<Token> edit) {
+    public GrammaticalError.Category getCategory() {
+        return GrammaticalError.Category.VERB_SVA;
+    }
+
+    @Override
+    public boolean isSatisfied(Edit<Token> edit) {
         return edit
                 .filter(ofSizeOneToOne())
                 .filter(bothTokensAreWasAndWere().or(
                         caseB().or(caseC())
                 ))
-                .map(classify(Category.VERB_SVA))
-                .orElse(unknown(edit));
+                .isPresent();
     }
 
     public Predicate<Edit<Token>> bothTokensAreWasAndWere() {

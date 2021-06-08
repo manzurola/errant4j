@@ -1,4 +1,4 @@
-package edu.guym.errantj.core.mark;
+package edu.guym.errantj.core.tools.mark;
 
 import io.squarebunny.aligner.edit.Edit;
 import io.squarebunny.aligner.edit.Segment;

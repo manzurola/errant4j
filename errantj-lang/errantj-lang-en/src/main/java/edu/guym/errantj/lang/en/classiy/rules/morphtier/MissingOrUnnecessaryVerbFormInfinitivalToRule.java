@@ -1,8 +1,7 @@
 package edu.guym.errantj.lang.en.classiy.rules.morphtier;
 
-import edu.guym.errantj.core.classify.Category;
 import edu.guym.errantj.core.classify.GrammaticalError;
-import edu.guym.errantj.core.classify.rules.Rule;
+import edu.guym.errantj.core.classify.CategoryMatchRule;
 import edu.guym.spacyj.api.containers.Token;
 import edu.guym.spacyj.api.features.PtbPos;
 import edu.guym.spacyj.api.features.UdPos;
@@ -25,17 +24,21 @@ import java.util.function.Predicate;
  * 3. That token is POS tagged as PART, and
  * 4. That token is not parsed as prep.
  */
-public class MissingOrUnnecessaryVerbFormInfinitivalToRule implements Rule {
+public class MissingOrUnnecessaryVerbFormInfinitivalToRule extends CategoryMatchRule {
 
     @Override
-    public GrammaticalError apply(Edit<Token> edit) {
+    public GrammaticalError.Category getCategory() {
+        return GrammaticalError.Category.VERB_FORM;
+    }
+
+    @Override
+    public boolean isSatisfied(Edit<Token> edit) {
         return edit
                 .filter(onlyOneTokenOnOneSide())
                 .filter(tokenIsTo())
                 .filter(tokenIsPART())
                 .filter(tokenIsNotPrep())
-                .map(classify(Category.VERB_FORM))
-                .orElse(unknown(edit));
+                .isPresent();
     }
 
     public Predicate<Edit<Token>> onlyOneTokenOnOneSide() {

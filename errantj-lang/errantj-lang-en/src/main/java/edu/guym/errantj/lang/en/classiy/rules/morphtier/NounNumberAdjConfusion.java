@@ -1,8 +1,7 @@
 package edu.guym.errantj.lang.en.classiy.rules.morphtier;
 
-import edu.guym.errantj.core.classify.Category;
 import edu.guym.errantj.core.classify.GrammaticalError;
-import edu.guym.errantj.core.classify.rules.Rule;
+import edu.guym.errantj.core.classify.CategoryMatchRule;
 import edu.guym.spacyj.api.containers.Token;
 import edu.guym.spacyj.api.features.PtbPos;
 import edu.guym.spacyj.api.features.UdPos;
@@ -22,18 +21,22 @@ import static edu.guym.errantj.core.tools.Collectors.oneOrNone;
  * 4. The corrected token is POS tagged as a plural noun (NNS).
  * Note that this second rule was only found to be effective in the singular to plural direction and not the other way around.
  */
-public class NounNumberAdjConfusion implements Rule {
+public class NounNumberAdjConfusion extends CategoryMatchRule {
 
     @Override
-    public GrammaticalError apply(Edit<Token> edit) {
+    public GrammaticalError.Category getCategory() {
+        return GrammaticalError.Category.NOUN_NUM;
+    }
+
+    @Override
+    public boolean isSatisfied(Edit<Token> edit) {
         return edit
                 .filter(EditPredicates.isSubstitute())
                 .filter(EditPredicates.ofSizeOneToOne())
                 .filter(sameLemma())
                 .filter(e -> e.source().map(Token::pos).allMatch(UdPos.ADJ::matches))
                 .filter(e -> e.target().map(Token::tag).allMatch(PtbPos.NNS::matches))
-                .map(classify(Category.NOUN_NUM))
-                .orElse(unknown(edit));
+                .isPresent();
     }
 
     public Predicate<Edit<Token>> sameLemma() {

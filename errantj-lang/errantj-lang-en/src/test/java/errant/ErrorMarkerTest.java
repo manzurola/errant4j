@@ -1,8 +1,8 @@
 package errant;
 
 import edu.guym.errantj.core.annotate.Annotator;
-import edu.guym.errantj.core.mark.CharOffset;
-import edu.guym.errantj.core.mark.ErrorMarker;
+import edu.guym.errantj.core.tools.mark.CharOffset;
+import edu.guym.errantj.core.tools.mark.ErrorMarker;
 import edu.guym.errantj.lang.en.annotate.ErrantEn;
 import edu.guym.spacyj.api.Spacy;
 import edu.guym.spacyj.api.containers.Doc;

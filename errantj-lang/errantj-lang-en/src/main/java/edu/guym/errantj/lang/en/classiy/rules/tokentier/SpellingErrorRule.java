@@ -1,8 +1,7 @@
 package edu.guym.errantj.lang.en.classiy.rules.tokentier;
 
-import edu.guym.errantj.core.classify.Category;
 import edu.guym.errantj.core.classify.GrammaticalError;
-import edu.guym.errantj.core.classify.rules.Rule;
+import edu.guym.errantj.core.classify.CategoryMatchRule;
 import edu.guym.errantj.wordlist.WordList;
 import edu.guym.spacyj.api.containers.Token;
 import io.squarebunny.aligner.edit.Edit;
@@ -21,7 +20,7 @@ import static io.squarebunny.aligner.edit.predicates.EditPredicates.ofSize;
  * 5. The original and corrected tokens do not have the same lemma, and
  * 6. The original and corrected tokens share at least 50% of the same characters in the same relative order.
  */
-public class SpellingErrorRule implements Rule {
+public class SpellingErrorRule extends CategoryMatchRule {
 
     private final WordList wordList;
 
@@ -30,7 +29,12 @@ public class SpellingErrorRule implements Rule {
     }
 
     @Override
-    public GrammaticalError apply(Edit<Token> edit) {
+    public GrammaticalError.Category getCategory() {
+        return GrammaticalError.Category.SPELL;
+    }
+
+    @Override
+    public boolean isSatisfied(Edit<Token> edit) {
         return edit
                 .filter(ofSize(1, 1))
                 .filter(e -> e.source().first().isAlpha())
@@ -38,7 +42,6 @@ public class SpellingErrorRule implements Rule {
                 .filter(e -> !wordList.contains(e.source().first().lowerCase()))
                 .filter(e -> !e.source().first().lemma().equals(e.target().first().lemma()))
                 .filter(e -> AlignerUtils.charEditRatio(e.source().first().text(), e.target().first().text()) > 0.5)
-                .map(classify(Category.SPELL))
-                .orElse(unknown(edit));
+                .isPresent();
     }
 }

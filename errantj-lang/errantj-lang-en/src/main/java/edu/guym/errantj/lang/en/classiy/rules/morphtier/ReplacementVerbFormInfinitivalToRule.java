@@ -1,8 +1,7 @@
 package edu.guym.errantj.lang.en.classiy.rules.morphtier;
 
-import edu.guym.errantj.core.classify.Category;
 import edu.guym.errantj.core.classify.GrammaticalError;
-import edu.guym.errantj.core.classify.rules.Rule;
+import edu.guym.errantj.core.classify.CategoryMatchRule;
 import edu.guym.spacyj.api.containers.Token;
 import edu.guym.spacyj.api.features.UdPos;
 import io.squarebunny.aligner.edit.Edit;
@@ -21,16 +20,20 @@ import java.util.function.Predicate;
  * 1. All tokens on both sides of the edit are POS tagged as PART or VERB, and
  * 2. The last token on both sides has the same lemma.
  */
-public class ReplacementVerbFormInfinitivalToRule implements Rule {
+public class ReplacementVerbFormInfinitivalToRule extends CategoryMatchRule {
 
     @Override
-    public GrammaticalError apply(Edit<Token> edit) {
+    public GrammaticalError.Category getCategory() {
+        return GrammaticalError.Category.VERB_FORM;
+    }
+
+    @Override
+    public boolean isSatisfied(Edit<Token> edit) {
         return edit
                 .filter(EditPredicates.isSubstitute())
                 .filter(allTokensArePartOrVerb())
                 .filter(lastTokensHaveSameLemma())
-                .map(classify(Category.VERB_FORM))
-                .orElse(unknown(edit));
+                .isPresent();
     }
 
     public Predicate<Edit<Token>> allTokensArePartOrVerb() {

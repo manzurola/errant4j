@@ -1,8 +1,7 @@
 package edu.guym.errantj.lang.en.classiy.rules.postier;
 
-import edu.guym.errantj.core.classify.Category;
 import edu.guym.errantj.core.classify.GrammaticalError;
-import edu.guym.errantj.core.classify.rules.Rule;
+import edu.guym.errantj.core.classify.Rule;
 import edu.guym.spacyj.api.features.Dependency;
 import io.squarebunny.aligner.edit.Edit;
 import edu.guym.spacyj.api.containers.Token;
@@ -33,7 +32,7 @@ public class DetPronRule implements Rule {
      * @return
      */
     @Override
-    public GrammaticalError apply(Edit<Token> edit) {
+    public GrammaticalError classify(Edit<Token> edit) {
         Optional<Token> target = edit
                 .filter(isSubstitute())
                 .filter(ofSizeOneToOne())
@@ -41,19 +40,19 @@ public class DetPronRule implements Rule {
                 .map(e -> e.target().first());
 
         if (target.isEmpty()) {
-            return unknown(edit);
+            return GrammaticalError.unknown(edit);
         }
 
         if (target.filter(matchDependency(Dependency.NMOD)).isPresent()) {
-            return classify(edit, Category.DET);
+            return GrammaticalError.create(edit, GrammaticalError.Category.DET);
         }
 
         if (target.filter(matchAnyDependency(List.of(Dependency.NSUBJ_PASS, Dependency.NSUBJ, Dependency.OBJ)))
                 .isPresent()) {
-            return classify(edit, Category.PRON);
+            return GrammaticalError.create(edit, GrammaticalError.Category.PRON);
         }
 
-        return unknown(edit);
+        return GrammaticalError.unknown(edit);
     }
 
 }

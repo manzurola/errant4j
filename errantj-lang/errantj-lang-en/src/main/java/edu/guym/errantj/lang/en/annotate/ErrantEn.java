@@ -3,6 +3,7 @@ package edu.guym.errantj.lang.en.annotate;
 import edu.guym.errantj.core.annotate.Errant;
 import edu.guym.errantj.core.classify.Classifier;
 import edu.guym.errantj.core.merge.Merger;
+import edu.guym.errantj.lang.en.aligner.AlignerSupplier;
 import edu.guym.errantj.lang.en.aligner.TokenSubstituteCost;
 import edu.guym.errantj.lang.en.classiy.ErrantClassifier;
 import edu.guym.errantj.lang.en.lemmatize.Lemmatizer;
@@ -22,13 +23,10 @@ public class ErrantEn extends Errant {
 
     public static ErrantEn create(Spacy spacy) {
         Lemmatizer lemmatizer = new WordNetLemmatizer();
+        Aligner<Token> aligner = AlignerSupplier.create(lemmatizer).get();
         return new ErrantEn(
                 spacy,
-                Aligner.damerauLevenshtein(
-                        (source, target) -> source.text().equals(target.text()),
-                        Comparator.comparing(Token::lowerCase),
-                        new TokenSubstituteCost(lemmatizer)
-                ),
+                aligner,
                 new ErrantMerger(),
                 new ErrantClassifier(lemmatizer)
         );

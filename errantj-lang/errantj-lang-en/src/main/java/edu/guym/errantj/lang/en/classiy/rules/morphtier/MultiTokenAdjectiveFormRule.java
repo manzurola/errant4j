@@ -1,8 +1,7 @@
 package edu.guym.errantj.lang.en.classiy.rules.morphtier;
 
-import edu.guym.errantj.core.classify.Category;
 import edu.guym.errantj.core.classify.GrammaticalError;
-import edu.guym.errantj.core.classify.rules.Rule;
+import edu.guym.errantj.core.classify.CategoryMatchRule;
 import edu.guym.errantj.lang.en.lemmatize.Lemmatizer;
 import io.squarebunny.aligner.edit.Edit;
 import io.squarebunny.aligner.edit.Segment;
@@ -21,7 +20,7 @@ import java.util.function.Predicate;
  * 2. The first token on either side is more or most, and
  * 3. The last token on both sides has the same lemma.
  */
-public class MultiTokenAdjectiveFormRule implements Rule {
+public class MultiTokenAdjectiveFormRule extends CategoryMatchRule {
 
     private final Lemmatizer lemmatizer;
 
@@ -30,14 +29,18 @@ public class MultiTokenAdjectiveFormRule implements Rule {
     }
 
     @Override
-    public GrammaticalError apply(Edit<Token> edit) {
+    public GrammaticalError.Category getCategory() {
+        return GrammaticalError.Category.ADJ_FORM;
+    }
+
+    @Override
+    public boolean isSatisfied(Edit<Token> edit) {
         return edit
                 .filter(EditPredicates.isSubstitute())
                 .filter(EditPredicates.ofMaxSize(2, 2))
                 .filter(firstTokensAnyMatch(moreOrMost()))
                 .filter(lastTokensHasSameLemma())
-                .map(classify(Category.ADJ_FORM))
-                .orElse(unknown(edit));
+                .isPresent();
     }
 
     public Predicate<? super Token> moreOrMost() {

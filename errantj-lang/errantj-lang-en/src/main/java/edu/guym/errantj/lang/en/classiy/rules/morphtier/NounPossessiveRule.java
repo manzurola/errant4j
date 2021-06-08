@@ -1,8 +1,7 @@
 package edu.guym.errantj.lang.en.classiy.rules.morphtier;
 
-import edu.guym.errantj.core.classify.Category;
 import edu.guym.errantj.core.classify.GrammaticalError;
-import edu.guym.errantj.core.classify.rules.Rule;
+import edu.guym.errantj.core.classify.CategoryMatchRule;
 import edu.guym.spacyj.api.containers.Token;
 import edu.guym.spacyj.api.features.PtbPos;
 import io.squarebunny.aligner.edit.Edit;
@@ -26,14 +25,19 @@ import static java.util.stream.Collectors.toList;
  * (b) The corrected tokens are POS tagged sequentially as NOUN and PART, and
  * 3. The first token on both sides of the edit has the same lemma.
  */
-public class NounPossessiveRule implements Rule {
+public class NounPossessiveRule extends CategoryMatchRule {
 
     @Override
-    public GrammaticalError apply(Edit<Token> edit) {
+    public GrammaticalError.Category getCategory() {
+        return GrammaticalError.Category.NOUN_POSS;
+    }
+
+    @Override
+    public boolean isSatisfied(Edit<Token> edit) {
         if (edit.matches(ofSize(1, 0).or(ofSize(0, 1)))) {
             List<String> posSet = edit.stream().map(Token::tag).distinct().collect(toList());
             if (posSet.size() == 1 && isPossessiveCase(posSet.get(0))) {
-                return classify(edit, Category.NOUN_POSS);
+                return true;
             }
         }
 
@@ -43,9 +47,7 @@ public class NounPossessiveRule implements Rule {
             String targetLemma = edit.target().first().lemma();
 
             String possessiveCase = edit.target().first().next().map(Token::tag).orElse("");
-            if (sourceLemma.equals(targetLemma) && isPossessiveCase(possessiveCase)) {
-                return classify(edit, Category.NOUN_POSS);
-            }
+            return sourceLemma.equals(targetLemma) && isPossessiveCase(possessiveCase);
 
         } else if (edit.matches(ofSize(2, 1))) {
 
@@ -53,11 +55,10 @@ public class NounPossessiveRule implements Rule {
             String targetLemma = edit.target().first().lemma();
 
             String possessiveCase = edit.source().first().next().map(Token::tag).orElse("");
-            if (sourceLemma.equals(targetLemma) && isPossessiveCase(possessiveCase)) {
-                return classify(edit, Category.NOUN_POSS);
-            }
+            return sourceLemma.equals(targetLemma) && isPossessiveCase(possessiveCase);
         }
-        return unknown(edit);
+
+        return false;
     }
 
     private boolean isPossessiveCase(String tag) {

@@ -1,8 +1,7 @@
 package edu.guym.errantj.lang.en.classiy.rules.tokentier;
 
-import edu.guym.errantj.core.classify.Category;
 import edu.guym.errantj.core.classify.GrammaticalError;
-import edu.guym.errantj.core.classify.rules.Rule;
+import edu.guym.errantj.core.classify.CategoryMatchRule;
 import io.squarebunny.aligner.edit.Edit;
 import io.squarebunny.aligner.edit.predicates.EditPredicates;
 import edu.guym.spacyj.api.containers.Token;
@@ -18,15 +17,19 @@ import java.util.stream.Collectors;
  * 1. There is exactly one token on both sides of the edit, and
  * 2. The set of strings for these tokens is ca and can, sha and shall, or wo and will.
  */
-public class ContractionAuxRule implements Rule {
+public class ContractionAuxRule extends CategoryMatchRule {
 
     @Override
-    public GrammaticalError apply(Edit<Token> edit) {
+    public GrammaticalError.Category getCategory() {
+        return GrammaticalError.Category.CONTR;
+    }
+
+    @Override
+    public boolean isSatisfied(Edit<Token> edit) {
         return edit
                 .filter(EditPredicates.ofSizeOneToOne())
                 .filter(wordsAreAuxContractions())
-                .map(classify(Category.CONTR))
-                .orElse(unknown(edit));
+                .isPresent();
     }
 
     public Predicate<Edit<Token>> wordsAreAuxContractions() {

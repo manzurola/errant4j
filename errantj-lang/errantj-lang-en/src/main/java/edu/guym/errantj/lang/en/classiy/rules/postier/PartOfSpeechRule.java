@@ -1,8 +1,7 @@
 package edu.guym.errantj.lang.en.classiy.rules.postier;
 
-import edu.guym.errantj.core.classify.Category;
 import edu.guym.errantj.core.classify.GrammaticalError;
-import edu.guym.errantj.core.classify.rules.Rule;
+import edu.guym.errantj.core.classify.Rule;
 import edu.guym.spacyj.api.containers.Token;
 import edu.guym.spacyj.api.features.UdPos;
 import io.squarebunny.aligner.edit.Edit;
@@ -18,50 +17,50 @@ import java.util.stream.Collectors;
 public class PartOfSpeechRule implements Rule {
 
     @Override
-    public GrammaticalError apply(Edit<Token> edit) {
+    public GrammaticalError classify(Edit<Token> edit) {
         Set<String> union = edit.stream().map(Token::pos).collect(Collectors.toSet());
-        Category category = Category.OTHER;
+        GrammaticalError.Category category = GrammaticalError.Category.OTHER;
         if (union.size() == 1) {
             String pos = union.iterator().next();
             category = mapPosToCategory(pos);
         }
-        return classify(edit, category);
+        return GrammaticalError.create(edit, category);
     }
 
-    private Category mapPosToCategory(String pos) {
+    private GrammaticalError.Category mapPosToCategory(String pos) {
         if (UdPos.ADJ.matches(pos)) {
-            return Category.ADJ;
+            return GrammaticalError.Category.ADJ;
         }
         if (UdPos.ADP.matches(pos)) {
-            return Category.PREP;
+            return GrammaticalError.Category.PREP;
         }
         if (UdPos.ADV.matches(pos)) {
-            return Category.ADV;
+            return GrammaticalError.Category.ADV;
         }
         if (UdPos.AUX.matches(pos)) {
-            return Category.VERB_TENSE;
+            return GrammaticalError.Category.VERB_TENSE;
         }
         if (UdPos.CCONJ.matches(pos) || UdPos.SCONJ.matches(pos)) {
-            return Category.CONJ;
+            return GrammaticalError.Category.CONJ;
         }
         if (UdPos.DET.matches(pos)) {
-            return Category.DET;
+            return GrammaticalError.Category.DET;
         }
         if (UdPos.NOUN.matches(pos) || UdPos.PROPN.matches(pos)) {
-            return Category.NOUN;
+            return GrammaticalError.Category.NOUN;
         }
         if (UdPos.PART.matches(pos)) {
-            return Category.PART;
+            return GrammaticalError.Category.PART;
         }
         if (UdPos.PRON.matches(pos)) {
-            return Category.PRON;
+            return GrammaticalError.Category.PRON;
         }
         if (UdPos.PUNCT.matches(pos)) {
-            return Category.PUNCT;
+            return GrammaticalError.Category.PUNCT;
         }
         if (UdPos.VERB.matches(pos)) {
-            return Category.VERB;
+            return GrammaticalError.Category.VERB;
         }
-        return Category.OTHER;
+        return GrammaticalError.Category.OTHER;
     }
 }

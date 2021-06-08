@@ -1,4 +1,4 @@
-package edu.guym.errantj.core.mark;
+package edu.guym.errantj.core.tools.mark;
 
 import java.util.Objects;
 
