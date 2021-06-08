@@ -6,7 +6,6 @@ import edu.guym.errantj.lang.en.annotate.ErrantEn;
 import edu.guym.spacyj.api.Spacy;
 import edu.guym.spacyj.api.containers.Doc;
 import edu.guym.spacyj.clients.corenlp.StanfordCoreNlpSpacyClient;
-import edu.guym.spacyj.clients.spacyserver.HttpSpacyServerClient;
 import io.squarebunny.aligner.edit.Edit;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
