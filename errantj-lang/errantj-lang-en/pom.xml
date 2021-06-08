@@ -32,6 +32,16 @@
             <artifactId>spacyj-adapters-spacy-server</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>edu.guym.spacyj</groupId>
+            <artifactId>spacyj-clients-corenlp</artifactId>
+            <version>0.1-dev</version>
+        </dependency>
+        <dependency>
+            <groupId>edu.guym.spacyj</groupId>
+            <artifactId>spacyj-clients-spacy-server</artifactId>
+            <version>0.1-dev</version>
+        </dependency>
         <!-- Princeton WordNet 3.1 data dependency -->
         <dependency>
             <groupId>net.sf.extjwnl</groupId>
