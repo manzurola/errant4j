@@ -22,13 +22,13 @@ public class TokenSubstituteCost implements BiFunction<Token, Token, Double> {
         if (source.lowerCase().equals(target.lowerCase())) {
             return 0.0;
         } else {
-            return lemmaSubstituteCost(source, target) +
-                    posSubstituteCost(source, target) +
-                    charSubstituteCost(source, target);
+            return lemmaCost(source, target) +
+                    posCost(source, target) +
+                    charCost(source, target);
         }
     }
 
-    private double lemmaSubstituteCost(Token s, Token t) {
+    private double lemmaCost(Token s, Token t) {
         Set<String> sourceLemmas = lemmatizer.lemmas(s.text());
         Set<String> targetLemmas = lemmatizer.lemmas(t.text());
         Set<String> intersection = new HashSet<>(sourceLemmas);
@@ -36,7 +36,7 @@ public class TokenSubstituteCost implements BiFunction<Token, Token, Double> {
         return !intersection.isEmpty() ? 0 : 0.499;
     }
 
-    private double posSubstituteCost(Token source, Token target) {
+    private double posCost(Token source, Token target) {
         String sourcePos = source.pos();
         String targetPos = target.pos();
         if (sourcePos.equals(targetPos)) {
@@ -50,7 +50,7 @@ public class TokenSubstituteCost implements BiFunction<Token, Token, Double> {
         return 0.5;
     }
 
-    private double charSubstituteCost(Token s, Token t) {
+    private double charCost(Token s, Token t) {
         return AlignerUtils.charEditRatio(s.text(), t.text());
     }
 }
