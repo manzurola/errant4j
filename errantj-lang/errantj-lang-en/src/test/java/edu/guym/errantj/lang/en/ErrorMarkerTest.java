@@ -6,14 +6,14 @@ import edu.guym.errantj.core.tools.mark.ErrorMarker;
 import edu.guym.spacyj.api.Spacy;
 import edu.guym.spacyj.api.containers.Doc;
 import edu.guym.spacyj.api.containers.Token;
-import edu.guym.spacyj.clients.corenlp.StanfordCoreNlpSpacyAdapter;
+import edu.guym.spacyj.clients.corenlp.CoreNlpAdapter;
 import edu.guym.aligner.edit.Edit;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class ErrorMarkerTest {
 
-    private final static Spacy spacy = Spacy.create(new StanfordCoreNlpSpacyAdapter());
+    private final static Spacy spacy = Spacy.create(new CoreNlpAdapter());
     private final static Errant errant = Errant.create(EnglishAnnotatorPipeline.create(spacy));
 
     @Test

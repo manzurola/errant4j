@@ -6,7 +6,7 @@ import edu.guym.errantj.lang.en.lemmatize.WordNetLemmatizer;
 import edu.guym.spacyj.api.Spacy;
 import edu.guym.spacyj.api.containers.Doc;
 import edu.guym.spacyj.api.containers.Token;
-import edu.guym.spacyj.clients.corenlp.StanfordCoreNlpSpacyAdapter;
+import edu.guym.spacyj.clients.corenlp.CoreNlpAdapter;
 import edu.guym.aligner.Aligner;
 import edu.guym.aligner.alignment.Alignment;
 import edu.guym.aligner.edit.Edit;
@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class MergerTest {
 
     private final Lemmatizer lemmatizer = new WordNetLemmatizer();
-    private final Spacy spacy = Spacy.create(new StanfordCoreNlpSpacyAdapter());
+    private final Spacy spacy = Spacy.create(new CoreNlpAdapter());
 
     @Test
     public void testMergeInfinitivalSamePos() {
