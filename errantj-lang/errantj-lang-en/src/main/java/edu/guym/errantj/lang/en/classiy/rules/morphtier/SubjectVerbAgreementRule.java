@@ -1,15 +1,15 @@
 package edu.guym.errantj.lang.en.classiy.rules.morphtier;
 
-import edu.guym.errantj.core.classify.GrammaticalError;
-import edu.guym.errantj.core.classify.CategoryMatchRule;
+import edu.guym.errantj.core.errors.GrammaticalError;
+import edu.guym.errantj.lang.en.classiy.rules.core.CategoryMatchRule;
 import edu.guym.spacyj.api.containers.Token;
 import edu.guym.spacyj.api.features.PtbPos;
 import edu.guym.spacyj.api.features.UdPos;
-import io.squarebunny.aligner.edit.Edit;
+import edu.guym.aligner.edit.Edit;
 
 import java.util.function.Predicate;
 
-import static io.squarebunny.aligner.edit.predicates.EditPredicates.ofSizeOneToOne;
+import static edu.guym.aligner.edit.predicates.EditPredicates.ofSizeOneToOne;
 
 /**
  * Subject-verb agreement errors involve edits where the grammatical number of the subject does not agree with the grammatical number of the verb; e.g. [(I) has → (I) have]. They are captured as follows:
@@ -40,8 +40,8 @@ public class SubjectVerbAgreementRule extends CategoryMatchRule {
 
     public Predicate<Edit<Token>> bothTokensAreWasAndWere() {
         return edit -> {
-            String source = edit.source().first().lowerCase();
-            String target = edit.target().first().lowerCase();
+            String source = edit.source().first().lower();
+            String target = edit.target().first().lower();
             return source.equals("was") && target.equals("were") ||
                     source.equals("were") && target.equals("was");
         };

@@ -1,9 +1,9 @@
 package edu.guym.errantj.lang.en.classiy.rules.tokentier;
 
-import edu.guym.errantj.core.classify.GrammaticalError;
-import edu.guym.errantj.core.classify.CategoryMatchRule;
-import io.squarebunny.aligner.edit.Edit;
-import io.squarebunny.aligner.edit.predicates.EditPredicates;
+import edu.guym.errantj.core.errors.GrammaticalError;
+import edu.guym.errantj.lang.en.classiy.rules.core.CategoryMatchRule;
+import edu.guym.aligner.edit.Edit;
+import edu.guym.aligner.edit.predicates.EditPredicates;
 import edu.guym.spacyj.api.containers.Token;
 
 import java.util.Set;
@@ -36,7 +36,7 @@ public class ContractionAuxRule extends CategoryMatchRule {
         return edit -> {
             Set<String> words = edit
                     .stream()
-                    .map(Token::lowerCase)
+                    .map(Token::lower)
                     .collect(Collectors.toSet());
             return (words.equals(Set.of("ca", "can")) ||
                     words.equals(Set.of("sha", "shall")) ||

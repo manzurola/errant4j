@@ -3,7 +3,7 @@ package edu.guym.errantj.lang.en.classiy.common;
 import edu.guym.errantj.lang.en.lemmatize.Lemmatizer;
 import edu.guym.spacyj.api.containers.Token;
 import edu.guym.spacyj.api.features.UdPos;
-import io.squarebunny.aligner.edit.Edit;
+import edu.guym.aligner.edit.Edit;
 
 import java.util.Collection;
 import java.util.Collections;

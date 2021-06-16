@@ -1,7 +1,7 @@
 package edu.guym.errantj.core.annotate;
 
-import edu.guym.errantj.core.classify.GrammaticalError;
-import io.squarebunny.aligner.edit.Edit;
+import edu.guym.aligner.edit.Edit;
+import edu.guym.errantj.core.errors.GrammaticalError;
 
 import java.util.Objects;
 import java.util.function.Function;

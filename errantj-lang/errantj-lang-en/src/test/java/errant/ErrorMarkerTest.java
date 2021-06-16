@@ -1,26 +1,26 @@
 package errant;
 
-import edu.guym.errantj.core.annotate.Annotator;
+import edu.guym.errantj.core.annotate.Errant;
 import edu.guym.errantj.core.tools.mark.CharOffset;
 import edu.guym.errantj.core.tools.mark.ErrorMarker;
-import edu.guym.errantj.lang.en.annotate.ErrantEn;
+import edu.guym.errantj.lang.en.EnglishAnnotatorPipeline;
 import edu.guym.spacyj.api.Spacy;
 import edu.guym.spacyj.api.containers.Doc;
 import edu.guym.spacyj.api.containers.Token;
 import edu.guym.spacyj.clients.corenlp.StanfordCoreNlpSpacyClient;
-import io.squarebunny.aligner.edit.Edit;
+import edu.guym.aligner.edit.Edit;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class ErrorMarkerTest {
 
     private final static Spacy spacy = Spacy.create(new StanfordCoreNlpSpacyClient());
-    private final static Annotator annotator = ErrantEn.create(spacy);
+    private final static Errant errant = Errant.create(EnglishAnnotatorPipeline.create(spacy));
 
     @Test
     void missingWordHasBeforeAndAfter() {
-        Doc source = annotator.nlp("My name guy.");
-        Doc target = annotator.nlp("My name is guy.");
+        Doc source = errant.nlp("My name guy.");
+        Doc target = errant.nlp("My name is guy.");
         Edit<Token> edit = Edit.builder()
                 .insert("is")
                 .atPosition(2, 2)
@@ -34,8 +34,8 @@ public class ErrorMarkerTest {
 
     @Test
     void missingWordEmptySentence() {
-        Doc source = annotator.nlp("");
-        Doc target = annotator.nlp("My name is guy.");
+        Doc source = errant.nlp("");
+        Doc target = errant.nlp("My name is guy.");
         Edit<Token> edit = Edit.builder()
                 .insert("is")
                 .atPosition(2, 2)

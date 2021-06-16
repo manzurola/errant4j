@@ -1,7 +1,7 @@
 package errant.core.annotate;
 
 import edu.guym.errantj.core.annotate.Annotation;
-import edu.guym.errantj.core.annotate.Annotator;
+import edu.guym.errantj.core.annotate.Errant;
 import edu.guym.spacyj.api.containers.Doc;
 import edu.guym.spacyj.api.containers.Token;
 import org.slf4j.Logger;
@@ -17,14 +17,14 @@ import static org.junit.jupiter.api.Assertions.*;
 public abstract class AnnotatorTestBase {
 
     private static final Logger logger = LoggerFactory.getLogger(AnnotatorTestBase.class);
-    private final Annotator annotator;
+    private final Errant errant;
 
-    public AnnotatorTestBase(Annotator annotator) {
-        this.annotator = annotator;
+    public AnnotatorTestBase(Errant errant) {
+        this.errant = errant;
     }
 
     protected final Doc nlp(String text) {
-        return annotator.nlp(text);
+        return errant.nlp(text);
     }
 
     protected void assertSingleExpectedError(Annotation<String> expected, Doc source, Doc target) {
@@ -43,7 +43,7 @@ public abstract class AnnotatorTestBase {
         logger.info("Running classifier...");
         logger.info("Source sentence: " + source);
         logger.info("Target sentence: " + target);
-        return annotator
+        return errant
                 .annotate(source.tokens(), target.tokens())
                 .stream()
                 .map(annotation -> annotation.map(edit -> edit.map(Token::text)))

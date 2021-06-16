@@ -1,13 +1,14 @@
-package edu.guym.errantj.core.classify;
+package edu.guym.errantj.lang.en.classiy.rules.core;
 
-import io.squarebunny.aligner.edit.Edit;
+import edu.guym.aligner.edit.Edit;
+import edu.guym.errantj.core.errors.GrammaticalError;
 import edu.guym.spacyj.api.containers.Token;
 
 import java.util.List;
 import java.util.function.Supplier;
 
-import static edu.guym.errantj.core.classify.GrammaticalError.NONE;
-import static io.squarebunny.aligner.edit.predicates.EditPredicates.isEqual;
+import static edu.guym.errantj.core.errors.GrammaticalError.NONE;
+import static edu.guym.aligner.edit.predicates.EditPredicates.isEqual;
 
 public class RuleBasedClassifier implements Classifier {
 

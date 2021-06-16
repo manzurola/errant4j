@@ -1,10 +1,10 @@
 package edu.guym.errantj.lang.en.classiy.rules.postier;
 
-import edu.guym.errantj.core.classify.GrammaticalError;
-import edu.guym.errantj.core.classify.Rule;
+import edu.guym.errantj.core.errors.GrammaticalError;
+import edu.guym.errantj.lang.en.classiy.rules.core.Rule;
 import edu.guym.spacyj.api.containers.Token;
 import edu.guym.spacyj.api.features.UdPos;
-import io.squarebunny.aligner.edit.Edit;
+import edu.guym.aligner.edit.Edit;
 
 import java.util.Set;
 import java.util.stream.Collectors;

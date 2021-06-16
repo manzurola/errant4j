@@ -1,13 +1,13 @@
 package edu.guym.errantj.lang.en.classiy.rules.postier;
 
-import edu.guym.errantj.core.classify.GrammaticalError;
-import edu.guym.errantj.core.classify.CategoryMatchRule;
+import edu.guym.errantj.core.errors.GrammaticalError;
+import edu.guym.errantj.lang.en.classiy.rules.core.CategoryMatchRule;
 import edu.guym.spacyj.api.containers.Token;
 import edu.guym.spacyj.api.features.UdPos;
-import io.squarebunny.aligner.edit.Edit;
+import edu.guym.aligner.edit.Edit;
 
 import static edu.guym.errantj.lang.en.classiy.common.TokenEditPredicates.udPosTagSetEquals;
-import static io.squarebunny.aligner.edit.predicates.EditPredicates.ofSizeOneToOne;
+import static edu.guym.aligner.edit.predicates.EditPredicates.ofSizeOneToOne;
 
 /**
  *  The following special PART rule captures edits where the tagger or parser confuses

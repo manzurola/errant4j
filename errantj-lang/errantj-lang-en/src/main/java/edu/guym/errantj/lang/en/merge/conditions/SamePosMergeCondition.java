@@ -2,7 +2,7 @@ package edu.guym.errantj.lang.en.merge.conditions;
 
 import edu.guym.spacyj.api.containers.Token;
 import edu.guym.spacyj.api.features.UdPos;
-import io.squarebunny.aligner.edit.Edit;
+import edu.guym.aligner.edit.Edit;
 
 import java.util.Arrays;
 import java.util.HashSet;

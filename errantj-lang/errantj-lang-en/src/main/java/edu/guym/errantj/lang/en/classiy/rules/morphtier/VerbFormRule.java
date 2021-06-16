@@ -1,14 +1,14 @@
 package edu.guym.errantj.lang.en.classiy.rules.morphtier;
 
-import edu.guym.errantj.core.classify.GrammaticalError;
-import edu.guym.errantj.core.classify.CategoryMatchRule;
+import edu.guym.errantj.core.errors.GrammaticalError;
+import edu.guym.errantj.lang.en.classiy.rules.core.CategoryMatchRule;
 import edu.guym.errantj.lang.en.classiy.common.TokenEditPredicates;
 import edu.guym.errantj.lang.en.classiy.common.TokenPredicates;
 import edu.guym.errantj.lang.en.lemmatize.Lemmatizer;
 import edu.guym.spacyj.api.containers.Token;
 import edu.guym.spacyj.api.features.PtbPos;
-import io.squarebunny.aligner.edit.Edit;
-import io.squarebunny.aligner.edit.predicates.EditPredicates;
+import edu.guym.aligner.edit.Edit;
+import edu.guym.aligner.edit.predicates.EditPredicates;
 
 import java.util.List;
 import java.util.function.Predicate;
@@ -97,7 +97,7 @@ public class VerbFormRule extends CategoryMatchRule {
 
     public Predicate<Token> precededByDependantAuxVerb() {
         return token -> token
-                .dependencies()
+                .children()
                 .stream()
                 .filter(dep -> dep.index() < token.index())
                 .anyMatch(TokenPredicates.isAuxVerb());

@@ -1,16 +1,16 @@
 package errant.core.merge;
 
-import edu.guym.errantj.lang.en.aligner.AlignerSupplier;
+import edu.guym.errantj.lang.en.align.AlignerSupplier;
 import edu.guym.errantj.lang.en.lemmatize.Lemmatizer;
 import edu.guym.errantj.lang.en.lemmatize.WordNetLemmatizer;
-import edu.guym.errantj.lang.en.merge.ErrantMerger;
+import edu.guym.errantj.lang.en.merge.Merger;
 import edu.guym.spacyj.api.Spacy;
 import edu.guym.spacyj.api.containers.Doc;
 import edu.guym.spacyj.api.containers.Token;
 import edu.guym.spacyj.clients.corenlp.StanfordCoreNlpSpacyClient;
-import io.squarebunny.aligner.Aligner;
-import io.squarebunny.aligner.alignment.Alignment;
-import io.squarebunny.aligner.edit.Edit;
+import edu.guym.aligner.Aligner;
+import edu.guym.aligner.alignment.Alignment;
+import edu.guym.aligner.edit.Edit;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -29,7 +29,7 @@ public class MergerTest {
         Doc target = spacy.nlp("I like eating food.");
         Aligner<Token> aligner = AlignerSupplier.create(lemmatizer).get();
         Alignment<Token> alignment = aligner.align(source.tokens(), target.tokens());
-        ErrantMerger merger = new ErrantMerger();
+        Merger merger = new Merger();
         List<Edit<String>> merged = merger.merge(alignment.edits())
                 .stream()
                 .map(edit -> edit.map(Token::text))
@@ -43,7 +43,7 @@ public class MergerTest {
         Doc target = spacy.nlp("I have eaten dinner yesterday");
         Aligner<Token> aligner = AlignerSupplier.create(lemmatizer).get();
         Alignment<Token> alignment = aligner.align(source.tokens(), target.tokens());
-        ErrantMerger merger = new ErrantMerger();
+        Merger merger = new Merger();
         List<Edit<String>> merged = merger.merge(alignment.edits())
                 .stream()
                 .map(edit -> edit.map(Token::text))

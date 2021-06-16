@@ -1,17 +1,17 @@
 package edu.guym.errantj.lang.en.classiy.rules.postier;
 
-import edu.guym.errantj.core.classify.GrammaticalError;
-import edu.guym.errantj.core.classify.CategoryMatchRule;
+import edu.guym.errantj.core.errors.GrammaticalError;
+import edu.guym.errantj.lang.en.classiy.rules.core.CategoryMatchRule;
 import edu.guym.spacyj.api.containers.Token;
 import edu.guym.spacyj.api.features.UdPos;
-import io.squarebunny.aligner.edit.Edit;
-import io.squarebunny.aligner.edit.Segment;
+import edu.guym.aligner.edit.Edit;
+import edu.guym.aligner.edit.Segment;
 
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-import static io.squarebunny.aligner.edit.predicates.EditPredicates.isSubstitute;
-import static io.squarebunny.aligner.edit.predicates.EditPredicates.ofMaxSize;
+import static edu.guym.aligner.edit.predicates.EditPredicates.isSubstitute;
+import static edu.guym.aligner.edit.predicates.EditPredicates.ofMaxSize;
 
 /**
  * The following special VERB rule captures edits involving infinitival to and/or phrasal verbs;

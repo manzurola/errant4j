@@ -1,7 +1,6 @@
 package edu.guym.errantj.lang.en.wordlist;
 
 import edu.guym.errantj.lang.en.utils.IOUtils;
-import edu.guym.errantj.wordlist.WordListBase;
 
 import java.nio.charset.StandardCharsets;
 import java.util.stream.Collectors;

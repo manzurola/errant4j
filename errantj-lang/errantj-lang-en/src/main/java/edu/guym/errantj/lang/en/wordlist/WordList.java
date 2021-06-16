@@ -1,4 +1,4 @@
-package edu.guym.errantj.wordlist;
+package edu.guym.errantj.lang.en.wordlist;
 
 public interface WordList {
 

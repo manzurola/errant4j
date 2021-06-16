@@ -1,10 +1,10 @@
 package edu.guym.errantj.lang.en.classiy.rules.postier;
 
-import edu.guym.errantj.core.classify.GrammaticalError;
-import edu.guym.errantj.core.classify.CategoryMatchRule;
+import edu.guym.errantj.core.errors.GrammaticalError;
+import edu.guym.errantj.lang.en.classiy.rules.core.CategoryMatchRule;
 import edu.guym.spacyj.api.containers.Token;
-import io.squarebunny.aligner.edit.Edit;
-import io.squarebunny.aligner.edit.predicates.EditPredicates;
+import edu.guym.aligner.edit.Edit;
+import edu.guym.aligner.edit.predicates.EditPredicates;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -34,7 +34,7 @@ public class PunctuationEffectRule extends CategoryMatchRule {
                     .filter(word -> !word.equals(sourceLast) && !word.equals(targetLast))
                     .collect(Collectors.toList());
 
-            return sourceLast.lowerCase().equals(targetLast.lowerCase()) &&
+            return sourceLast.lower().equals(targetLast.lower()) &&
                     remaining.stream().allMatch(isPunctuation());
         }
 

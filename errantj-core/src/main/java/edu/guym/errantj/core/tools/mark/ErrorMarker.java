@@ -1,14 +1,14 @@
 package edu.guym.errantj.core.tools.mark;
 
-import io.squarebunny.aligner.edit.Edit;
-import io.squarebunny.aligner.edit.Segment;
+import edu.guym.aligner.edit.Edit;
+import edu.guym.aligner.edit.Segment;
 import edu.guym.spacyj.api.containers.Token;
 
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-import static io.squarebunny.aligner.edit.predicates.EditPredicates.isInsert;
+import static edu.guym.aligner.edit.predicates.EditPredicates.isInsert;
 
 public class ErrorMarker {
 

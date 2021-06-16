@@ -1,9 +1,9 @@
-package edu.guym.errantj.lang.en.aligner;
+package edu.guym.errantj.lang.en.align;
 
 import edu.guym.errantj.lang.en.classiy.common.TokenPredicates;
 import edu.guym.errantj.lang.en.lemmatize.Lemmatizer;
 import edu.guym.spacyj.api.containers.Token;
-import io.squarebunny.aligner.utils.AlignerUtils;
+import edu.guym.aligner.utils.AlignerUtils;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -19,7 +19,7 @@ public class TokenSubstituteCost implements BiFunction<Token, Token, Double> {
 
     @Override
     public Double apply(Token source, Token target) {
-        if (source.lowerCase().equals(target.lowerCase())) {
+        if (source.lower().equals(target.lower())) {
             return 0.0;
         } else {
             return lemmaCost(source, target) +

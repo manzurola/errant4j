@@ -1,6 +1,6 @@
 package errant;
 
-import edu.guym.errantj.core.classify.GrammaticalError;
+import edu.guym.errantj.core.errors.GrammaticalError;
 import org.junit.jupiter.api.Test;
 
 import java.io.BufferedWriter;

@@ -1,7 +1,7 @@
 package edu.guym.errantj.core.tools;
 
 import edu.guym.spacyj.api.containers.Token;
-import io.squarebunny.aligner.edit.Edit;
+import edu.guym.aligner.edit.Edit;
 
 import java.util.List;
 import java.util.function.Function;

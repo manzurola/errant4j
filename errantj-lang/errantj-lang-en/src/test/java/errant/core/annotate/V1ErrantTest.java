@@ -1,21 +1,25 @@
 package errant.core.annotate;
 
+import edu.guym.aligner.edit.Edit;
 import edu.guym.errantj.core.annotate.Annotation;
-import edu.guym.errantj.core.classify.GrammaticalError;
-import edu.guym.errantj.lang.en.annotate.ErrantEn;
+import edu.guym.errantj.core.annotate.Errant;
+import edu.guym.errantj.core.errors.GrammaticalError;
+import edu.guym.errantj.lang.en.EnglishAnnotatorPipeline;
 import edu.guym.spacyj.api.Spacy;
 import edu.guym.spacyj.api.containers.Doc;
 import edu.guym.spacyj.clients.corenlp.StanfordCoreNlpSpacyClient;
-import io.squarebunny.aligner.edit.Edit;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 
-public class V1AnnotatorTest extends AnnotatorTestBase {
+public class V1ErrantTest extends AnnotatorTestBase {
 
-    public V1AnnotatorTest() {
-        super(ErrantEn.create(Spacy.create(new StanfordCoreNlpSpacyClient())));
+    public V1ErrantTest() {
+        super(Errant.create(
+                EnglishAnnotatorPipeline.create(
+                        Spacy.create(new StanfordCoreNlpSpacyClient())
+                )));
     }
 
     /**
@@ -157,7 +161,6 @@ public class V1AnnotatorTest extends AnnotatorTestBase {
 
     /**
      * This test fails on spacy-server due to REPLACEMENT_OTHER
-     *
      */
     @Test
     void morphTier_nounNumber() {

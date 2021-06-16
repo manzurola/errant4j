@@ -1,7 +1,7 @@
 package edu.guym.errantj.core.tools;
 
-import io.squarebunny.aligner.edit.Edit;
-import io.squarebunny.aligner.edit.Segment;
+import edu.guym.aligner.edit.Edit;
+import edu.guym.aligner.edit.Segment;
 import edu.guym.spacyj.api.containers.Token;
 
 import java.util.LinkedList;

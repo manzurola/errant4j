@@ -1,9 +1,9 @@
 package edu.guym.errantj.lang.en.classiy.rules.postier;
 
-import edu.guym.errantj.core.classify.GrammaticalError;
-import edu.guym.errantj.core.classify.Rule;
+import edu.guym.errantj.core.errors.GrammaticalError;
+import edu.guym.errantj.lang.en.classiy.rules.core.Rule;
 import edu.guym.spacyj.api.features.Dependency;
-import io.squarebunny.aligner.edit.Edit;
+import edu.guym.aligner.edit.Edit;
 import edu.guym.spacyj.api.containers.Token;
 import edu.guym.spacyj.api.features.UdPos;
 
@@ -13,8 +13,8 @@ import java.util.Optional;
 import static edu.guym.errantj.lang.en.classiy.common.TokenEditPredicates.udPosTagSetEquals;
 import static edu.guym.errantj.lang.en.classiy.common.TokenPredicates.matchAnyDependency;
 import static edu.guym.errantj.lang.en.classiy.common.TokenPredicates.matchDependency;
-import static io.squarebunny.aligner.edit.predicates.EditPredicates.isSubstitute;
-import static io.squarebunny.aligner.edit.predicates.EditPredicates.ofSizeOneToOne;
+import static edu.guym.aligner.edit.predicates.EditPredicates.isSubstitute;
+import static edu.guym.aligner.edit.predicates.EditPredicates.ofSizeOneToOne;
 
 /**
  * The following special rule differentiates between determiners and pronouns that have the same surface form;

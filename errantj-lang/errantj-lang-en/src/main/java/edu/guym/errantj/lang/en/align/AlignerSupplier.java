@@ -1,8 +1,8 @@
-package edu.guym.errantj.lang.en.aligner;
+package edu.guym.errantj.lang.en.align;
 
 import edu.guym.errantj.lang.en.lemmatize.Lemmatizer;
 import edu.guym.spacyj.api.containers.Token;
-import io.squarebunny.aligner.Aligner;
+import edu.guym.aligner.Aligner;
 
 import java.util.Comparator;
 import java.util.function.Supplier;
@@ -18,7 +18,7 @@ public final class AlignerSupplier implements Supplier<Aligner<Token>> {
     private AlignerSupplier(Lemmatizer lemmatizer) {
         this.aligner = Aligner.damerauLevenshtein(
                 (source, target) -> source.text().equals(target.text()),
-                Comparator.comparing(Token::lowerCase),
+                Comparator.comparing(Token::lower),
                 new TokenSubstituteCost(lemmatizer)
         );
     }

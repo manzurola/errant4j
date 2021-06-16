@@ -2,7 +2,7 @@ package edu.guym.errantj.lang.en.merge.conditions;
 
 import edu.guym.errantj.lang.en.classiy.common.TokenPredicates;
 import edu.guym.spacyj.api.containers.Token;
-import io.squarebunny.aligner.edit.Edit;
+import edu.guym.aligner.edit.Edit;
 
 /**
  * Merge any consecutive operations that involve at least one content word;

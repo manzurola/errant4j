@@ -1,14 +1,14 @@
 package edu.guym.errantj.lang.en.classiy.rules.morphtier;
 
-import edu.guym.errantj.core.classify.GrammaticalError;
-import edu.guym.errantj.core.classify.CategoryMatchRule;
+import edu.guym.errantj.core.errors.GrammaticalError;
+import edu.guym.errantj.lang.en.classiy.rules.core.CategoryMatchRule;
 import edu.guym.spacyj.api.containers.Token;
 import edu.guym.spacyj.api.features.PtbPos;
-import io.squarebunny.aligner.edit.Edit;
+import edu.guym.aligner.edit.Edit;
 
 import java.util.List;
 
-import static io.squarebunny.aligner.edit.predicates.EditPredicates.ofSize;
+import static edu.guym.aligner.edit.predicates.EditPredicates.ofSize;
 import static java.util.stream.Collectors.toList;
 
 /**

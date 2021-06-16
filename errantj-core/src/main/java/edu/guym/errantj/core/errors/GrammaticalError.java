@@ -1,6 +1,6 @@
-package edu.guym.errantj.core.classify;
+package edu.guym.errantj.core.errors;
 
-import io.squarebunny.aligner.edit.Edit;
+import edu.guym.aligner.edit.Edit;
 
 public enum GrammaticalError {
 

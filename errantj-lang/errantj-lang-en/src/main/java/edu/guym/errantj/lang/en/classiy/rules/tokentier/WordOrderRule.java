@@ -1,11 +1,11 @@
 package edu.guym.errantj.lang.en.classiy.rules.tokentier;
 
-import edu.guym.errantj.core.classify.GrammaticalError;
-import edu.guym.errantj.core.classify.Rule;
+import edu.guym.errantj.core.errors.GrammaticalError;
+import edu.guym.errantj.lang.en.classiy.rules.core.Rule;
 import edu.guym.spacyj.api.containers.Token;
-import io.squarebunny.aligner.edit.Edit;
+import edu.guym.aligner.edit.Edit;
 
-import static io.squarebunny.aligner.edit.predicates.EditPredicates.isTranspose;
+import static edu.guym.aligner.edit.predicates.EditPredicates.isTranspose;
 
 
 /**

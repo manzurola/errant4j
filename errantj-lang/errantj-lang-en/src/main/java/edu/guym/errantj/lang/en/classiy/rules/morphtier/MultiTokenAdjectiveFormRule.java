@@ -1,12 +1,12 @@
 package edu.guym.errantj.lang.en.classiy.rules.morphtier;
 
-import edu.guym.errantj.core.classify.GrammaticalError;
-import edu.guym.errantj.core.classify.CategoryMatchRule;
+import edu.guym.errantj.core.errors.GrammaticalError;
+import edu.guym.errantj.lang.en.classiy.rules.core.CategoryMatchRule;
 import edu.guym.errantj.lang.en.lemmatize.Lemmatizer;
-import io.squarebunny.aligner.edit.Edit;
-import io.squarebunny.aligner.edit.Segment;
+import edu.guym.aligner.edit.Edit;
+import edu.guym.aligner.edit.Segment;
 import edu.guym.spacyj.api.containers.Token;
-import io.squarebunny.aligner.edit.predicates.EditPredicates;
+import edu.guym.aligner.edit.predicates.EditPredicates;
 
 import java.util.Collections;
 import java.util.Set;
@@ -44,7 +44,7 @@ public class MultiTokenAdjectiveFormRule extends CategoryMatchRule {
     }
 
     public Predicate<? super Token> moreOrMost() {
-        return word -> Set.of("more", "most").contains(word.lowerCase());
+        return word -> Set.of("more", "most").contains(word.lower());
     }
 
     public Predicate<? super Edit<Token>> firstTokensAnyMatch(Predicate<? super Token> condition) {

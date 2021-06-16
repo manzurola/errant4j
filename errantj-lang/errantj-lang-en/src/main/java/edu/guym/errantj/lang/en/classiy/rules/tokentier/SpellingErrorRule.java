@@ -1,13 +1,13 @@
 package edu.guym.errantj.lang.en.classiy.rules.tokentier;
 
-import edu.guym.errantj.core.classify.GrammaticalError;
-import edu.guym.errantj.core.classify.CategoryMatchRule;
-import edu.guym.errantj.wordlist.WordList;
+import edu.guym.errantj.core.errors.GrammaticalError;
+import edu.guym.errantj.lang.en.classiy.rules.core.CategoryMatchRule;
+import edu.guym.errantj.lang.en.wordlist.WordList;
 import edu.guym.spacyj.api.containers.Token;
-import io.squarebunny.aligner.edit.Edit;
-import io.squarebunny.aligner.utils.AlignerUtils;
+import edu.guym.aligner.edit.Edit;
+import edu.guym.aligner.utils.AlignerUtils;
 
-import static io.squarebunny.aligner.edit.predicates.EditPredicates.ofSize;
+import static edu.guym.aligner.edit.predicates.EditPredicates.ofSize;
 
 /**
  * We use the latest British English Hunspell word list to identify spelling errors (see Section 5.2).
@@ -39,7 +39,7 @@ public class SpellingErrorRule extends CategoryMatchRule {
                 .filter(ofSize(1, 1))
                 .filter(e -> e.source().first().isAlpha())
                 .filter(e -> !wordList.contains(e.source().first().text()))
-                .filter(e -> !wordList.contains(e.source().first().lowerCase()))
+                .filter(e -> !wordList.contains(e.source().first().lower()))
                 .filter(e -> !e.source().first().lemma().equals(e.target().first().lemma()))
                 .filter(e -> AlignerUtils.charEditRatio(e.source().first().text(), e.target().first().text()) > 0.5)
                 .isPresent();

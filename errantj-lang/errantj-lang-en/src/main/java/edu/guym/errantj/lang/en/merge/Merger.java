@@ -1,10 +1,9 @@
 package edu.guym.errantj.lang.en.merge;
 
-import edu.guym.errantj.core.merge.Merger;
+import edu.guym.aligner.edit.Edit;
+import edu.guym.aligner.edit.Operation;
 import edu.guym.errantj.lang.en.merge.conditions.*;
 import edu.guym.spacyj.api.containers.Token;
-import io.squarebunny.aligner.edit.Edit;
-import io.squarebunny.aligner.edit.Operation;
 
 import java.util.*;
 import java.util.function.BiPredicate;
@@ -36,9 +35,8 @@ import java.util.stream.Collectors;
  * 10. Split any determiner edits at the end of a sequence; e.g. [saw → seen the] becomes [saw → seen] + [ε → the].
  * <br>
  */
-public class ErrantMerger implements Merger {
+public class Merger {
 
-    @Override
     public List<Edit<Token>> merge(List<Edit<Token>> edits) {
         List<Edit<Token>> unmergeable = new ArrayList<>();
         List<Edit<Token>> result = new ArrayList<>(edits);
@@ -81,7 +79,7 @@ public class ErrantMerger implements Merger {
         BiPredicate<Edit<Token>, Edit<Token>> conditions = getConditions();
         while (!sorted.isEmpty()) {
             Edit<Token> next = sorted.pop();
-            if (current.canMergeWith(next) && conditions.test(current, next)) {
+            if (current.isLeftSiblingOf(next) && conditions.test(current, next)) {
                 current = current.mergeWith(next);
             } else {
                 merged.add(current);
