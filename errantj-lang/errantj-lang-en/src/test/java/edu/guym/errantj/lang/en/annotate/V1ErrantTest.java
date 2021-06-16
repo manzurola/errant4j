@@ -8,18 +8,23 @@ import edu.guym.errantj.lang.en.EnglishAnnotatorPipeline;
 import edu.guym.spacyj.api.Spacy;
 import edu.guym.spacyj.api.containers.Doc;
 import edu.guym.spacyj.clients.corenlp.StanfordCoreNlpSpacyAdapter;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 
 import java.util.Arrays;
 
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class V1ErrantTest extends AnnotatorTestBase {
 
-    public V1ErrantTest() {
-        super(Errant.create(
+    @BeforeAll
+    void setErrant() {
+        Errant errant = Errant.create(
                 EnglishAnnotatorPipeline.create(
                         Spacy.create(new StanfordCoreNlpSpacyAdapter())
-                )));
+                ));
+        setErrant(errant);
     }
 
     /**

@@ -17,9 +17,9 @@ import static org.junit.jupiter.api.Assertions.*;
 public abstract class AnnotatorTestBase {
 
     private static final Logger logger = LoggerFactory.getLogger(AnnotatorTestBase.class);
-    private final Errant errant;
+    private Errant errant;
 
-    public AnnotatorTestBase(Errant errant) {
+    protected void setErrant(Errant errant) {
         this.errant = errant;
     }
 
