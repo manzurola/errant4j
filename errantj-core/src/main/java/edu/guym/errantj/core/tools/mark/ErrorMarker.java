@@ -1,7 +1,6 @@
 package edu.guym.errantj.core.tools.mark;
 
-import edu.guym.aligner.edit.Edit;
-import edu.guym.aligner.edit.Segment;
+import edu.guym.aligner.edit.*;
 import edu.guym.spacyj.api.containers.Token;
 
 import java.util.List;
@@ -10,15 +9,37 @@ import java.util.Optional;
 
 import static edu.guym.aligner.edit.predicates.EditPredicates.isInsert;
 
-public class ErrorMarker {
+public class ErrorMarker implements EditVisitor<Token, CharOffset> {
 
-    public CharOffset markEdit(Edit<Token> edit, List<Token> source) {
-        // if substitute/delete/equal/transpose, get info from source
-        if (edit.matches(isInsert())) {
-            return markInsert(edit, source);
-        } else {
-            return markNotInsert(edit);
-        }
+    private final List<Token> source;
+
+    public ErrorMarker(List<Token> source) {
+        this.source = source;
+    }
+
+    @Override
+    public CharOffset visit(EqualEdit<Token> edit) {
+        return markNotInsert(edit);
+    }
+
+    @Override
+    public CharOffset visit(InsertEdit<Token> edit) {
+        return markInsert(edit);
+    }
+
+    @Override
+    public CharOffset visit(DeleteEdit<Token> edit) {
+        return markNotInsert(edit);
+    }
+
+    @Override
+    public CharOffset visit(SubstituteEdit<Token> edit) {
+        return markNotInsert(edit);
+    }
+
+    @Override
+    public CharOffset visit(TransposeEdit<Token> edit) {
+        return markNotInsert(edit);
     }
 
     private CharOffset markNotInsert(Edit<Token> edit) {
@@ -28,7 +49,7 @@ public class ErrorMarker {
         return new CharOffset(start, end);
     }
 
-    private CharOffset markInsert(Edit<Token> edit, List<Token> source) {
+    private CharOffset markInsert(Edit<Token> edit) {
         // source in edit is empty
         int beforeIndex = edit.source().position() - 1;
         int afterIndex = edit.source().position();
