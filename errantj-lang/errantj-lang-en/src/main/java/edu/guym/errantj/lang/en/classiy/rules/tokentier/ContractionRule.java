@@ -8,6 +8,9 @@ import edu.guym.aligner.edit.Edit;
 import edu.guym.aligner.edit.predicates.EditPredicates;
 
 import java.util.Set;
+import java.util.function.Predicate;
+
+import static edu.guym.errantj.core.tools.Collectors.oneOrNone;
 
 /**
  * Contraction errors are mainly edits that involve expanding contractions to their full form;
@@ -30,8 +33,17 @@ public class ContractionRule extends CategoryMatchRule {
     @Override
     public boolean isSatisfied(Edit<Token> edit) {
         return edit.filter(EditPredicates.ofSizeOneToOne())
-                .filter(TokenEditPredicates.tokensShareSamePos())
+                .filter(tokensShareSamePos())
                 .filter(e -> e.stream().anyMatch(token -> contractions.contains(token.text())))
+                .isPresent();
+    }
+
+    private Predicate<? super Edit<Token>> tokensShareSamePos() {
+        return edit -> edit
+                .stream()
+                .map(Token::pos)
+                .distinct()
+                .collect(oneOrNone())
                 .isPresent();
     }
 

@@ -7,7 +7,7 @@ import edu.guym.errantj.core.errors.GrammaticalError;
 import edu.guym.errantj.lang.en.EnglishAnnotatorPipeline;
 import edu.guym.spacyj.api.Spacy;
 import edu.guym.spacyj.api.containers.Doc;
-import edu.guym.spacyj.clients.corenlp.StanfordCoreNlpSpacyClient;
+import edu.guym.spacyj.clients.corenlp.StanfordCoreNlpSpacyAdapter;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
@@ -18,7 +18,7 @@ public class V1ErrantTest extends AnnotatorTestBase {
     public V1ErrantTest() {
         super(Errant.create(
                 EnglishAnnotatorPipeline.create(
-                        Spacy.create(new StanfordCoreNlpSpacyClient())
+                        Spacy.create(new StanfordCoreNlpSpacyAdapter())
                 )));
     }
 

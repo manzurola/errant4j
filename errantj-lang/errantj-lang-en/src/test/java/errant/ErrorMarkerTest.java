@@ -7,14 +7,14 @@ import edu.guym.errantj.lang.en.EnglishAnnotatorPipeline;
 import edu.guym.spacyj.api.Spacy;
 import edu.guym.spacyj.api.containers.Doc;
 import edu.guym.spacyj.api.containers.Token;
-import edu.guym.spacyj.clients.corenlp.StanfordCoreNlpSpacyClient;
+import edu.guym.spacyj.clients.corenlp.StanfordCoreNlpSpacyAdapter;
 import edu.guym.aligner.edit.Edit;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class ErrorMarkerTest {
 
-    private final static Spacy spacy = Spacy.create(new StanfordCoreNlpSpacyClient());
+    private final static Spacy spacy = Spacy.create(new StanfordCoreNlpSpacyAdapter());
     private final static Errant errant = Errant.create(EnglishAnnotatorPipeline.create(spacy));
 
     @Test
@@ -26,8 +26,8 @@ public class ErrorMarkerTest {
                 .atPosition(2, 2)
                 .transform(e -> tokenize(e, source, target));
 
-        ErrorMarker converter = new ErrorMarker();
-        CharOffset actual = converter.markEdit(edit, source.tokens());
+        ErrorMarker marker = new ErrorMarker(source.tokens());
+        CharOffset actual = edit.accept(marker);
         CharOffset expected = CharOffset.of(3, 11);
         Assertions.assertEquals(expected, actual);
     }
@@ -41,8 +41,8 @@ public class ErrorMarkerTest {
                 .atPosition(2, 2)
                 .transform(e -> tokenize(e, source, target));
 
-        ErrorMarker converter = new ErrorMarker();
-        CharOffset actual = converter.markEdit(edit, source.tokens());
+        ErrorMarker marker = new ErrorMarker(source.tokens());
+        CharOffset actual = edit.accept(marker);
         CharOffset expected = CharOffset.of(0, 0);
         Assertions.assertEquals(expected, actual);
     }

@@ -16,24 +16,6 @@ import static edu.guym.errantj.core.tools.Collectors.oneOrNone;
 
 public class TokenEditPredicates {
 
-    public static Predicate<? super Edit<Token>> tokensShareSameTag() {
-        return edit -> edit
-                .stream()
-                .map(Token::tag)
-                .distinct()
-                .collect(oneOrNone())
-                .isPresent();
-    }
-
-    public static Predicate<? super Edit<Token>> tokensShareSamePos() {
-        return edit -> edit
-                .stream()
-                .map(Token::pos)
-                .distinct()
-                .collect(oneOrNone())
-                .isPresent();
-    }
-
     public static Predicate<? super Edit<Token>> lemmasIntersect(Lemmatizer lemmatizer) {
         return edit -> {
             Set<String> sourceLemmas = edit.source()
