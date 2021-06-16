@@ -1,6 +1,5 @@
-package errant.core.align;
+package edu.guym.errantj.lang.en.align;
 
-import edu.guym.errantj.lang.en.align.AlignerSupplier;
 import edu.guym.errantj.lang.en.lemmatize.Lemmatizer;
 import edu.guym.errantj.lang.en.lemmatize.WordNetLemmatizer;
 import edu.guym.spacyj.api.Spacy;

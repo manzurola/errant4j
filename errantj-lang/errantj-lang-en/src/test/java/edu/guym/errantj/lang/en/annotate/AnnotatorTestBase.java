@@ -1,4 +1,4 @@
-package errant.core.annotate;
+package edu.guym.errantj.lang.en.annotate;
 
 import edu.guym.errantj.core.annotate.Annotation;
 import edu.guym.errantj.core.annotate.Errant;
@@ -24,7 +24,7 @@ public abstract class AnnotatorTestBase {
     }
 
     protected final Doc nlp(String text) {
-        return errant.nlp(text);
+        return errant.parse(text);
     }
 
     protected void assertSingleExpectedError(Annotation<String> expected, Doc source, Doc target) {

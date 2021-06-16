@@ -10,14 +10,14 @@ import java.util.stream.Collectors;
 
 public interface Errant {
 
-    Doc nlp(String text);
+    Doc parse(String text);
 
     List<Annotation<Token>> annotate(List<Token> source, List<Token> target);
 
     static Errant create(AnnotatorPipeline pipeline) {
         return new Errant() {
             @Override
-            public Doc nlp(String text) {
+            public Doc parse(String text) {
                 return pipeline.parse(text);
             }
 

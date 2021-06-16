@@ -1,4 +1,4 @@
-package errant;
+package edu.guym.errantj.lang.en.wordlist;
 
 import edu.guym.errantj.lang.en.wordlist.HunspellWordList;
 import edu.guym.errantj.lang.en.wordlist.WordList;

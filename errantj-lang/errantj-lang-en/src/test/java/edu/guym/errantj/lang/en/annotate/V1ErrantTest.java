@@ -1,4 +1,4 @@
-package errant.core.annotate;
+package edu.guym.errantj.lang.en.annotate;
 
 import edu.guym.aligner.edit.Edit;
 import edu.guym.errantj.core.annotate.Annotation;

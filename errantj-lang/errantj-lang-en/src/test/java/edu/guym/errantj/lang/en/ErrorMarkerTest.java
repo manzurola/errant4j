@@ -1,9 +1,8 @@
-package errant;
+package edu.guym.errantj.lang.en;
 
 import edu.guym.errantj.core.annotate.Errant;
 import edu.guym.errantj.core.tools.mark.CharOffset;
 import edu.guym.errantj.core.tools.mark.ErrorMarker;
-import edu.guym.errantj.lang.en.EnglishAnnotatorPipeline;
 import edu.guym.spacyj.api.Spacy;
 import edu.guym.spacyj.api.containers.Doc;
 import edu.guym.spacyj.api.containers.Token;
@@ -19,8 +18,8 @@ public class ErrorMarkerTest {
 
     @Test
     void missingWordHasBeforeAndAfter() {
-        Doc source = errant.nlp("My name guy.");
-        Doc target = errant.nlp("My name is guy.");
+        Doc source = errant.parse("My name guy.");
+        Doc target = errant.parse("My name is guy.");
         Edit<Token> edit = Edit.builder()
                 .insert("is")
                 .atPosition(2, 2)
@@ -34,8 +33,8 @@ public class ErrorMarkerTest {
 
     @Test
     void missingWordEmptySentence() {
-        Doc source = errant.nlp("");
-        Doc target = errant.nlp("My name is guy.");
+        Doc source = errant.parse("");
+        Doc target = errant.parse("My name is guy.");
         Edit<Token> edit = Edit.builder()
                 .insert("is")
                 .atPosition(2, 2)

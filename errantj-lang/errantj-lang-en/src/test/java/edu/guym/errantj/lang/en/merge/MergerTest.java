@@ -1,9 +1,8 @@
-package errant.core.merge;
+package edu.guym.errantj.lang.en.merge;
 
 import edu.guym.errantj.lang.en.align.AlignerSupplier;
 import edu.guym.errantj.lang.en.lemmatize.Lemmatizer;
 import edu.guym.errantj.lang.en.lemmatize.WordNetLemmatizer;
-import edu.guym.errantj.lang.en.merge.Merger;
 import edu.guym.spacyj.api.Spacy;
 import edu.guym.spacyj.api.containers.Doc;
 import edu.guym.spacyj.api.containers.Token;
