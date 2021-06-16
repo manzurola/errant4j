@@ -1,7 +1,8 @@
 package edu.guym.errantj.lang.en.merge;
 
 import edu.guym.aligner.edit.Edit;
-import edu.guym.aligner.edit.Operation;
+import edu.guym.aligner.edit.EqualEdit;
+import edu.guym.aligner.edit.TransposeEdit;
 import edu.guym.errantj.lang.en.merge.conditions.*;
 import edu.guym.spacyj.api.containers.Token;
 
@@ -62,7 +63,7 @@ public class Merger {
 
     private List<Edit<Token>> filterUnmergeable(List<Edit<Token>> edits) {
         return edits.stream()
-                .filter(e -> (e.operation().equals(Operation.TRANSPOSE) || e.operation().equals(Operation.EQUAL)))
+                .filter(e -> e instanceof TransposeEdit || e instanceof EqualEdit)
                 .collect(Collectors.toList());
     }
 

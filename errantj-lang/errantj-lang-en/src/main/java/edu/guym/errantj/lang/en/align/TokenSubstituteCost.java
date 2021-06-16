@@ -1,7 +1,7 @@
 package edu.guym.errantj.lang.en.align;
 
-import edu.guym.errantj.lang.en.classiy.common.TokenPredicates;
-import edu.guym.errantj.lang.en.lemmatize.Lemmatizer;
+import edu.guym.errantj.lang.en.classify.rules.common.CommonPredicates;
+import edu.guym.errantj.lang.en.utils.lemmatize.Lemmatizer;
 import edu.guym.spacyj.api.containers.Token;
 import edu.guym.aligner.utils.AlignerUtils;
 
@@ -43,7 +43,7 @@ public class TokenSubstituteCost implements BiFunction<Token, Token, Double> {
             return 0;
         }
 
-        if (source.matches(TokenPredicates.isContentWord()) && target.matches(TokenPredicates.isContentWord())) {
+        if (source.matches(CommonPredicates.isContentWord()) && target.matches(CommonPredicates.isContentWord())) {
             return 0.25;
         }
 

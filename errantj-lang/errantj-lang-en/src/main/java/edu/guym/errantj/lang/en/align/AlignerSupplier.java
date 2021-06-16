@@ -1,6 +1,6 @@
 package edu.guym.errantj.lang.en.align;
 
-import edu.guym.errantj.lang.en.lemmatize.Lemmatizer;
+import edu.guym.errantj.lang.en.utils.lemmatize.Lemmatizer;
 import edu.guym.spacyj.api.containers.Token;
 import edu.guym.aligner.Aligner;
 

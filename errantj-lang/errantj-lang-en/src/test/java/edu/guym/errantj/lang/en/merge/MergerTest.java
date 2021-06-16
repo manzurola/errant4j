@@ -1,12 +1,12 @@
 package edu.guym.errantj.lang.en.merge;
 
 import edu.guym.errantj.lang.en.align.AlignerSupplier;
-import edu.guym.errantj.lang.en.lemmatize.Lemmatizer;
-import edu.guym.errantj.lang.en.lemmatize.WordNetLemmatizer;
+import edu.guym.errantj.lang.en.utils.lemmatize.Lemmatizer;
+import edu.guym.errantj.lang.en.utils.lemmatize.WordNetLemmatizer;
 import edu.guym.spacyj.api.Spacy;
 import edu.guym.spacyj.api.containers.Doc;
 import edu.guym.spacyj.api.containers.Token;
-import edu.guym.spacyj.clients.corenlp.CoreNlpAdapter;
+import edu.guym.spacyj.adapters.corenlp.CoreNlpAdapter;
 import edu.guym.aligner.Aligner;
 import edu.guym.aligner.alignment.Alignment;
 import edu.guym.aligner.edit.Edit;

@@ -6,11 +6,12 @@ import edu.guym.aligner.edit.Edit;
 import edu.guym.errantj.core.annotate.AnnotatorPipeline;
 import edu.guym.errantj.core.errors.GrammaticalError;
 import edu.guym.errantj.lang.en.align.AlignerSupplier;
-import edu.guym.errantj.lang.en.classiy.ErrantClassifier;
-import edu.guym.errantj.lang.en.classiy.rules.core.Classifier;
-import edu.guym.errantj.lang.en.lemmatize.Lemmatizer;
-import edu.guym.errantj.lang.en.lemmatize.WordNetLemmatizer;
+import edu.guym.errantj.lang.en.classify.Classifier;
+import edu.guym.errantj.lang.en.utils.lemmatize.Lemmatizer;
+import edu.guym.errantj.lang.en.utils.lemmatize.WordNetLemmatizer;
 import edu.guym.errantj.lang.en.merge.Merger;
+import edu.guym.errantj.lang.en.utils.wordlist.HunspellWordList;
+import edu.guym.errantj.lang.en.utils.wordlist.WordList;
 import edu.guym.spacyj.api.Spacy;
 import edu.guym.spacyj.api.containers.Doc;
 import edu.guym.spacyj.api.containers.Token;
@@ -24,7 +25,7 @@ public class EnglishAnnotatorPipeline implements AnnotatorPipeline {
     private final Merger merger;
     private final Classifier classifier;
 
-    public EnglishAnnotatorPipeline(Spacy spacy, Aligner<Token> aligner, Merger merger, Classifier classifier) {
+    private EnglishAnnotatorPipeline(Spacy spacy, Aligner<Token> aligner, Merger merger, Classifier classifier) {
         this.spacy = spacy;
         this.aligner = aligner;
         this.merger = merger;
@@ -32,13 +33,14 @@ public class EnglishAnnotatorPipeline implements AnnotatorPipeline {
     }
 
     public static EnglishAnnotatorPipeline create(Spacy spacy) {
+        WordList wordList = new HunspellWordList();
         Lemmatizer lemmatizer = new WordNetLemmatizer();
         Aligner<Token> aligner = AlignerSupplier.create(lemmatizer).get();
         return new EnglishAnnotatorPipeline(
                 spacy,
                 aligner,
                 new Merger(),
-                new ErrantClassifier(lemmatizer)
+                new Classifier(lemmatizer, wordList)
         );
     }
 

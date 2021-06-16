@@ -1,9 +1,8 @@
 package edu.guym.errantj.lang.en.merge.conditions;
 
-import edu.guym.errantj.lang.en.classiy.common.TokenPredicates;
+import edu.guym.errantj.lang.en.classify.rules.common.CommonPredicates;
 import edu.guym.aligner.edit.Edit;
 import edu.guym.spacyj.api.containers.Token;
-import edu.guym.aligner.edit.predicates.EditPredicates;
 
 import java.util.List;
 import java.util.function.Predicate;
@@ -20,7 +19,7 @@ public class PunctuationAndCaseChangeMergeCondition implements EditMergeConditio
 
     public static Predicate<Edit<Token>> containsPunctuation() {
         return edit -> edit.stream()
-                .anyMatch(TokenPredicates.isPunctuation());
+                .anyMatch(CommonPredicates.isPunctuation());
     }
 
     public static Predicate<Edit<Token>> isCaseChange() {
