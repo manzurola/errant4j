@@ -6,7 +6,7 @@ import edu.guym.errantj.lang.en.classiy.rules.morphtier.*;
 import edu.guym.errantj.lang.en.classiy.rules.postier.*;
 import edu.guym.errantj.lang.en.classiy.rules.tokentier.*;
 import edu.guym.errantj.lang.en.lemmatize.Lemmatizer;
-import edu.guym.errantj.lang.en.wordlist.HunspellEnglishWordList;
+import edu.guym.errantj.lang.en.wordlist.HunspellWordList;
 import edu.guym.errantj.lang.en.wordlist.WordList;
 
 import java.util.Arrays;
@@ -15,7 +15,7 @@ public class ErrantClassifier extends RuleBasedClassifier {
 
     public ErrantClassifier(Lemmatizer lemmatizer) {
         super(() -> {
-            WordList wordList = new HunspellEnglishWordList();
+            WordList wordList = new HunspellWordList();
             return Arrays.asList(
                     new WordOrderRule(),
                     new OrthographyErrorRule(),
