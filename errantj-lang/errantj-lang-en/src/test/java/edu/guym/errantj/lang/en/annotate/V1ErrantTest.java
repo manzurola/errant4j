@@ -8,6 +8,7 @@ import edu.guym.errantj.lang.en.EnglishAnnotatorPipeline;
 import edu.guym.spacyj.api.Spacy;
 import edu.guym.spacyj.api.containers.Doc;
 import edu.guym.spacyj.clients.corenlp.StanfordCoreNlpSpacyAdapter;
+import edu.guym.spacyj.clients.spacyserver.HttpSpacyServerAdapter;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -26,6 +27,15 @@ public class V1ErrantTest extends AnnotatorTestBase {
                 ));
         setErrant(errant);
     }
+//
+//    @BeforeAll
+//    void setErrant() {
+//        Errant errant = Errant.create(
+//                EnglishAnnotatorPipeline.create(
+//                        Spacy.create(new HttpSpacyServerAdapter())
+//                ));
+//        setErrant(errant);
+//    }
 
     /**
      * This test fails with spacy-server client due to whitespaces classified as missing tokens.
@@ -169,7 +179,7 @@ public class V1ErrantTest extends AnnotatorTestBase {
      */
     @Test
     void morphTier_nounNumber() {
-        Doc source1 = nlp("Dog are cute.");
+        Doc source1 = nlp("dog are cute.");
         Doc target1 = nlp("dogs are cute.");
         Annotation<String> expected1 = Edit.builder()
                 .substitute("Dog")
