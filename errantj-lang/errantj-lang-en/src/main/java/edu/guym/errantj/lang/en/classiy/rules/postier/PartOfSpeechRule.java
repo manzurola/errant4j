@@ -3,7 +3,7 @@ package edu.guym.errantj.lang.en.classiy.rules.postier;
 import edu.guym.errantj.core.errors.GrammaticalError;
 import edu.guym.errantj.lang.en.classiy.rules.core.Rule;
 import edu.guym.spacyj.api.containers.Token;
-import edu.guym.spacyj.api.features.UdPos;
+import edu.guym.spacyj.api.features.Pos;
 import edu.guym.aligner.edit.Edit;
 
 import java.util.Set;
@@ -28,37 +28,37 @@ public class PartOfSpeechRule implements Rule {
     }
 
     private GrammaticalError.Category mapPosToCategory(String pos) {
-        if (UdPos.ADJ.matches(pos)) {
+        if (Pos.ADJ.matches(pos)) {
             return GrammaticalError.Category.ADJ;
         }
-        if (UdPos.ADP.matches(pos)) {
+        if (Pos.ADP.matches(pos)) {
             return GrammaticalError.Category.PREP;
         }
-        if (UdPos.ADV.matches(pos)) {
+        if (Pos.ADV.matches(pos)) {
             return GrammaticalError.Category.ADV;
         }
-        if (UdPos.AUX.matches(pos)) {
+        if (Pos.AUX.matches(pos)) {
             return GrammaticalError.Category.VERB_TENSE;
         }
-        if (UdPos.CCONJ.matches(pos) || UdPos.SCONJ.matches(pos)) {
+        if (Pos.CCONJ.matches(pos) || Pos.SCONJ.matches(pos)) {
             return GrammaticalError.Category.CONJ;
         }
-        if (UdPos.DET.matches(pos)) {
+        if (Pos.DET.matches(pos)) {
             return GrammaticalError.Category.DET;
         }
-        if (UdPos.NOUN.matches(pos) || UdPos.PROPN.matches(pos)) {
+        if (Pos.NOUN.matches(pos) || Pos.PROPN.matches(pos)) {
             return GrammaticalError.Category.NOUN;
         }
-        if (UdPos.PART.matches(pos)) {
+        if (Pos.PART.matches(pos)) {
             return GrammaticalError.Category.PART;
         }
-        if (UdPos.PRON.matches(pos)) {
+        if (Pos.PRON.matches(pos)) {
             return GrammaticalError.Category.PRON;
         }
-        if (UdPos.PUNCT.matches(pos)) {
+        if (Pos.PUNCT.matches(pos)) {
             return GrammaticalError.Category.PUNCT;
         }
-        if (UdPos.VERB.matches(pos)) {
+        if (Pos.VERB.matches(pos)) {
             return GrammaticalError.Category.VERB;
         }
         return GrammaticalError.Category.OTHER;

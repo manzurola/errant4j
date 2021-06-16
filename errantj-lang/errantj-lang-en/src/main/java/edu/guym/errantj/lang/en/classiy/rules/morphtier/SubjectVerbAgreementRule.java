@@ -3,8 +3,8 @@ package edu.guym.errantj.lang.en.classiy.rules.morphtier;
 import edu.guym.errantj.core.errors.GrammaticalError;
 import edu.guym.errantj.lang.en.classiy.rules.core.CategoryMatchRule;
 import edu.guym.spacyj.api.containers.Token;
-import edu.guym.spacyj.api.features.PtbPos;
-import edu.guym.spacyj.api.features.UdPos;
+import edu.guym.spacyj.api.features.PtbTag;
+import edu.guym.spacyj.api.features.Pos;
 import edu.guym.aligner.edit.Edit;
 
 import java.util.function.Predicate;
@@ -49,15 +49,15 @@ public class SubjectVerbAgreementRule extends CategoryMatchRule {
 
     public Predicate<Edit<Token>> caseB() {
         return edit -> edit
-                .filter(e -> e.stream().map(Token::pos).allMatch(UdPos.VERB::matches))
-                .filter(e -> e.stream().map(Token::tag).anyMatch(PtbPos.VBZ::matches))
+                .filter(e -> e.stream().map(Token::pos).allMatch(Pos.VERB::matches))
+                .filter(e -> e.stream().map(Token::tag).anyMatch(PtbTag.VBZ::matches))
                 .isPresent();
     }
 
     public Predicate<Edit<Token>> caseC() {
         return edit -> edit
                 .filter(tokensDontSharePos())
-                .filter(e -> PtbPos.VBZ.matches(e.target().first().tag()))
+                .filter(e -> PtbTag.VBZ.matches(e.target().first().tag()))
                 .isPresent();
     }
 

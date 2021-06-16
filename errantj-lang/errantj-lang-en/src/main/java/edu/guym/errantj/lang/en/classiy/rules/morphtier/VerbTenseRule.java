@@ -6,7 +6,7 @@ import edu.guym.errantj.lang.en.classiy.common.TokenEditPredicates;
 import edu.guym.errantj.lang.en.classiy.common.TokenPredicates;
 import edu.guym.errantj.lang.en.lemmatize.Lemmatizer;
 import edu.guym.spacyj.api.containers.Token;
-import edu.guym.spacyj.api.features.PtbPos;
+import edu.guym.spacyj.api.features.PtbTag;
 import edu.guym.aligner.edit.Edit;
 import edu.guym.aligner.edit.predicates.EditPredicates;
 
@@ -121,6 +121,6 @@ public class VerbTenseRule extends CategoryMatchRule {
     }
 
     private Predicate<Token> isPastTenseVerbForm() {
-        return word -> PtbPos.VBD.matches(word.tag());
+        return word -> PtbTag.VBD.matches(word.tag());
     }
 }

@@ -3,8 +3,8 @@ package edu.guym.errantj.lang.en.classiy.rules.morphtier;
 import edu.guym.errantj.core.errors.GrammaticalError;
 import edu.guym.errantj.lang.en.classiy.rules.core.CategoryMatchRule;
 import edu.guym.spacyj.api.containers.Token;
-import edu.guym.spacyj.api.features.PtbPos;
-import edu.guym.spacyj.api.features.UdPos;
+import edu.guym.spacyj.api.features.PtbTag;
+import edu.guym.spacyj.api.features.Pos;
 import edu.guym.aligner.edit.Edit;
 import edu.guym.aligner.edit.predicates.EditPredicates;
 
@@ -57,7 +57,7 @@ public class MissingOrUnnecessaryVerbFormInfinitivalToRule extends CategoryMatch
         return edit -> edit
                 .stream()
                 .findFirst()
-                .filter(token -> UdPos.PART.matches(token.pos()))
+                .filter(token -> Pos.PART.matches(token.pos()))
                 .isPresent();
     }
 
@@ -65,7 +65,7 @@ public class MissingOrUnnecessaryVerbFormInfinitivalToRule extends CategoryMatch
         return edit -> edit
                 .stream()
                 .findFirst()
-                .filter(token -> PtbPos.IN.matches(token.tag()))
+                .filter(token -> PtbTag.IN.matches(token.tag()))
                 .isEmpty();
     }
 

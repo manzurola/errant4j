@@ -6,7 +6,7 @@ import edu.guym.errantj.lang.en.classiy.common.TokenEditPredicates;
 import edu.guym.errantj.lang.en.lemmatize.Lemmatizer;
 import edu.guym.spacyj.api.containers.Token;
 import edu.guym.spacyj.api.features.Dependency;
-import edu.guym.spacyj.api.features.UdPos;
+import edu.guym.spacyj.api.features.Pos;
 import edu.guym.aligner.edit.Edit;
 import edu.guym.aligner.edit.predicates.EditPredicates;
 
@@ -54,7 +54,7 @@ public class AdjectiveFormRule extends CategoryMatchRule {
         return edit -> edit
                 .stream()
                 .map(Token::pos)
-                .allMatch(UdPos.ADJ::matches);
+                .allMatch(Pos.ADJ::matches);
     }
 
     public Predicate<Edit<Token>> tokensDependenciesCompOrAmod() {

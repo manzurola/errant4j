@@ -3,7 +3,7 @@ package edu.guym.errantj.lang.en.classiy.rules.morphtier;
 import edu.guym.errantj.core.errors.GrammaticalError;
 import edu.guym.errantj.lang.en.classiy.rules.core.CategoryMatchRule;
 import edu.guym.spacyj.api.containers.Token;
-import edu.guym.spacyj.api.features.PtbPos;
+import edu.guym.spacyj.api.features.PtbTag;
 import edu.guym.aligner.edit.Edit;
 
 import java.util.List;
@@ -62,7 +62,7 @@ public class NounPossessiveRule extends CategoryMatchRule {
     }
 
     private boolean isPossessiveCase(String tag) {
-        return PtbPos.POS.matches(tag);
+        return PtbTag.POS.matches(tag);
     }
 
 }

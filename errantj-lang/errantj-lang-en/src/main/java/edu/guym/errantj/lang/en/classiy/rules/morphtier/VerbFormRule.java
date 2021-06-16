@@ -6,7 +6,7 @@ import edu.guym.errantj.lang.en.classiy.common.TokenEditPredicates;
 import edu.guym.errantj.lang.en.classiy.common.TokenPredicates;
 import edu.guym.errantj.lang.en.lemmatize.Lemmatizer;
 import edu.guym.spacyj.api.containers.Token;
-import edu.guym.spacyj.api.features.PtbPos;
+import edu.guym.spacyj.api.features.PtbTag;
 import edu.guym.aligner.edit.Edit;
 import edu.guym.aligner.edit.predicates.EditPredicates;
 
@@ -104,7 +104,7 @@ public class VerbFormRule extends CategoryMatchRule {
     }
 
     public Predicate<Token> gerundOrParticiple() {
-        return token -> PtbPos.VBG.matches(token.tag()) || PtbPos.VBN.matches(token.tag()) ;
+        return token -> PtbTag.VBG.matches(token.tag()) || PtbTag.VBN.matches(token.tag()) ;
     }
 
     public Predicate<? super Edit<Token>> sameLemma() {

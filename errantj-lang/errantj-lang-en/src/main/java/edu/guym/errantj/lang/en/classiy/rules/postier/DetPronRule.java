@@ -5,12 +5,12 @@ import edu.guym.errantj.lang.en.classiy.rules.core.Rule;
 import edu.guym.spacyj.api.features.Dependency;
 import edu.guym.aligner.edit.Edit;
 import edu.guym.spacyj.api.containers.Token;
-import edu.guym.spacyj.api.features.UdPos;
+import edu.guym.spacyj.api.features.Pos;
 
 import java.util.List;
 import java.util.Optional;
 
-import static edu.guym.errantj.lang.en.classiy.common.TokenEditPredicates.udPosTagSetEquals;
+import static edu.guym.errantj.lang.en.classiy.common.TokenEditPredicates.PosTagSetEquals;
 import static edu.guym.errantj.lang.en.classiy.common.TokenPredicates.matchAnyDependency;
 import static edu.guym.errantj.lang.en.classiy.common.TokenPredicates.matchDependency;
 import static edu.guym.aligner.edit.predicates.EditPredicates.isSubstitute;
@@ -36,7 +36,7 @@ public class DetPronRule implements Rule {
         Optional<Token> target = edit
                 .filter(isSubstitute())
                 .filter(ofSizeOneToOne())
-                .filter(udPosTagSetEquals(UdPos.DET, UdPos.PRON))
+                .filter(PosTagSetEquals(Pos.DET, Pos.PRON))
                 .map(e -> e.target().first());
 
         if (target.isEmpty()) {

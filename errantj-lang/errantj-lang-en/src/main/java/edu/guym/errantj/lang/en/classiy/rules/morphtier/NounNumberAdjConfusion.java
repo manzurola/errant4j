@@ -3,8 +3,8 @@ package edu.guym.errantj.lang.en.classiy.rules.morphtier;
 import edu.guym.errantj.core.errors.GrammaticalError;
 import edu.guym.errantj.lang.en.classiy.rules.core.CategoryMatchRule;
 import edu.guym.spacyj.api.containers.Token;
-import edu.guym.spacyj.api.features.PtbPos;
-import edu.guym.spacyj.api.features.UdPos;
+import edu.guym.spacyj.api.features.PtbTag;
+import edu.guym.spacyj.api.features.Pos;
 import edu.guym.aligner.edit.Edit;
 import edu.guym.aligner.edit.predicates.EditPredicates;
 
@@ -34,8 +34,8 @@ public class NounNumberAdjConfusion extends CategoryMatchRule {
                 .filter(EditPredicates.isSubstitute())
                 .filter(EditPredicates.ofSizeOneToOne())
                 .filter(sameLemma())
-                .filter(e -> e.source().map(Token::pos).allMatch(UdPos.ADJ::matches))
-                .filter(e -> e.target().map(Token::tag).allMatch(PtbPos.NNS::matches))
+                .filter(e -> e.source().map(Token::pos).allMatch(Pos.ADJ::matches))
+                .filter(e -> e.target().map(Token::tag).allMatch(PtbTag.NNS::matches))
                 .isPresent();
     }
 

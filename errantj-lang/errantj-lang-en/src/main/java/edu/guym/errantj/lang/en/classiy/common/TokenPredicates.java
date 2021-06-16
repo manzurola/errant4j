@@ -2,7 +2,7 @@ package edu.guym.errantj.lang.en.classiy.common;
 
 import edu.guym.spacyj.api.containers.Token;
 import edu.guym.spacyj.api.features.Dependency;
-import edu.guym.spacyj.api.features.UdPos;
+import edu.guym.spacyj.api.features.Pos;
 
 import java.util.Collection;
 import java.util.function.Predicate;
@@ -10,15 +10,15 @@ import java.util.function.Predicate;
 public class TokenPredicates {
 
     public static Predicate<Token> isVerb() {
-        return word -> UdPos.VERB.matches(word.pos());
+        return word -> Pos.VERB.matches(word.pos());
     }
 
     public static Predicate<Token> isPreposition() {
-        return word -> UdPos.ADP.matches(word.pos());
+        return word -> Pos.ADP.matches(word.pos());
     }
 
     public static Predicate<Token> isPunctuation() {
-        return word -> UdPos.PUNCT.matches(word.pos());
+        return word -> Pos.PUNCT.matches(word.pos());
     }
 
     public static Predicate<Token> matchDependency(Dependency dependency) {
@@ -47,19 +47,19 @@ public class TokenPredicates {
     }
 
     public static Predicate<Token> isAdjective() {
-        return word -> UdPos.ADJ.matches(word.pos());
+        return word -> Pos.ADJ.matches(word.pos());
     }
 
     public static Predicate<Token> isAdverb() {
-        return word -> UdPos.ADV.matches(word.pos());
+        return word -> Pos.ADV.matches(word.pos());
     }
 
     public static Predicate<Token> isPronoun() {
-        return word -> UdPos.PRON.matches(word.pos());
+        return word -> Pos.PRON.matches(word.pos());
     }
 
     public static Predicate<Token> isNoun() {
-        return word -> UdPos.NOUN.matches(word.pos());
+        return word -> Pos.NOUN.matches(word.pos());
     }
 
 }

@@ -3,7 +3,7 @@ package edu.guym.errantj.lang.en.classiy.rules.morphtier;
 import edu.guym.errantj.core.errors.GrammaticalError;
 import edu.guym.errantj.lang.en.classiy.rules.core.CategoryMatchRule;
 import edu.guym.spacyj.api.containers.Token;
-import edu.guym.spacyj.api.features.UdPos;
+import edu.guym.spacyj.api.features.Pos;
 import edu.guym.aligner.edit.Edit;
 import edu.guym.aligner.edit.predicates.EditPredicates;
 
@@ -38,7 +38,7 @@ public class ReplacementVerbFormInfinitivalToRule extends CategoryMatchRule {
 
     public Predicate<Edit<Token>> allTokensArePartOrVerb() {
         return edit -> edit.stream()
-                .allMatch(token -> UdPos.PART.matches(token.pos()) || UdPos.VERB.matches(token.pos()));
+                .allMatch(token -> Pos.PART.matches(token.pos()) || Pos.VERB.matches(token.pos()));
     }
 
 

@@ -3,7 +3,7 @@ package edu.guym.errantj.lang.en.classiy.rules.postier;
 import edu.guym.errantj.core.errors.GrammaticalError;
 import edu.guym.errantj.lang.en.classiy.rules.core.CategoryMatchRule;
 import edu.guym.spacyj.api.containers.Token;
-import edu.guym.spacyj.api.features.UdPos;
+import edu.guym.spacyj.api.features.Pos;
 import edu.guym.aligner.edit.Edit;
 import edu.guym.aligner.edit.Segment;
 
@@ -41,7 +41,7 @@ public class VerbRule extends CategoryMatchRule {
         return edit -> edit
                 .stream()
                 .map(Token::pos)
-                .allMatch(pos -> UdPos.PART.matches(pos) || UdPos.VERB.matches(pos));
+                .allMatch(pos -> Pos.PART.matches(pos) || Pos.VERB.matches(pos));
     }
 
     public Predicate<Edit<Token>> lastTokensDifferLemma() {

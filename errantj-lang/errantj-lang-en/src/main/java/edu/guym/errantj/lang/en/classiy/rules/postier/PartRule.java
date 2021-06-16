@@ -3,10 +3,10 @@ package edu.guym.errantj.lang.en.classiy.rules.postier;
 import edu.guym.errantj.core.errors.GrammaticalError;
 import edu.guym.errantj.lang.en.classiy.rules.core.CategoryMatchRule;
 import edu.guym.spacyj.api.containers.Token;
-import edu.guym.spacyj.api.features.UdPos;
+import edu.guym.spacyj.api.features.Pos;
 import edu.guym.aligner.edit.Edit;
 
-import static edu.guym.errantj.lang.en.classiy.common.TokenEditPredicates.udPosTagSetEquals;
+import static edu.guym.errantj.lang.en.classiy.common.TokenEditPredicates.PosTagSetEquals;
 import static edu.guym.aligner.edit.predicates.EditPredicates.ofSizeOneToOne;
 
 /**
@@ -29,7 +29,7 @@ public class PartRule extends CategoryMatchRule {
     public boolean isSatisfied(Edit<Token> edit) {
         //TODO implement failover with dependencies
         return edit.filter(ofSizeOneToOne())
-                .filter(udPosTagSetEquals(UdPos.PART, UdPos.ADP))
+                .filter(PosTagSetEquals(Pos.PART, Pos.ADP))
                 .isPresent();
     }
 }

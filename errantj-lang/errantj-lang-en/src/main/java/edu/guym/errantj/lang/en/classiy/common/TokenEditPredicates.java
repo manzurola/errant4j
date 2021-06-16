@@ -2,7 +2,7 @@ package edu.guym.errantj.lang.en.classiy.common;
 
 import edu.guym.errantj.lang.en.lemmatize.Lemmatizer;
 import edu.guym.spacyj.api.containers.Token;
-import edu.guym.spacyj.api.features.UdPos;
+import edu.guym.spacyj.api.features.Pos;
 import edu.guym.aligner.edit.Edit;
 
 import java.util.Collection;
@@ -36,10 +36,10 @@ public class TokenEditPredicates {
         };
     }
 
-    public static Predicate<? super Edit<Token>> udPosTagSetEquals(UdPos... pos) {
+    public static Predicate<? super Edit<Token>> PosTagSetEquals(Pos... pos) {
         return edit -> edit.stream()
                 .map(Token::pos)
-                .map(UdPos::ofTag)
+                .map(Pos::ofTag)
                 .collect(Collectors.toSet())
                 .equals(Set.of(pos));
     }
