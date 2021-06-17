@@ -1,10 +1,10 @@
 package edu.guym.errantj.lang.en.classify.rules.morphtier;
 
+import edu.guym.aligner.edit.Edit;
 import edu.guym.errantj.core.errors.GrammaticalError;
 import edu.guym.errantj.lang.en.classify.rules.CategoryMatchRule;
 import edu.guym.spacyj.api.containers.Token;
 import edu.guym.spacyj.api.features.PtbTag;
-import edu.guym.aligner.edit.Edit;
 
 import java.util.List;
 

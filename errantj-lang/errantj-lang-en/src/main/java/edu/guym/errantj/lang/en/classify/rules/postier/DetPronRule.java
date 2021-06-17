@@ -1,20 +1,18 @@
 package edu.guym.errantj.lang.en.classify.rules.postier;
 
+import edu.guym.aligner.edit.Edit;
 import edu.guym.errantj.core.errors.GrammaticalError;
 import edu.guym.errantj.lang.en.classify.rules.Rule;
-import edu.guym.spacyj.api.features.Dependency;
-import edu.guym.aligner.edit.Edit;
 import edu.guym.spacyj.api.containers.Token;
+import edu.guym.spacyj.api.features.Dependency;
 import edu.guym.spacyj.api.features.Pos;
 
 import java.util.List;
 import java.util.Optional;
 
-import static edu.guym.errantj.lang.en.classify.rules.common.CommonPredicates.PosTagSetEquals;
-import static edu.guym.errantj.lang.en.classify.rules.common.CommonPredicates.matchAnyDependency;
-import static edu.guym.errantj.lang.en.classify.rules.common.CommonPredicates.matchDependency;
 import static edu.guym.aligner.edit.predicates.EditPredicates.isSubstitute;
 import static edu.guym.aligner.edit.predicates.EditPredicates.ofSizeOneToOne;
+import static edu.guym.errantj.lang.en.classify.rules.common.CommonPredicates.*;
 
 /**
  * The following special rule differentiates between determiners and pronouns that have the same surface form;

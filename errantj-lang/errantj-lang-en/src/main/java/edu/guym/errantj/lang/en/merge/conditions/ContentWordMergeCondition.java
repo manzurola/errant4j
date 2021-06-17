@@ -1,8 +1,8 @@
 package edu.guym.errantj.lang.en.merge.conditions;
 
+import edu.guym.aligner.edit.Edit;
 import edu.guym.errantj.lang.en.classify.rules.common.CommonPredicates;
 import edu.guym.spacyj.api.containers.Token;
-import edu.guym.aligner.edit.Edit;
 
 /**
  * Merge any consecutive operations that involve at least one content word;

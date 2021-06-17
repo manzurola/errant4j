@@ -1,11 +1,11 @@
 package edu.guym.errantj.lang.en.classify.rules.postier;
 
+import edu.guym.aligner.edit.Edit;
+import edu.guym.aligner.edit.Segment;
 import edu.guym.errantj.core.errors.GrammaticalError;
 import edu.guym.errantj.lang.en.classify.rules.CategoryMatchRule;
 import edu.guym.spacyj.api.containers.Token;
 import edu.guym.spacyj.api.features.Pos;
-import edu.guym.aligner.edit.Edit;
-import edu.guym.aligner.edit.Segment;
 
 import java.util.function.Predicate;
 import java.util.stream.Collectors;

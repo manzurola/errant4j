@@ -1,7 +1,7 @@
 package edu.guym.errantj.lang.en.merge.conditions;
 
-import edu.guym.errantj.lang.en.classify.rules.common.CommonPredicates;
 import edu.guym.aligner.edit.Edit;
+import edu.guym.errantj.lang.en.classify.rules.common.CommonPredicates;
 import edu.guym.spacyj.api.containers.Token;
 
 import java.util.List;

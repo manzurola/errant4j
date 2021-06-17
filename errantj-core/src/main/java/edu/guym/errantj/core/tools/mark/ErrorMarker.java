@@ -7,8 +7,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-import static edu.guym.aligner.edit.predicates.EditPredicates.isInsert;
-
 public class ErrorMarker implements EditVisitor<Token, CharOffset> {
 
     private final List<Token> source;

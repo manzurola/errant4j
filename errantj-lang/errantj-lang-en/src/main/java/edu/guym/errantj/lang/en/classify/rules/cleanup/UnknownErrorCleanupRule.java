@@ -1,7 +1,7 @@
 package edu.guym.errantj.lang.en.classify.rules.cleanup;
 
-import edu.guym.errantj.core.errors.GrammaticalError;
 import edu.guym.aligner.edit.Edit;
+import edu.guym.errantj.core.errors.GrammaticalError;
 import edu.guym.errantj.lang.en.classify.rules.Rule;
 import edu.guym.spacyj.api.containers.Token;
 

@@ -1,15 +1,14 @@
 package edu.guym.errantj.lang.en.align;
 
+import edu.guym.aligner.Aligner;
 import edu.guym.aligner.alignment.Alignment;
+import edu.guym.aligner.edit.Edit;
 import edu.guym.errantj.lang.en.utils.lemmatize.Lemmatizer;
 import edu.guym.errantj.lang.en.utils.lemmatize.WordNetLemmatizer;
-import edu.guym.spacyj.adapters.spacyserver.SpacyServerAdapter;
+import edu.guym.spacyj.adapters.corenlp.CoreNlpAdapter;
 import edu.guym.spacyj.api.Spacy;
 import edu.guym.spacyj.api.containers.Doc;
 import edu.guym.spacyj.api.containers.Token;
-import edu.guym.spacyj.adapters.corenlp.CoreNlpAdapter;
-import edu.guym.aligner.Aligner;
-import edu.guym.aligner.edit.Edit;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -20,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ErrantAlignerTest {
 
-    private final static Spacy spacy = Spacy.create(new SpacyServerAdapter());
+    private final static Spacy spacy = Spacy.create(CoreNlpAdapter.create());
     private final Lemmatizer lemmatizer = new WordNetLemmatizer();
 
     @Test

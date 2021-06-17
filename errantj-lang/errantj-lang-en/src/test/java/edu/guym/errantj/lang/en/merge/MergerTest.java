@@ -1,15 +1,15 @@
 package edu.guym.errantj.lang.en.merge;
 
-import edu.guym.errantj.lang.en.align.AlignerSupplier;
-import edu.guym.errantj.lang.en.utils.lemmatize.Lemmatizer;
-import edu.guym.errantj.lang.en.utils.lemmatize.WordNetLemmatizer;
-import edu.guym.spacyj.api.Spacy;
-import edu.guym.spacyj.api.containers.Doc;
-import edu.guym.spacyj.api.containers.Token;
-import edu.guym.spacyj.adapters.corenlp.CoreNlpAdapter;
 import edu.guym.aligner.Aligner;
 import edu.guym.aligner.alignment.Alignment;
 import edu.guym.aligner.edit.Edit;
+import edu.guym.errantj.lang.en.align.AlignerSupplier;
+import edu.guym.errantj.lang.en.utils.lemmatize.Lemmatizer;
+import edu.guym.errantj.lang.en.utils.lemmatize.WordNetLemmatizer;
+import edu.guym.spacyj.adapters.corenlp.CoreNlpAdapter;
+import edu.guym.spacyj.api.Spacy;
+import edu.guym.spacyj.api.containers.Doc;
+import edu.guym.spacyj.api.containers.Token;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class MergerTest {
 
     private final Lemmatizer lemmatizer = new WordNetLemmatizer();
-    private final Spacy spacy = Spacy.create(new CoreNlpAdapter());
+    private final Spacy spacy = Spacy.create(CoreNlpAdapter.create());
 
     @Test
     public void testMergeInfinitivalSamePos() {

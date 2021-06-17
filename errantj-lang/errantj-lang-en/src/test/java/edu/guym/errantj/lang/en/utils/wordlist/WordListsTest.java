@@ -1,7 +1,5 @@
 package edu.guym.errantj.lang.en.utils.wordlist;
 
-import edu.guym.errantj.lang.en.utils.wordlist.HunspellWordList;
-import edu.guym.errantj.lang.en.utils.wordlist.WordList;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

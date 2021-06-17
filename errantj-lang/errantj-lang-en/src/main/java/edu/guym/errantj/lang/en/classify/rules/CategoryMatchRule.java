@@ -1,8 +1,8 @@
 package edu.guym.errantj.lang.en.classify.rules;
 
+import edu.guym.aligner.edit.Edit;
 import edu.guym.errantj.core.errors.GrammaticalError;
 import edu.guym.spacyj.api.containers.Token;
-import edu.guym.aligner.edit.Edit;
 
 public abstract class CategoryMatchRule implements Rule {
 

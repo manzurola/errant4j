@@ -1,11 +1,11 @@
 package edu.guym.errantj.lang.en.classify.rules.morphtier;
 
+import edu.guym.aligner.edit.Edit;
+import edu.guym.aligner.edit.predicates.EditPredicates;
 import edu.guym.errantj.core.errors.GrammaticalError;
 import edu.guym.errantj.lang.en.classify.rules.CategoryMatchRule;
 import edu.guym.spacyj.api.containers.Token;
 import edu.guym.spacyj.api.features.Pos;
-import edu.guym.aligner.edit.Edit;
-import edu.guym.aligner.edit.predicates.EditPredicates;
 
 import java.util.function.Predicate;
 

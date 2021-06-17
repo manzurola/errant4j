@@ -1,19 +1,19 @@
 package edu.guym.errantj.lang.en;
 
+import edu.guym.aligner.edit.Edit;
 import edu.guym.errantj.core.annotate.Errant;
 import edu.guym.errantj.core.tools.mark.CharOffset;
 import edu.guym.errantj.core.tools.mark.ErrorMarker;
+import edu.guym.spacyj.adapters.corenlp.CoreNlpAdapter;
 import edu.guym.spacyj.api.Spacy;
 import edu.guym.spacyj.api.containers.Doc;
 import edu.guym.spacyj.api.containers.Token;
-import edu.guym.spacyj.adapters.corenlp.CoreNlpAdapter;
-import edu.guym.aligner.edit.Edit;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class ErrorMarkerTest {
 
-    private final static Spacy spacy = Spacy.create(new CoreNlpAdapter());
+    private final static Spacy spacy = Spacy.create(CoreNlpAdapter.create());
     private final static Errant errant = Errant.create(EnglishAnnotatorPipeline.create(spacy));
 
     @Test

@@ -1,8 +1,8 @@
 package edu.guym.errantj.lang.en.merge.conditions;
 
+import edu.guym.aligner.edit.Edit;
 import edu.guym.spacyj.api.containers.Token;
 import edu.guym.spacyj.api.features.Pos;
-import edu.guym.aligner.edit.Edit;
 
 import java.util.Arrays;
 import java.util.HashSet;
