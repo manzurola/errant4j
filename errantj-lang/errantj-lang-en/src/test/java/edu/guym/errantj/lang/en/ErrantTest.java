@@ -1,10 +1,9 @@
-package edu.guym.errantj.lang.en.annotate;
+package edu.guym.errantj.lang.en;
 
 import edu.guym.aligner.edit.Edit;
 import edu.guym.errantj.core.annotate.Annotation;
 import edu.guym.errantj.core.annotate.Errant;
 import edu.guym.errantj.core.errors.GrammaticalError;
-import edu.guym.errantj.lang.en.EnglishAnnotatorPipeline;
 import edu.guym.spacyj.adapters.corenlp.CoreNlpAdapter;
 import edu.guym.spacyj.api.Spacy;
 import edu.guym.spacyj.api.containers.Doc;
