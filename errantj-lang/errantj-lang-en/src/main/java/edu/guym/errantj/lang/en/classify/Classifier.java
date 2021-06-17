@@ -3,6 +3,7 @@ package edu.guym.errantj.lang.en.classify;
 import edu.guym.aligner.edit.Edit;
 import edu.guym.errantj.core.errors.GrammaticalError;
 import edu.guym.errantj.lang.en.classify.rules.Rule;
+import edu.guym.errantj.lang.en.classify.rules.cleanup.IgnoreSpaceErrorRule;
 import edu.guym.errantj.lang.en.classify.rules.cleanup.UnknownErrorCleanupRule;
 import edu.guym.errantj.lang.en.classify.rules.morphtier.*;
 import edu.guym.errantj.lang.en.classify.rules.postier.*;
@@ -26,6 +27,8 @@ public class Classifier {
 
     public List<Rule> getRules(Lemmatizer lemmatizer, WordList wordList) {
         return List.of(
+
+                new IgnoreSpaceErrorRule(),
 
                 new WordOrderRule(),
                 new OrthographyErrorRule(),

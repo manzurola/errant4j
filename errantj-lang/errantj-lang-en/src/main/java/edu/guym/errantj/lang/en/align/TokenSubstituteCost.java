@@ -1,9 +1,10 @@
 package edu.guym.errantj.lang.en.align;
 
+import edu.guym.aligner.utils.AlignerUtils;
 import edu.guym.errantj.lang.en.classify.rules.common.CommonPredicates;
 import edu.guym.errantj.lang.en.utils.lemmatize.Lemmatizer;
 import edu.guym.spacyj.api.containers.Token;
-import edu.guym.aligner.utils.AlignerUtils;
+import edu.guym.spacyj.api.features.Pos;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -24,7 +25,8 @@ public class TokenSubstituteCost implements BiFunction<Token, Token, Double> {
         } else {
             return lemmaCost(source, target) +
                     posCost(source, target) +
-                    charCost(source, target);
+                    charCost(source, target) +
+                    whitespaceCost(source, target);
         }
     }
 
@@ -50,7 +52,16 @@ public class TokenSubstituteCost implements BiFunction<Token, Token, Double> {
         return 0.5;
     }
 
-    private double charCost(Token s, Token t) {
-        return AlignerUtils.charEditRatio(s.text(), t.text());
+    private double charCost(Token source, Token target) {
+        return AlignerUtils.charEditRatio(source.text(), target.text());
+    }
+
+    // special treatment for spacy whitespace tokens: penalize word - whitespace substitution
+    private double whitespaceCost(Token source, Token target) {
+        if (Pos.SPACE.matches(source.pos()) && !Pos.SPACE.matches(target.pos()) ||
+                !Pos.SPACE.matches(source.pos()) && Pos.SPACE.matches(target.pos())) {
+            return 2.0;
+        }
+        return 0.0;
     }
 }

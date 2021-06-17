@@ -64,6 +64,10 @@ public enum GrammaticalError {
     UNNECESSARY_VERB_TENSE(Type.UNNECESSARY, Category.VERB_TENSE),
     REPLACEMENT_VERB_TENSE(Type.REPLACEMENT, Category.VERB_TENSE),
 
+    MISSING_IGNORED(Type.MISSING, Category.IGNORED),
+    UNNECESSARY_IGNORED(Type.UNNECESSARY, Category.IGNORED),
+    REPLACEMENT_IGNORED(Type.REPLACEMENT, Category.IGNORED),
+
     NONE(Type.NONE, Category.OTHER);
 
     private final Category category;
@@ -132,15 +136,19 @@ public enum GrammaticalError {
     }
 
     public boolean isNone() {
-        return this.equals(GrammaticalError.NONE);
+        return GrammaticalError.NONE.equals(this);
     }
 
     public boolean isOther() {
-        return category().equals(Category.OTHER);
+        return Category.OTHER.equals(category);
     }
 
-    public boolean isUnknown() {
-        return false;
+    public boolean isIgnored() {
+        return Category.IGNORED.equals(category);
+    }
+
+    public boolean isNoneOrIgnored() {
+        return isNone() || isIgnored();
     }
 
     public enum Type {
@@ -168,6 +176,7 @@ public enum GrammaticalError {
         CONJ("CONJUNCTION"),
         CONTR("CONTRACTION"),
         DET("DETERMINER"),
+        IGNORED("IGNORED"),
         MORPH("MORPHOLOGY"),
         NOUN("NOUN"),
         NOUN_INFL("NOUN:INFL"),

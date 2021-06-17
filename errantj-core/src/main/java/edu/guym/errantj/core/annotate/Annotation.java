@@ -54,7 +54,7 @@ public final class Annotation<T> {
     }
 
     public final boolean hasError() {
-        return !getError().equals(GrammaticalError.NONE);
+        return !getError().isNone() && !getError().isIgnored();
     }
 
     public final boolean hasNoError() {

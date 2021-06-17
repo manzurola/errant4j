@@ -47,7 +47,7 @@ public abstract class AnnotatorTestBase {
                 .annotate(source.tokens(), target.tokens())
                 .stream()
                 .map(annotation -> annotation.map(edit -> edit.map(Token::text)))
-                .filter(Annotation::hasError)
+                .filter(annotation -> !annotation.getError().isNoneOrIgnored())
                 .collect(Collectors.toList());
     }
 

@@ -18,29 +18,26 @@ import org.junit.jupiter.api.TestInstance;
 import java.util.Arrays;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class V1ErrantTest extends AnnotatorTestBase {
-
-    @BeforeAll
-    void setErrant() {
-        Errant errant = Errant.create(
-                EnglishAnnotatorPipeline.create(
-                        Spacy.create(new CoreNlpAdapter())
-                ));
-        setErrant(errant);
-    }
+public class ErrantTest extends AnnotatorTestBase {
 
 //    @BeforeAll
 //    void setErrant() {
 //        Errant errant = Errant.create(
 //                EnglishAnnotatorPipeline.create(
-//                        Spacy.create(new SpacyServerAdapter())
+//                        Spacy.create(CoreNlpAdapter.create())
 //                ));
 //        setErrant(errant);
 //    }
 
-    /**
-     * This test fails with spacy-server client due to whitespaces classified as missing tokens.
-     */
+    @BeforeAll
+    void setErrant() {
+        Errant errant = Errant.create(
+                EnglishAnnotatorPipeline.create(
+                        Spacy.create(SpacyServerAdapter.create("localhost", 8080))
+                ));
+        setErrant(errant);
+    }
+
     @Test
     void posTier_Verb() {
         Doc source = nlp("  I   like consume food.");
@@ -175,12 +172,9 @@ public class V1ErrantTest extends AnnotatorTestBase {
         assertSingleExpectedError(expected1, source1, target1);
     }
 
-    /**
-     * This test fails on spacy-server due to REPLACEMENT_OTHER
-     */
     @Test
     void morphTier_nounNumber() {
-        Doc source1 = nlp("dog are cute.");
+        Doc source1 = nlp("Dog are cute.");
         Doc target1 = nlp("dogs are cute.");
         Annotation<String> expected1 = Edit.builder()
                 .substitute("Dog")
@@ -353,7 +347,7 @@ public class V1ErrantTest extends AnnotatorTestBase {
     }
 
     /**
-     * This test fails on spacy-server with REPLACEMENT_VERB
+     * This test fails on spacy-server with REPLACEMENT_VERB, which may actually make sense
      */
     @Test
     public void morphTier_verbInflection() {
