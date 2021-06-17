@@ -56,8 +56,8 @@ public class TokenSubstituteCost implements BiFunction<Token, Token, Double> {
         return AlignerUtils.charEditRatio(source.text(), target.text());
     }
 
-    // special treatment for spacy whitespace tokens: penalize word - whitespace substitution
     private double whitespaceCost(Token source, Token target) {
+        // special treatment for spacy whitespace tokens: penalize word - whitespace substitution
         if (Pos.SPACE.matches(source.pos()) && !Pos.SPACE.matches(target.pos()) ||
                 !Pos.SPACE.matches(source.pos()) && Pos.SPACE.matches(target.pos())) {
             return 2.0;
