@@ -20,23 +20,23 @@ import java.util.Arrays;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class ErrantTest extends AnnotatorTestBase {
 
-//    @BeforeAll
-//    void setErrant() {
-//        Errant errant = Errant.create(
-//                EnglishAnnotatorPipeline.create(
-//                        Spacy.create(CoreNlpAdapter.create())
-//                ));
-//        setErrant(errant);
-//    }
-
     @BeforeAll
     void setErrant() {
         Errant errant = Errant.create(
                 EnglishAnnotatorPipeline.create(
-                        Spacy.create(SpacyServerAdapter.create("localhost", 8080))
+                        Spacy.create(CoreNlpAdapter.create())
                 ));
         setErrant(errant);
     }
+
+//    @BeforeAll
+//    void setErrant() {
+//        Errant errant = Errant.create(
+//                EnglishAnnotatorPipeline.create(
+//                        Spacy.create(SpacyServerAdapter.create("localhost", 8080))
+//                ));
+//        setErrant(errant);
+//    }
 
     @Test
     void posTier_Verb() {
