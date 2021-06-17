@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class ErrantAlignerTest {
 
     private final static Spacy spacy = Spacy.create(CoreNlpAdapter.create());
-    private final Lemmatizer lemmatizer = new WordNetLemmatizer();
+    private final Lemmatizer lemmatizer = WordNetLemmatizer.create();
 
     @Test
     public void align() {

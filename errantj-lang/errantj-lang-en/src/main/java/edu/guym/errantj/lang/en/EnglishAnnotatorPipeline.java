@@ -34,7 +34,7 @@ public class EnglishAnnotatorPipeline implements AnnotatorPipeline {
 
     public static EnglishAnnotatorPipeline create(Spacy spacy) {
         WordList wordList = new HunspellWordList();
-        Lemmatizer lemmatizer = new WordNetLemmatizer();
+        Lemmatizer lemmatizer = WordNetLemmatizer.create();
         Aligner<Token> aligner = AlignerSupplier.create(lemmatizer).get();
         return new EnglishAnnotatorPipeline(
                 spacy,
