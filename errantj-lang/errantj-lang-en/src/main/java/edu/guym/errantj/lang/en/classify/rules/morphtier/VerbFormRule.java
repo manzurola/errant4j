@@ -7,7 +7,7 @@ import edu.guym.errantj.lang.en.classify.rules.CategoryMatchRule;
 import edu.guym.errantj.lang.en.classify.rules.common.CommonPredicates;
 import edu.guym.errantj.lang.en.utils.lemmatize.Lemmatizer;
 import edu.guym.spacyj.api.containers.Token;
-import edu.guym.spacyj.api.features.PtbTag;
+import edu.guym.spacyj.api.features.Tag;
 
 import java.util.List;
 import java.util.function.Predicate;
@@ -103,7 +103,7 @@ public class VerbFormRule extends CategoryMatchRule {
     }
 
     public Predicate<Token> gerundOrParticiple() {
-        return token -> PtbTag.VBG.matches(token.tag()) || PtbTag.VBN.matches(token.tag()) ;
+        return token -> Tag.VBG.matches(token.tag()) || Tag.VBN.matches(token.tag()) ;
     }
 
     public Predicate<? super Edit<Token>> sameLemma() {

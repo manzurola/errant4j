@@ -6,7 +6,7 @@ import edu.guym.errantj.core.errors.GrammaticalError;
 import edu.guym.errantj.lang.en.classify.rules.CategoryMatchRule;
 import edu.guym.spacyj.api.containers.Token;
 import edu.guym.spacyj.api.features.Pos;
-import edu.guym.spacyj.api.features.PtbTag;
+import edu.guym.spacyj.api.features.Tag;
 
 import java.util.function.Predicate;
 
@@ -35,7 +35,7 @@ public class NounNumberAdjConfusion extends CategoryMatchRule {
                 .filter(EditPredicates.ofSizeOneToOne())
                 .filter(sameLemma())
                 .filter(e -> e.source().map(Token::pos).allMatch(Pos.ADJ::matches))
-                .filter(e -> e.target().map(Token::tag).allMatch(PtbTag.NNS::matches))
+                .filter(e -> e.target().map(Token::tag).allMatch(Tag.NNS::matches))
                 .isPresent();
     }
 

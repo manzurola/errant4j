@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class MergerTest {
 
-    private final Lemmatizer lemmatizer = WordNetLemmatizer.create();
+    private final Lemmatizer lemmatizer = new WordNetLemmatizer();
     private final Spacy spacy = Spacy.create(CoreNlpAdapter.create());
 
     @Test

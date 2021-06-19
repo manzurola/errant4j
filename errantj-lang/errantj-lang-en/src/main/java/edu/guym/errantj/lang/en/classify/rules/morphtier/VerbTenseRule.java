@@ -7,7 +7,7 @@ import edu.guym.errantj.lang.en.classify.rules.CategoryMatchRule;
 import edu.guym.errantj.lang.en.classify.rules.common.CommonPredicates;
 import edu.guym.errantj.lang.en.utils.lemmatize.Lemmatizer;
 import edu.guym.spacyj.api.containers.Token;
-import edu.guym.spacyj.api.features.PtbTag;
+import edu.guym.spacyj.api.features.Tag;
 
 import java.util.function.Predicate;
 
@@ -120,6 +120,6 @@ public class VerbTenseRule extends CategoryMatchRule {
     }
 
     private Predicate<Token> isPastTenseVerbForm() {
-        return word -> PtbTag.VBD.matches(word.tag());
+        return word -> Tag.VBD.matches(word.tag());
     }
 }

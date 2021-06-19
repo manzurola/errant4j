@@ -10,14 +10,9 @@ import java.util.Set;
 public class WordNetLemmatizer implements Lemmatizer {
     private final Dictionary wordnet;
 
-    private WordNetLemmatizer(Dictionary wordnet) {
-        this.wordnet = wordnet;
-    }
-
-    public static WordNetLemmatizer create() {
+    public WordNetLemmatizer() {
         try {
-            Dictionary wordnet = Dictionary.getDefaultResourceInstance();
-            return new WordNetLemmatizer(wordnet);
+            this.wordnet = Dictionary.getDefaultResourceInstance();
         } catch (JWNLException e) {
             throw new RuntimeException(e);
         }

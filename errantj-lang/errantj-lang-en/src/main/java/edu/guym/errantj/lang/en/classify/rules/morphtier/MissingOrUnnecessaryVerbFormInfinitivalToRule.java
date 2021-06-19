@@ -6,7 +6,7 @@ import edu.guym.errantj.core.errors.GrammaticalError;
 import edu.guym.errantj.lang.en.classify.rules.CategoryMatchRule;
 import edu.guym.spacyj.api.containers.Token;
 import edu.guym.spacyj.api.features.Pos;
-import edu.guym.spacyj.api.features.PtbTag;
+import edu.guym.spacyj.api.features.Tag;
 
 import java.util.function.Predicate;
 
@@ -65,7 +65,7 @@ public class MissingOrUnnecessaryVerbFormInfinitivalToRule extends CategoryMatch
         return edit -> edit
                 .stream()
                 .findFirst()
-                .filter(token -> PtbTag.IN.matches(token.tag()))
+                .filter(token -> Tag.IN.matches(token.tag()))
                 .isEmpty();
     }
 
