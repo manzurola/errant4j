@@ -5,7 +5,7 @@ import edu.guym.errantj.core.errors.GrammaticalError;
 import edu.guym.errantj.lang.en.classify.rules.Rule;
 import edu.guym.spacyj.api.containers.Token;
 
-import static edu.guym.aligner.edit.predicates.EditPredicates.isTranspose;
+import static edu.guym.errantj.lang.en.classify.rules.common.Predicates.isTranspose;
 
 
 /**

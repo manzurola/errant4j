@@ -10,9 +10,7 @@ import edu.guym.spacyj.api.features.Pos;
 import java.util.List;
 import java.util.Optional;
 
-import static edu.guym.aligner.edit.predicates.EditPredicates.isSubstitute;
-import static edu.guym.aligner.edit.predicates.EditPredicates.ofSizeOneToOne;
-import static edu.guym.errantj.lang.en.classify.rules.common.CommonPredicates.*;
+import static edu.guym.errantj.lang.en.classify.rules.common.Predicates.*;
 
 /**
  * The following special rule differentiates between determiners and pronouns that have the same surface form;

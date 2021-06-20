@@ -1,10 +1,9 @@
 package edu.guym.errantj.lang.en.classify.rules.morphtier;
 
 import edu.guym.aligner.edit.Edit;
-import edu.guym.aligner.edit.predicates.EditPredicates;
 import edu.guym.errantj.core.errors.GrammaticalError;
 import edu.guym.errantj.lang.en.classify.rules.CategoryMatchRule;
-import edu.guym.errantj.lang.en.classify.rules.common.CommonPredicates;
+import edu.guym.errantj.lang.en.classify.rules.common.Predicates;
 import edu.guym.errantj.lang.en.utils.lemmatize.Lemmatizer;
 import edu.guym.spacyj.api.containers.Token;
 import edu.guym.spacyj.api.features.Tag;
@@ -49,7 +48,7 @@ public class VerbTenseRule extends CategoryMatchRule {
     @Override
     public boolean isSatisfied(Edit<Token> edit) {
         return edit
-                .filter(EditPredicates.ofSizeOneToOne())
+                .filter(Predicates.ofSizeOneToOne())
                 .filter(case1()
                         .or(case2())
                         .or(case3())
@@ -68,7 +67,7 @@ public class VerbTenseRule extends CategoryMatchRule {
     public Predicate<Edit<Token>> case1() {
         return edit -> edit
                 .filter(sameLemma())
-                .filter(e -> e.stream().allMatch(CommonPredicates.isVerb()))
+                .filter(e -> e.stream().allMatch(Predicates.isVerb()))
                 .filter(e -> e.stream().anyMatch(isPastTenseVerbForm()))
                 .isPresent();
     }
@@ -81,8 +80,8 @@ public class VerbTenseRule extends CategoryMatchRule {
     public Predicate<Edit<Token>> case2() {
         return edit -> edit
                 .filter(sameLemma())
-                .filter(e -> e.stream().allMatch(CommonPredicates.isVerb()))
-                .filter(e -> e.stream().allMatch(CommonPredicates.isAuxVerb()))
+                .filter(e -> e.stream().allMatch(Predicates.isVerb()))
+                .filter(e -> e.stream().allMatch(Predicates.isAuxVerb()))
                 .isPresent();
     }
 
@@ -111,12 +110,12 @@ public class VerbTenseRule extends CategoryMatchRule {
     public Predicate<Edit<Token>> case4() {
         return edit -> edit
                 .filter(sameLemma().negate())
-                .filter(e -> e.stream().allMatch(CommonPredicates.isAuxVerb()))
+                .filter(e -> e.stream().allMatch(Predicates.isAuxVerb()))
                 .isPresent();
     }
 
     public Predicate<? super Edit<Token>> sameLemma() {
-        return CommonPredicates.lemmasIntersect(lemmatizer);
+        return Predicates.lemmasIntersect(lemmatizer);
     }
 
     private Predicate<Token> isPastTenseVerbForm() {

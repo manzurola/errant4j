@@ -1,10 +1,9 @@
 package edu.guym.errantj.lang.en.classify.rules.morphtier;
 
 import edu.guym.aligner.edit.Edit;
-import edu.guym.aligner.edit.predicates.EditPredicates;
 import edu.guym.errantj.core.errors.GrammaticalError;
 import edu.guym.errantj.lang.en.classify.rules.CategoryMatchRule;
-import edu.guym.errantj.lang.en.classify.rules.common.CommonPredicates;
+import edu.guym.errantj.lang.en.classify.rules.common.Predicates;
 import edu.guym.errantj.lang.en.utils.wordlist.WordList;
 import edu.guym.spacyj.api.containers.Token;
 
@@ -37,11 +36,11 @@ public class VerbInflectionRule extends CategoryMatchRule {
     @Override
     public boolean isSatisfied(Edit<Token> edit) {
         return edit
-                .filter(EditPredicates.ofSizeOneToOne())
+                .filter(Predicates.ofSizeOneToOne())
                 .filter(e -> e.source().allMatch(Token::isAlpha))
                 .filter(e -> e.source().allMatch(isNotRealWord()))
                 .filter(sameLemma())
-                .filter(e -> e.stream().allMatch(CommonPredicates.isVerb()))
+                .filter(e -> e.stream().allMatch(Predicates.isVerb()))
                 .isPresent();
     }
 

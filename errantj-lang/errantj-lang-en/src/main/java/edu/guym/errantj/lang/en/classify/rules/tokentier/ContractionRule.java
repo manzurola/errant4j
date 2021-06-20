@@ -1,9 +1,9 @@
 package edu.guym.errantj.lang.en.classify.rules.tokentier;
 
 import edu.guym.aligner.edit.Edit;
-import edu.guym.aligner.edit.predicates.EditPredicates;
 import edu.guym.errantj.core.errors.GrammaticalError;
 import edu.guym.errantj.lang.en.classify.rules.CategoryMatchRule;
+import edu.guym.errantj.lang.en.classify.rules.common.Predicates;
 import edu.guym.spacyj.api.containers.Token;
 
 import java.util.Set;
@@ -31,7 +31,7 @@ public class ContractionRule extends CategoryMatchRule {
 
     @Override
     public boolean isSatisfied(Edit<Token> edit) {
-        return edit.filter(EditPredicates.ofSizeOneToOne())
+        return edit.filter(Predicates.ofSizeOneToOne())
                 .filter(tokensShareSamePos())
                 .filter(e -> e.stream().anyMatch(token -> contractions.contains(token.text())))
                 .isPresent();

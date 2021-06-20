@@ -1,10 +1,9 @@
 package edu.guym.errantj.lang.en.classify.rules.morphtier;
 
 import edu.guym.aligner.edit.Edit;
-import edu.guym.aligner.edit.predicates.EditPredicates;
 import edu.guym.errantj.core.errors.GrammaticalError;
 import edu.guym.errantj.lang.en.classify.rules.CategoryMatchRule;
-import edu.guym.errantj.lang.en.classify.rules.common.CommonPredicates;
+import edu.guym.errantj.lang.en.classify.rules.common.Predicates;
 import edu.guym.errantj.lang.en.utils.lemmatize.Lemmatizer;
 import edu.guym.spacyj.api.containers.Token;
 import edu.guym.spacyj.api.features.Tag;
@@ -66,7 +65,7 @@ public class VerbFormRule extends CategoryMatchRule {
     @Override
     public boolean isSatisfied(Edit<Token> edit) {
         return edit
-                .filter(EditPredicates.ofSizeOneToOne())
+                .filter(Predicates.ofSizeOneToOne())
                 .filter(sameLemma())
                 .filter(case1().or(case2()).or(case3()))
                 .isPresent();
@@ -75,13 +74,13 @@ public class VerbFormRule extends CategoryMatchRule {
     public Predicate<Edit<Token>> case1() {
         return edit -> edit
                 .stream()
-                .allMatch(CommonPredicates.isVerb().and(precededByDependantAuxVerb()));
+                .allMatch(Predicates.isVerb().and(precededByDependantAuxVerb()));
     }
 
     public Predicate<Edit<Token>> case2() {
         return edit -> {
             List<Token> tokens = edit.stream().collect(Collectors.toList());
-            return tokens.stream().allMatch(CommonPredicates.isVerb()) &&
+            return tokens.stream().allMatch(Predicates.isVerb()) &&
                     tokens.stream().anyMatch(gerundOrParticiple());
         };
     }
@@ -99,7 +98,7 @@ public class VerbFormRule extends CategoryMatchRule {
                 .children()
                 .stream()
                 .filter(dep -> dep.index() < token.index())
-                .anyMatch(CommonPredicates.isAuxVerb());
+                .anyMatch(Predicates.isAuxVerb());
     }
 
     public Predicate<Token> gerundOrParticiple() {
@@ -107,6 +106,6 @@ public class VerbFormRule extends CategoryMatchRule {
     }
 
     public Predicate<? super Edit<Token>> sameLemma() {
-        return CommonPredicates.lemmasIntersect(lemmatizer);
+        return Predicates.lemmasIntersect(lemmatizer);
     }
 }

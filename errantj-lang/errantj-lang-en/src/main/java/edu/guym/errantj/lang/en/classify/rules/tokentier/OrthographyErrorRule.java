@@ -8,7 +8,7 @@ import edu.guym.spacyj.api.containers.Token;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-import static edu.guym.aligner.edit.predicates.EditPredicates.isSubstitute;
+import static edu.guym.errantj.lang.en.classify.rules.common.Predicates.isSubstitute;
 
 /**
  * Although the definition of orthography can be quite broad,

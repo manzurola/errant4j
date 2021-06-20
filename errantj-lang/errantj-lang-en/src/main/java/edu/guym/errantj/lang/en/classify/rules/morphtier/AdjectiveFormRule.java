@@ -1,10 +1,9 @@
 package edu.guym.errantj.lang.en.classify.rules.morphtier;
 
 import edu.guym.aligner.edit.Edit;
-import edu.guym.aligner.edit.predicates.EditPredicates;
 import edu.guym.errantj.core.errors.GrammaticalError;
 import edu.guym.errantj.lang.en.classify.rules.CategoryMatchRule;
-import edu.guym.errantj.lang.en.classify.rules.common.CommonPredicates;
+import edu.guym.errantj.lang.en.classify.rules.common.Predicates;
 import edu.guym.errantj.lang.en.utils.lemmatize.Lemmatizer;
 import edu.guym.spacyj.api.containers.Token;
 import edu.guym.spacyj.api.features.Dependency;
@@ -43,9 +42,9 @@ public class AdjectiveFormRule extends CategoryMatchRule {
     @Override
     public boolean isSatisfied(Edit<Token> edit) {
         return edit
-                .filter(EditPredicates.isSubstitute())
-                .filter(EditPredicates.ofSizeOneToOne())
-                .filter(CommonPredicates.lemmasIntersect(lemmatizer))
+                .filter(Predicates.isSubstitute())
+                .filter(Predicates.ofSizeOneToOne())
+                .filter(Predicates.lemmasIntersect(lemmatizer))
                 .filter(tokensAreTaggedAsAdj().or(tokensDependenciesCompOrAmod()))
                 .isPresent();
     }

@@ -2,9 +2,9 @@ package edu.guym.errantj.lang.en.classify.rules.morphtier;
 
 import edu.guym.aligner.edit.Edit;
 import edu.guym.aligner.edit.Segment;
-import edu.guym.aligner.edit.predicates.EditPredicates;
 import edu.guym.errantj.core.errors.GrammaticalError;
 import edu.guym.errantj.lang.en.classify.rules.CategoryMatchRule;
+import edu.guym.errantj.lang.en.classify.rules.common.Predicates;
 import edu.guym.errantj.lang.en.utils.lemmatize.Lemmatizer;
 import edu.guym.spacyj.api.containers.Token;
 
@@ -36,8 +36,8 @@ public class MultiTokenAdjectiveFormRule extends CategoryMatchRule {
     @Override
     public boolean isSatisfied(Edit<Token> edit) {
         return edit
-                .filter(EditPredicates.isSubstitute())
-                .filter(EditPredicates.ofMaxSize(2, 2))
+                .filter(Predicates.isSubstitute())
+                .filter(Predicates.ofMaxSize(2, 2))
                 .filter(firstTokensAnyMatch(moreOrMost()))
                 .filter(lastTokensHasSameLemma())
                 .isPresent();

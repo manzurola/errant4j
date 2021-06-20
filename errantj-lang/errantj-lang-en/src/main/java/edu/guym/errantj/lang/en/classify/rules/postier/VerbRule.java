@@ -10,8 +10,8 @@ import edu.guym.spacyj.api.features.Pos;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-import static edu.guym.aligner.edit.predicates.EditPredicates.isSubstitute;
-import static edu.guym.aligner.edit.predicates.EditPredicates.ofMaxSize;
+import static edu.guym.errantj.lang.en.classify.rules.common.Predicates.isSubstitute;
+import static edu.guym.errantj.lang.en.classify.rules.common.Predicates.ofMaxSize;
 
 /**
  * The following special VERB rule captures edits involving infinitival to and/or phrasal verbs;

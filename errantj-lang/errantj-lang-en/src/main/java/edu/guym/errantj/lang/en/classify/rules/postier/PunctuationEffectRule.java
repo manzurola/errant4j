@@ -1,15 +1,15 @@
 package edu.guym.errantj.lang.en.classify.rules.postier;
 
 import edu.guym.aligner.edit.Edit;
-import edu.guym.aligner.edit.predicates.EditPredicates;
 import edu.guym.errantj.core.errors.GrammaticalError;
 import edu.guym.errantj.lang.en.classify.rules.CategoryMatchRule;
+import edu.guym.errantj.lang.en.classify.rules.common.Predicates;
 import edu.guym.spacyj.api.containers.Token;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static edu.guym.errantj.lang.en.classify.rules.common.CommonPredicates.isPunctuation;
+import static edu.guym.errantj.lang.en.classify.rules.common.Predicates.isPunctuation;
 
 /**
  * The following special PUNCT rule captures edits where a change in punctuation also affects the case of
@@ -27,7 +27,7 @@ public class PunctuationEffectRule extends CategoryMatchRule {
         // 1. The lower cased form of the last token is the same on both sides, and
         // 2. All remaining tokens are punctuation.
 
-        if (edit.matches(EditPredicates.isSubstitute())) {
+        if (edit.matches(Predicates.isSubstitute())) {
             Token sourceLast = edit.source().last();
             Token targetLast = edit.target().last();
             List<Token> remaining = edit.stream()

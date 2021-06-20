@@ -1,9 +1,9 @@
 package edu.guym.errantj.lang.en.classify.rules.morphtier;
 
 import edu.guym.aligner.edit.Edit;
-import edu.guym.aligner.edit.predicates.EditPredicates;
 import edu.guym.errantj.core.errors.GrammaticalError;
 import edu.guym.errantj.lang.en.classify.rules.CategoryMatchRule;
+import edu.guym.errantj.lang.en.classify.rules.common.Predicates;
 import edu.guym.spacyj.api.containers.Token;
 import edu.guym.spacyj.api.features.Pos;
 import edu.guym.spacyj.api.features.Tag;
@@ -31,8 +31,8 @@ public class NounNumberAdjConfusion extends CategoryMatchRule {
     @Override
     public boolean isSatisfied(Edit<Token> edit) {
         return edit
-                .filter(EditPredicates.isSubstitute())
-                .filter(EditPredicates.ofSizeOneToOne())
+                .filter(Predicates.isSubstitute())
+                .filter(Predicates.ofSizeOneToOne())
                 .filter(sameLemma())
                 .filter(e -> e.source().map(Token::pos).allMatch(Pos.ADJ::matches))
                 .filter(e -> e.target().map(Token::tag).allMatch(Tag.NNS::matches))

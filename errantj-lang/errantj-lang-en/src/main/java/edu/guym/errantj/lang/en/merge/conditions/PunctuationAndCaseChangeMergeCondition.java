@@ -1,14 +1,14 @@
 package edu.guym.errantj.lang.en.merge.conditions;
 
 import edu.guym.aligner.edit.Edit;
-import edu.guym.errantj.lang.en.classify.rules.common.CommonPredicates;
+import edu.guym.errantj.lang.en.classify.rules.common.Predicates;
 import edu.guym.spacyj.api.containers.Token;
 
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-import static edu.guym.aligner.edit.predicates.EditPredicates.ofSizeOneToOne;
+import static edu.guym.errantj.lang.en.classify.rules.common.Predicates.ofSizeOneToOne;
 
 public class PunctuationAndCaseChangeMergeCondition implements EditMergeCondition {
 
@@ -19,7 +19,7 @@ public class PunctuationAndCaseChangeMergeCondition implements EditMergeConditio
 
     public static Predicate<Edit<Token>> containsPunctuation() {
         return edit -> edit.stream()
-                .anyMatch(CommonPredicates.isPunctuation());
+                .anyMatch(Predicates.isPunctuation());
     }
 
     public static Predicate<Edit<Token>> isCaseChange() {

@@ -8,7 +8,7 @@ import edu.guym.spacyj.api.features.Tag;
 
 import java.util.List;
 
-import static edu.guym.aligner.edit.predicates.EditPredicates.ofSize;
+import static edu.guym.errantj.lang.en.classify.rules.common.Predicates.ofSize;
 import static java.util.stream.Collectors.toList;
 
 /**

@@ -14,8 +14,8 @@ import edu.guym.spacyj.api.containers.Token;
 
 import java.util.List;
 
-import static edu.guym.aligner.edit.predicates.EditPredicates.isEqual;
 import static edu.guym.errantj.core.errors.GrammaticalError.NONE;
+import static edu.guym.errantj.lang.en.classify.rules.common.Predicates.isEqual;
 
 public class Classifier {
 

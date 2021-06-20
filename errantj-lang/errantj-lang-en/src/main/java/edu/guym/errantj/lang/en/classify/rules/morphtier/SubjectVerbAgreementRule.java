@@ -9,7 +9,7 @@ import edu.guym.spacyj.api.features.Tag;
 
 import java.util.function.Predicate;
 
-import static edu.guym.aligner.edit.predicates.EditPredicates.ofSizeOneToOne;
+import static edu.guym.errantj.lang.en.classify.rules.common.Predicates.ofSizeOneToOne;
 
 /**
  * Subject-verb agreement errors involve edits where the grammatical number of the subject does not agree with the grammatical number of the verb; e.g. [(I) has → (I) have]. They are captured as follows:

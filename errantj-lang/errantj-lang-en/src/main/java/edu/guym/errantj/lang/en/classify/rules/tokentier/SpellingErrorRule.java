@@ -7,7 +7,7 @@ import edu.guym.errantj.lang.en.classify.rules.CategoryMatchRule;
 import edu.guym.errantj.lang.en.utils.wordlist.WordList;
 import edu.guym.spacyj.api.containers.Token;
 
-import static edu.guym.aligner.edit.predicates.EditPredicates.ofSize;
+import static edu.guym.errantj.lang.en.classify.rules.common.Predicates.ofSize;
 
 /**
  * We use the latest British English Hunspell word list to identify spelling errors (see Section 5.2).
