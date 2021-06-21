@@ -1,7 +1,7 @@
 package edu.guym.errantj.lang.en;
 
-import edu.guym.errantj.api.annotate.Annotation;
-import edu.guym.errantj.api.annotate.Errant;
+import edu.guym.errantj.api.Annotation;
+import edu.guym.errantj.api.Errant;
 import edu.guym.spacyj.api.containers.Doc;
 import edu.guym.spacyj.api.containers.Token;
 import org.slf4j.Logger;

@@ -1,7 +1,8 @@
-package edu.guym.errantj.api.annotate;
+package edu.guym.errantj.api;
 
 import edu.guym.aligner.alignment.Alignment;
 import edu.guym.aligner.edit.Edit;
+import edu.guym.errantj.api.pipeline.AnnotatorPipeline;
 import edu.guym.spacyj.api.containers.Doc;
 import edu.guym.spacyj.api.containers.Token;
 

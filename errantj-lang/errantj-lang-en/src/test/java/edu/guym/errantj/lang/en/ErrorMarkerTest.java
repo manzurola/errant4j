@@ -1,7 +1,7 @@
 package edu.guym.errantj.lang.en;
 
 import edu.guym.aligner.edit.Edit;
-import edu.guym.errantj.api.annotate.Errant;
+import edu.guym.errantj.api.Errant;
 import edu.guym.errantj.api.tools.mark.CharOffset;
 import edu.guym.errantj.api.tools.mark.ErrorMarker;
 import edu.guym.spacyj.adapters.corenlp.CoreNlpAdapter;

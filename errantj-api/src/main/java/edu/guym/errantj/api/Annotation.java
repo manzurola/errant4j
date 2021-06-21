@@ -1,4 +1,4 @@
-package edu.guym.errantj.api.annotate;
+package edu.guym.errantj.api;
 
 import edu.guym.aligner.edit.Edit;
 import edu.guym.errantj.api.errors.GrammaticalError;
