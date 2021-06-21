@@ -1,3 +1,3 @@
 # ErrantJ
 
-![maven](https://github.com/manzurola/errantj/actions/workflows/maven.yml/badge.svg)
+![maven](https://github.com/manzurola/errant-java/actions/workflows/maven.yml/badge.svg)
