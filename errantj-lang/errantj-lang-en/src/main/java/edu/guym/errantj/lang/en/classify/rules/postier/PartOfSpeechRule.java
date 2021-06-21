@@ -24,7 +24,7 @@ public class PartOfSpeechRule implements Rule {
             String pos = union.iterator().next();
             category = mapPosToCategory(pos);
         }
-        return GrammaticalError.create(edit, category);
+        return GrammaticalError.of(edit, category);
     }
 
     private GrammaticalError.Category mapPosToCategory(String pos) {

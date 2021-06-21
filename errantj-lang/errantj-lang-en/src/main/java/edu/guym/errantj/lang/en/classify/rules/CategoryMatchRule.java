@@ -8,7 +8,7 @@ public abstract class CategoryMatchRule implements Rule {
 
     @Override
     public GrammaticalError classify(Edit<Token> edit) {
-        return isSatisfied(edit) ? GrammaticalError.create(edit, getCategory()) : GrammaticalError.unknown(edit);
+        return isSatisfied(edit) ? GrammaticalError.of(edit, getCategory()) : GrammaticalError.unknown(edit);
     }
 
     public abstract GrammaticalError.Category getCategory();

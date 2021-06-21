@@ -79,10 +79,10 @@ public enum GrammaticalError {
     }
 
     public static GrammaticalError unknown(Edit<?> edit) {
-        return create(edit, Category.OTHER);
+        return of(edit, Category.OTHER);
     }
 
-    public static GrammaticalError create(Edit<?> edit, Category category) {
+    public static GrammaticalError of(Edit<?> edit, Category category) {
         GrammaticalError.Type type;
         switch (edit.operation()) {
             case INSERT:
@@ -100,10 +100,10 @@ public enum GrammaticalError {
                 type = GrammaticalError.Type.NONE;
         }
 
-        return create(type, category);
+        return of(type, category);
     }
 
-    public static GrammaticalError create(Type type, Category category) {
+    public static GrammaticalError of(Type type, Category category) {
         for (GrammaticalError value : GrammaticalError.values()) {
             if (value.type().equals(type) && value.category().equals(category)) {
                 return value;
@@ -119,7 +119,7 @@ public enum GrammaticalError {
         return GrammaticalError.NONE;
     }
 
-    public boolean create(Category category) {
+    public boolean of(Category category) {
         return category().equals(category);
     }
 

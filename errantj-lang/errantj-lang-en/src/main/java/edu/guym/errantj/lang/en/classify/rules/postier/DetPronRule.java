@@ -40,12 +40,12 @@ public class DetPronRule implements Rule {
         }
 
         if (target.filter(matchDependency(Dependency.NMOD)).isPresent()) {
-            return GrammaticalError.create(edit, GrammaticalError.Category.DET);
+            return GrammaticalError.of(edit, GrammaticalError.Category.DET);
         }
 
         if (target.filter(matchAnyDependency(List.of(Dependency.NSUBJ_PASS, Dependency.NSUBJ, Dependency.OBJ)))
                 .isPresent()) {
-            return GrammaticalError.create(edit, GrammaticalError.Category.PRON);
+            return GrammaticalError.of(edit, GrammaticalError.Category.PRON);
         }
 
         return GrammaticalError.unknown(edit);
