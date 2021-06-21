@@ -1,7 +1,7 @@
 package edu.guym.errantj.lang.en.classify;
 
 import edu.guym.aligner.edit.Edit;
-import edu.guym.errantj.core.errors.GrammaticalError;
+import edu.guym.errantj.api.errors.GrammaticalError;
 import edu.guym.errantj.lang.en.classify.rules.Rule;
 import edu.guym.errantj.lang.en.classify.rules.cleanup.IgnoreSpaceErrorRule;
 import edu.guym.errantj.lang.en.classify.rules.cleanup.UnknownErrorCleanupRule;
@@ -14,7 +14,7 @@ import edu.guym.spacyj.api.containers.Token;
 
 import java.util.List;
 
-import static edu.guym.errantj.core.errors.GrammaticalError.NONE;
+import static edu.guym.errantj.api.errors.GrammaticalError.NONE;
 import static edu.guym.errantj.lang.en.classify.rules.common.Predicates.isEqual;
 
 public class Classifier {

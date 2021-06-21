@@ -1,7 +1,7 @@
 package edu.guym.errantj.lang.en.classify.rules.tokentier;
 
 import edu.guym.aligner.edit.Edit;
-import edu.guym.errantj.core.errors.GrammaticalError;
+import edu.guym.errantj.api.errors.GrammaticalError;
 import edu.guym.errantj.lang.en.classify.rules.CategoryMatchRule;
 import edu.guym.errantj.lang.en.classify.rules.common.Predicates;
 import edu.guym.spacyj.api.containers.Token;
@@ -9,7 +9,7 @@ import edu.guym.spacyj.api.containers.Token;
 import java.util.Set;
 import java.util.function.Predicate;
 
-import static edu.guym.errantj.core.tools.Collectors.oneOrNone;
+import static edu.guym.errantj.api.tools.Collectors.oneOrNone;
 
 /**
  * Contraction errors are mainly edits that involve expanding contractions to their full form;

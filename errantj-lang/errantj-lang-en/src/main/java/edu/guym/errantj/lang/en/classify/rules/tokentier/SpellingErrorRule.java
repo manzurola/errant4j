@@ -2,7 +2,7 @@ package edu.guym.errantj.lang.en.classify.rules.tokentier;
 
 import edu.guym.aligner.edit.Edit;
 import edu.guym.aligner.utils.AlignerUtils;
-import edu.guym.errantj.core.errors.GrammaticalError;
+import edu.guym.errantj.api.errors.GrammaticalError;
 import edu.guym.errantj.lang.en.classify.rules.CategoryMatchRule;
 import edu.guym.errantj.lang.en.utils.wordlist.WordList;
 import edu.guym.spacyj.api.containers.Token;

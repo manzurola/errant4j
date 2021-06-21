@@ -1,7 +1,7 @@
 package edu.guym.errantj.lang.en.classify.rules.morphtier;
 
 import edu.guym.aligner.edit.Edit;
-import edu.guym.errantj.core.errors.GrammaticalError;
+import edu.guym.errantj.api.errors.GrammaticalError;
 import edu.guym.errantj.lang.en.classify.rules.CategoryMatchRule;
 import edu.guym.errantj.lang.en.classify.rules.common.Predicates;
 import edu.guym.errantj.lang.en.utils.wordlist.WordList;

@@ -8,7 +8,7 @@
     <artifactId>errantj</artifactId>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>errantj-core</module>
+        <module>errantj-api</module>
         <module>errantj-lang</module>
     </modules>
 

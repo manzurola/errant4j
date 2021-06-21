@@ -1,4 +1,4 @@
-package edu.guym.errantj.core.tools.mark;
+package edu.guym.errantj.api.tools.mark;
 
 import edu.guym.aligner.edit.*;
 import edu.guym.spacyj.api.containers.Token;

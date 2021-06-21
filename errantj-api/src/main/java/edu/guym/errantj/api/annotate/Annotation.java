@@ -1,7 +1,7 @@
-package edu.guym.errantj.core.annotate;
+package edu.guym.errantj.api.annotate;
 
 import edu.guym.aligner.edit.Edit;
-import edu.guym.errantj.core.errors.GrammaticalError;
+import edu.guym.errantj.api.errors.GrammaticalError;
 
 import java.util.Objects;
 import java.util.function.Function;

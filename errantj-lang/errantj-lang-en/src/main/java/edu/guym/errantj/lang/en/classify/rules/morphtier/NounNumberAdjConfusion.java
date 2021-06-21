@@ -1,7 +1,7 @@
 package edu.guym.errantj.lang.en.classify.rules.morphtier;
 
 import edu.guym.aligner.edit.Edit;
-import edu.guym.errantj.core.errors.GrammaticalError;
+import edu.guym.errantj.api.errors.GrammaticalError;
 import edu.guym.errantj.lang.en.classify.rules.CategoryMatchRule;
 import edu.guym.errantj.lang.en.classify.rules.common.Predicates;
 import edu.guym.spacyj.api.containers.Token;
@@ -10,7 +10,7 @@ import edu.guym.spacyj.api.features.Tag;
 
 import java.util.function.Predicate;
 
-import static edu.guym.errantj.core.tools.Collectors.oneOrNone;
+import static edu.guym.errantj.api.tools.Collectors.oneOrNone;
 
 /**
  * Since it is fairly common for the POS tagger to confuse nouns that look like adjectives, e.g. musical,

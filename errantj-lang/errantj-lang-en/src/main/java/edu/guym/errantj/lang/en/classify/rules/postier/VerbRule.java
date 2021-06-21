@@ -2,7 +2,7 @@ package edu.guym.errantj.lang.en.classify.rules.postier;
 
 import edu.guym.aligner.edit.Edit;
 import edu.guym.aligner.edit.Segment;
-import edu.guym.errantj.core.errors.GrammaticalError;
+import edu.guym.errantj.api.errors.GrammaticalError;
 import edu.guym.errantj.lang.en.classify.rules.CategoryMatchRule;
 import edu.guym.spacyj.api.containers.Token;
 import edu.guym.spacyj.api.features.Pos;

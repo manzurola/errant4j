@@ -1,4 +1,4 @@
-package edu.guym.errantj.core.tools;
+package edu.guym.errantj.api.tools;
 
 import java.util.Optional;
 import java.util.stream.Collector;

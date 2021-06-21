@@ -1,4 +1,4 @@
-package edu.guym.errantj.core.tools;
+package edu.guym.errantj.api.tools;
 
 import edu.guym.aligner.edit.Edit;
 import edu.guym.aligner.edit.Segment;

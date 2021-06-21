@@ -1,8 +1,8 @@
-package edu.guym.errantj.core.annotate;
+package edu.guym.errantj.api.annotate;
 
 import edu.guym.aligner.alignment.Alignment;
 import edu.guym.aligner.edit.Edit;
-import edu.guym.errantj.core.errors.GrammaticalError;
+import edu.guym.errantj.api.errors.GrammaticalError;
 import edu.guym.spacyj.api.containers.Doc;
 import edu.guym.spacyj.api.containers.Token;
 
