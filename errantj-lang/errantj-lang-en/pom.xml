@@ -19,7 +19,17 @@
     <dependencies>
         <dependency>
             <groupId>edu.guym.errantj</groupId>
-            <artifactId>errantj-core</artifactId>
+            <artifactId>errantj-api</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>edu.guym.spacyj</groupId>
+            <artifactId>spacyj-adapters-corenlp</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>edu.guym.spacyj</groupId>
+            <artifactId>spacyj-adapters-spacy-server</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <!-- Princeton WordNet 3.1 data dependency -->
