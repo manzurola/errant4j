@@ -6,6 +6,7 @@ import edu.guym.errantj.Errant;
 import edu.guym.errantj.core.annotator.Annotator;
 import edu.guym.errantj.core.errors.GrammaticalError;
 import edu.guym.spacyj.adapters.corenlp.CoreNlpAdapter;
+import edu.guym.spacyj.adapters.spacyserver.SpacyServerAdapter;
 import edu.guym.spacyj.api.Spacy;
 import edu.guym.spacyj.api.containers.Doc;
 import edu.guym.spacyj.api.containers.Token;
@@ -33,15 +34,6 @@ public class AnnotatorTest {
     void setup() {
         this.annotator = Errant.en(Spacy.create(CoreNlpAdapter.create()));
     }
-
-//    @BeforeAll
-//    void setErrant() {
-//        Errant errant = Errant.create(
-//                EnglishAnnotatorPipeline.create(
-//                        Spacy.create(SpacyServerAdapter.create("localhost", 8080))
-//                ));
-//        setErrant(errant);
-//    }
 
     @Test
     void posTier_Verb() {
