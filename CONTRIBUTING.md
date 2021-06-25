@@ -12,6 +12,7 @@ Also feel free to fork at will, but know that I'm more than happy to incorporate
 
 ## Creating a pull request:
 
-1. The main branch is protected by a review process. Make your change in a seperate branch. Name it as GITHUB_USER_NAME/FEATURE_NAME to avoid collisions. E.g codemaster/performance_optimization.
-2. Make sure the changes you suggest are as surgeical and specific as possible. Don't include more than one idea in a PR.
-3. Tag me as reviewer
+1. Create a new branch from main with the name of the feature/bug.
+2. If the PR references an existing issue, add a connection to that issue.
+3. Tag me as reviewer.
+4. Wish us good luck.

@@ -7,12 +7,6 @@
     <groupId>edu.guym</groupId>
     <artifactId>errantj</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <modules>
-        <module>errantj-api</module>
-        <module>errantj-lang</module>
-    </modules>
-
-    <packaging>pom</packaging>
 
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
@@ -22,6 +16,26 @@
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>edu.guym</groupId>
+            <artifactId>spacyj-api</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>edu.guym</groupId>
+            <artifactId>aligner</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>net.sf.extjwnl</groupId>
+            <artifactId>extjwnl</artifactId>
+            <version>2.0.2</version>
+        </dependency>
+        <dependency>
+            <groupId>net.sf.extjwnl</groupId>
+            <artifactId>extjwnl-data-wn31</artifactId>
+            <version>1.2</version>
+        </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
@@ -33,6 +47,19 @@
             <version>${junit-jupiter.version}</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>edu.guym</groupId>
+            <artifactId>spacyj-adapters-corenlp</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>edu.guym</groupId>
+            <artifactId>spacyj-adapters-spacy-server</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- Princeton WordNet 3.1 data dependency -->
     </dependencies>
 
     <build>
