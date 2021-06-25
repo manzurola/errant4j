@@ -1,7 +1,7 @@
 package edu.guym.errantj.lang.en.classify.rules;
 
 import edu.guym.aligner.edit.Edit;
-import edu.guym.errantj.core.errors.GrammaticalError;
+import edu.guym.errantj.core.grammar.GrammaticalError;
 import edu.guym.errantj.lang.en.classify.CategoryMatchRule;
 import edu.guym.errantj.lang.en.classify.rules.common.Predicates;
 import edu.guym.spacyj.api.containers.Token;

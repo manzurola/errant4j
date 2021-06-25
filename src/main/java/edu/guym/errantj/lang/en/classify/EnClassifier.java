@@ -2,7 +2,7 @@ package edu.guym.errantj.lang.en.classify;
 
 import edu.guym.aligner.edit.Edit;
 import edu.guym.errantj.core.annotator.Classifier;
-import edu.guym.errantj.core.errors.GrammaticalError;
+import edu.guym.errantj.core.grammar.GrammaticalError;
 import edu.guym.errantj.lang.en.classify.rules.*;
 import edu.guym.errantj.lang.en.classify.rules.common.Predicates;
 import edu.guym.errantj.lang.en.utils.lemmatize.Lemmatizer;
@@ -11,7 +11,7 @@ import edu.guym.spacyj.api.containers.Token;
 
 import java.util.List;
 
-import static edu.guym.errantj.core.errors.GrammaticalError.NONE;
+import static edu.guym.errantj.core.grammar.GrammaticalError.NONE;
 
 public class EnClassifier implements Classifier {
 

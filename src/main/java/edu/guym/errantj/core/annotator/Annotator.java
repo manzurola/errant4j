@@ -3,7 +3,7 @@ package edu.guym.errantj.core.annotator;
 import edu.guym.aligner.Aligner;
 import edu.guym.aligner.Alignment;
 import edu.guym.aligner.edit.Edit;
-import edu.guym.errantj.core.errors.GrammaticalError;
+import edu.guym.errantj.core.grammar.GrammaticalError;
 import edu.guym.spacyj.api.Spacy;
 import edu.guym.spacyj.api.containers.Doc;
 import edu.guym.spacyj.api.containers.Token;

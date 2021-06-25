@@ -1,4 +1,4 @@
-package edu.guym.errantj.core.errors;
+package edu.guym.errantj.core.grammar;
 
 import edu.guym.aligner.edit.Edit;
 
