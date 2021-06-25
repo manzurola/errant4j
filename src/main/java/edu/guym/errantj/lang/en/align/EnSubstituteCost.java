@@ -1,5 +1,6 @@
 package edu.guym.errantj.lang.en.align;
 
+import edu.guym.aligner.metrics.SubstituteCost;
 import edu.guym.aligner.utils.AlignerUtils;
 import edu.guym.errantj.lang.en.classify.rules.common.Predicates;
 import edu.guym.errantj.lang.en.utils.lemmatize.Lemmatizer;
@@ -10,7 +11,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.function.BiFunction;
 
-public class EnSubstituteCost implements BiFunction<Token, Token, Double> {
+public class EnSubstituteCost implements SubstituteCost<Token> {
 
     private final Lemmatizer lemmatizer;
 
@@ -19,7 +20,7 @@ public class EnSubstituteCost implements BiFunction<Token, Token, Double> {
     }
 
     @Override
-    public Double apply(Token source, Token target) {
+    public double getCost(Token source, Token target) {
         if (source.lower().equals(target.lower())) {
             return 0.0;
         } else {

@@ -1,7 +1,7 @@
 package edu.guym.errantj.lang.en.align;
 
 import edu.guym.aligner.Aligner;
-import edu.guym.aligner.alignment.Alignment;
+import edu.guym.aligner.Alignment;
 import edu.guym.errantj.lang.en.utils.lemmatize.Lemmatizer;
 import edu.guym.spacyj.api.containers.Token;
 

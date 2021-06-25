@@ -1,7 +1,7 @@
 package edu.guym.errantj.lang.en.merge;
 
 import edu.guym.aligner.Aligner;
-import edu.guym.aligner.alignment.Alignment;
+import edu.guym.aligner.Alignment;
 import edu.guym.aligner.edit.Edit;
 import edu.guym.errantj.core.annotator.Merger;
 import edu.guym.errantj.lang.en.align.EnAligner;
