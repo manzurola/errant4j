@@ -95,15 +95,10 @@ public class EnMerger implements Merger {
 
     private BiPredicate<Edit<Token>, Edit<Token>> getConditions() {
         return new PunctuationAndCaseChangeMergeCondition()
-                .or(
-                        new PossessiveSuffixMergeCondition())
-                .or(
-                        new WhiteSpaceDifferenceMergeCondition())
-                .or(
-                        new SamePosMergeCondition())
-                .or(
-                        new ContentWordMergeCondition()
-                );
+                .or(new PossessiveSuffixMergeCondition())
+                .or(new WhiteSpaceDifferenceMergeCondition())
+                .or(new SamePosMergeCondition())
+                .or(new ContentWordMergeCondition());
     }
 
     private LinkedList<Edit<Token>> sort(List<Edit<Token>> edits) {
