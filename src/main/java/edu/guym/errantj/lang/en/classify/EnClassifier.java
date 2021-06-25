@@ -4,8 +4,6 @@ import edu.guym.aligner.edit.Edit;
 import edu.guym.errantj.core.annotator.Classifier;
 import edu.guym.errantj.core.errors.GrammaticalError;
 import edu.guym.errantj.lang.en.classify.rules.*;
-import edu.guym.errantj.lang.en.classify.rules.IgnoreSpaceErrorRule;
-import edu.guym.errantj.lang.en.classify.rules.UnknownErrorCleanupRule;
 import edu.guym.errantj.lang.en.classify.rules.common.Predicates;
 import edu.guym.errantj.lang.en.utils.lemmatize.Lemmatizer;
 import edu.guym.errantj.lang.en.utils.wordlist.WordList;
