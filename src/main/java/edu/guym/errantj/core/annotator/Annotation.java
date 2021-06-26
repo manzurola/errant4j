@@ -7,6 +7,11 @@ import java.util.Objects;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
+/**
+ * An Annotation matches an {@link Edit} with its associated {@link GrammaticalError}.
+ *
+ * @param <T> the type of the items held by the Edit object.
+ */
 public final class Annotation<T> {
 
     private final Edit<T> edit;
@@ -81,6 +86,4 @@ public final class Annotation<T> {
                 "error=" + error +
                 "} ";
     }
-
-
 }
