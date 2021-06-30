@@ -49,7 +49,7 @@ public final class Annotator {
     /**
      * Run the full pipeline given parsed source and target texts.
      */
-    public final List<Annotation<Token>> annotate(List<Token> source, List<Token> target) {
+    public final List<Annotation> annotate(List<Token> source, List<Token> target) {
         Alignment<Token> alignment = align(source, target);
         List<Edit<Token>> merged = merge(alignment.edits());
         return merged.stream()

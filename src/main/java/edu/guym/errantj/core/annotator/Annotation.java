@@ -2,6 +2,9 @@ package edu.guym.errantj.core.annotator;
 
 import edu.guym.aligner.edit.Edit;
 import edu.guym.errantj.core.grammar.GrammaticalError;
+import edu.guym.errantj.core.tools.mark.CharOffset;
+import edu.guym.errantj.core.tools.mark.ErrorMarker;
+import edu.guym.spacyj.api.containers.Token;
 
 import java.util.Objects;
 import java.util.function.Function;
@@ -10,48 +13,43 @@ import java.util.function.Predicate;
 /**
  * An Annotation matches an {@link Edit} with its associated {@link GrammaticalError}.
  *
- * @param <T> the type of the items held by the Edit object.
  */
-public final class Annotation<T> {
+public final class Annotation {
 
-    private final Edit<T> edit;
+    private final Edit<Token> edit;
     private final GrammaticalError error;
 
-    private Annotation(Edit<T> edit) {
+    private Annotation(Edit<Token> edit) {
         this(edit, GrammaticalError.NONE);
     }
 
-    public Annotation(Edit<T> edit, GrammaticalError error) {
+    public Annotation(Edit<Token> edit, GrammaticalError error) {
         this.edit = edit;
         this.error = error;
     }
 
-    public static <T> Annotation<T> create(Edit<T> edit, GrammaticalError error) {
-        return new Annotation<>(edit, error);
+    public static Annotation create(Edit<Token> edit, GrammaticalError error) {
+        return new Annotation(edit, error);
     }
 
-    public static <T> Annotation<T> of(Edit<T> edit) {
-        return new Annotation<T>(edit);
+    public static Annotation of(Edit<Token> edit) {
+        return new Annotation(edit);
     }
 
-    public final Edit<T> edit() {
+    public final Edit<Token> edit() {
         return edit;
     }
 
-    public final boolean matches(Predicate<? super Annotation<T>> predicate) {
+    public final boolean matches(Predicate<? super Annotation> predicate) {
         return predicate.test(this);
     }
 
-    public final <E> Annotation<E> map(Function<? super Edit<T>, ? extends Edit<E>> teFunction) {
-        return new Annotation<>(teFunction.apply(edit), error);
-    }
-
-    public final <R> R transform(Function<? super Annotation<T>, ? extends R> mapper) {
+    public final <R> R transform(Function<? super Annotation, ? extends R> mapper) {
         return mapper.apply(this);
     }
 
-    public final Annotation<T> withError(GrammaticalError error) {
-        return new Annotation<>(edit(), error);
+    public final Annotation withError(GrammaticalError error) {
+        return new Annotation(edit(), error);
     }
 
     public final GrammaticalError getError() {
@@ -66,11 +64,15 @@ public final class Annotation<T> {
         return !hasError();
     }
 
+    public final CharOffset markErrorInSource() {
+        return edit.accept(new ErrorMarker(edit.source().tokens()));
+    }
+
     @Override
     public final boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Annotation<?> that = (Annotation<?>) o;
+        Annotation that = (Annotation) o;
         return error == that.error;
     }
 

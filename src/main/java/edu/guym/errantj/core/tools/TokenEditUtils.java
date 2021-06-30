@@ -2,6 +2,7 @@ package edu.guym.errantj.core.tools;
 
 import edu.guym.aligner.edit.Edit;
 import edu.guym.aligner.edit.Segment;
+import edu.guym.spacyj.api.containers.Doc;
 import edu.guym.spacyj.api.containers.Token;
 
 import java.util.LinkedList;
@@ -58,4 +59,16 @@ public final class TokenEditUtils {
         }
         return text.toString();
     }
+
+    public static Edit<Token> toTokenEdit(Edit<String> edit, final List<Token> source, final List<Token> target) {
+        return edit.mapSegments(
+                s -> s.mapWithIndex(source::get),
+                t -> t.mapWithIndex(target::get)
+        );
+    }
+
+    public static Edit<Token> toTokenEdit(Edit<String> edit, final Doc source, final Doc target) {
+        return toTokenEdit(edit, source.tokens(), target.tokens());
+    }
+
 }
