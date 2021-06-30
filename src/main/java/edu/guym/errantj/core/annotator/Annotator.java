@@ -4,7 +4,7 @@ import edu.guym.aligner.Aligner;
 import edu.guym.aligner.Alignment;
 import edu.guym.aligner.edit.Edit;
 import edu.guym.errantj.core.grammar.GrammaticalError;
-import edu.guym.spacyj.api.Spacy;
+import edu.guym.spacyj.api.SpaCy;
 import edu.guym.spacyj.api.containers.Doc;
 import edu.guym.spacyj.api.containers.Token;
 
@@ -23,19 +23,19 @@ import java.util.stream.Collectors;
  */
 public final class Annotator {
 
-    private final Spacy spacy;
+    private final SpaCy spacy;
     private final Aligner<Token> aligner;
     private final Merger merger;
     private final Classifier classifier;
 
-    private Annotator(Spacy spacy, Aligner<Token> aligner, Merger merger, Classifier classifier) {
+    private Annotator(SpaCy spacy, Aligner<Token> aligner, Merger merger, Classifier classifier) {
         this.spacy = spacy;
         this.aligner = aligner;
         this.merger = merger;
         this.classifier = classifier;
     }
 
-    public static Annotator create(Spacy spacy,
+    public static Annotator create(SpaCy spacy,
                                    Aligner<Token> aligner,
                                    Merger merger,
                                    Classifier classifier) {

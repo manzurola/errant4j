@@ -7,7 +7,7 @@ import edu.guym.errantj.core.annotator.Merger;
 import edu.guym.errantj.lang.en.align.EnAligner;
 import edu.guym.errantj.lang.en.utils.lemmatize.WordNetLemmatizer;
 import edu.guym.spacyj.adapters.corenlp.CoreNlpAdapter;
-import edu.guym.spacyj.api.Spacy;
+import edu.guym.spacyj.api.SpaCy;
 import edu.guym.spacyj.api.containers.Doc;
 import edu.guym.spacyj.api.containers.Token;
 import org.junit.jupiter.api.BeforeAll;
@@ -22,13 +22,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class EnMergerTest {
 
-    private Spacy spacy;
+    private SpaCy spacy;
     private Aligner<Token> aligner;
     private Merger merger;
 
     @BeforeAll
     void setup() {
-        this.spacy = Spacy.create(CoreNlpAdapter.create());
+        this.spacy = SpaCy.create(CoreNlpAdapter.create());
         this.aligner = new EnAligner(new WordNetLemmatizer());
         this.merger = new EnMerger();
     }

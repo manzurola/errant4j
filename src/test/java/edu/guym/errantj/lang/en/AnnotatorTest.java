@@ -6,7 +6,7 @@ import edu.guym.errantj.core.annotator.Annotation;
 import edu.guym.errantj.core.annotator.Annotator;
 import edu.guym.errantj.core.grammar.GrammaticalError;
 import edu.guym.spacyj.adapters.corenlp.CoreNlpAdapter;
-import edu.guym.spacyj.api.Spacy;
+import edu.guym.spacyj.api.SpaCy;
 import edu.guym.spacyj.api.containers.Doc;
 import edu.guym.spacyj.api.containers.Token;
 import org.junit.jupiter.api.BeforeAll;
@@ -31,7 +31,7 @@ public class AnnotatorTest {
 
     @BeforeAll
     void setup() {
-        this.annotator = Errant.en(Spacy.create(CoreNlpAdapter.create()));
+        this.annotator = Errant.en(SpaCy.create(CoreNlpAdapter.create()));
     }
 
     @Test

@@ -6,7 +6,7 @@ import edu.guym.errantj.core.annotator.Annotator;
 import edu.guym.errantj.core.tools.mark.CharOffset;
 import edu.guym.errantj.core.tools.mark.ErrorMarker;
 import edu.guym.spacyj.adapters.corenlp.CoreNlpAdapter;
-import edu.guym.spacyj.api.Spacy;
+import edu.guym.spacyj.api.SpaCy;
 import edu.guym.spacyj.api.containers.Doc;
 import edu.guym.spacyj.api.containers.Token;
 import org.junit.jupiter.api.Assertions;
@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Test;
 
 public class ErrorMarkerTest {
 
-    private final static Annotator annotator = Errant.en(Spacy.create(CoreNlpAdapter.create()));
+    private final static Annotator annotator = Errant.en(SpaCy.create(CoreNlpAdapter.create()));
 
     @Test
     void missingWordHasBeforeAndAfter() {

@@ -10,7 +10,7 @@ import edu.guym.errantj.lang.en.merge.EnMerger;
 import edu.guym.errantj.lang.en.utils.lemmatize.Lemmatizer;
 import edu.guym.errantj.lang.en.utils.lemmatize.WordNetLemmatizer;
 import edu.guym.errantj.lang.en.utils.wordlist.HunspellWordList;
-import edu.guym.spacyj.api.Spacy;
+import edu.guym.spacyj.api.SpaCy;
 import edu.guym.spacyj.api.containers.Token;
 
 /**
@@ -26,7 +26,7 @@ public final class Errant {
      * @param spacy an instantiated spacy object
      * @return a new {@link Annotator}
      */
-    public static Annotator en(Spacy spacy) {
+    public static Annotator en(SpaCy spacy) {
         Lemmatizer lemmatizer = new WordNetLemmatizer();
         return Annotator.create(
                 spacy,
@@ -44,7 +44,7 @@ public final class Errant {
      * @param classifier a {@link Classifier} that classifies merged edits, 3rd and final step in the pipeline
      * @return a new {@link Annotator}
      */
-    public static Annotator custom(Spacy spacy, Aligner<Token> aligner, Merger merger, Classifier classifier) {
+    public static Annotator custom(SpaCy spacy, Aligner<Token> aligner, Merger merger, Classifier classifier) {
         return Annotator.create(spacy, aligner, merger, classifier);
     }
 }

@@ -5,7 +5,7 @@ import edu.guym.aligner.Alignment;
 import edu.guym.aligner.edit.Edit;
 import edu.guym.errantj.lang.en.utils.lemmatize.WordNetLemmatizer;
 import edu.guym.spacyj.adapters.corenlp.CoreNlpAdapter;
-import edu.guym.spacyj.api.Spacy;
+import edu.guym.spacyj.api.SpaCy;
 import edu.guym.spacyj.api.containers.Doc;
 import edu.guym.spacyj.api.containers.Token;
 import org.junit.jupiter.api.BeforeAll;
@@ -21,12 +21,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class EnAlignerTest {
 
-    private Spacy spacy;
+    private SpaCy spacy;
     private Aligner<Token> aligner;
 
     @BeforeAll
     void setup() {
-        this.spacy = Spacy.create(CoreNlpAdapter.create());
+        this.spacy = SpaCy.create(CoreNlpAdapter.create());
         this.aligner = new EnAligner(new WordNetLemmatizer());
     }
 
