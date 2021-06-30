@@ -8,7 +8,7 @@ From the offical docs:
 
 > The main aim of ERRANT is to automatically annotate parallel English sentences with error type information. Specifically, given an original and corrected sentence pair, ERRANT will extract the edits that transform the former to the latter and classify them according to a rule-based error type framework.
 
-Quick Start:
+## Quick Start:
 
 ```java
 // Get a spaCy instance (from spacy-java)
