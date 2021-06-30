@@ -15,6 +15,14 @@
         <logback.version>1.1.7</logback.version>
     </properties>
 
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>GitHub errant-java</name>
+            <url>https://maven.pkg.github.com/manzurola/errant-java</url>
+        </repository>
+    </distributionManagement>
+
     <dependencies>
         <dependency>
             <groupId>edu.guym</groupId>
