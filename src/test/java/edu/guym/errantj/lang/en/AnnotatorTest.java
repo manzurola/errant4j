@@ -548,7 +548,7 @@ public class AnnotatorTest {
         return annotator
                 .annotate(source.tokens(), target.tokens())
                 .stream()
-                .filter(annotation -> !annotation.getError().isNoneOrIgnored())
+                .filter(annotation -> !annotation.grammaticalError().isNoneOrIgnored())
                 .collect(Collectors.toList());
     }
 

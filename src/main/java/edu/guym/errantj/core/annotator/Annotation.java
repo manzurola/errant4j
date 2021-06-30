@@ -2,6 +2,7 @@ package edu.guym.errantj.core.annotator;
 
 import edu.guym.aligner.edit.Edit;
 import edu.guym.errantj.core.grammar.GrammaticalError;
+import edu.guym.errantj.core.tools.TokenEditUtils;
 import edu.guym.errantj.core.tools.mark.CharOffset;
 import edu.guym.errantj.core.tools.mark.ErrorMarker;
 import edu.guym.spacyj.api.containers.Token;
@@ -40,6 +41,14 @@ public final class Annotation {
         return edit;
     }
 
+    public final String sourceText() {
+        return TokenEditUtils.getSourceText(edit);
+    }
+
+    public final String targetText() {
+        return TokenEditUtils.getTargetText(edit);
+    }
+
     public final boolean matches(Predicate<? super Annotation> predicate) {
         return predicate.test(this);
     }
@@ -52,12 +61,12 @@ public final class Annotation {
         return new Annotation(edit(), error);
     }
 
-    public final GrammaticalError getError() {
+    public final GrammaticalError grammaticalError() {
         return error;
     }
 
     public final boolean hasError() {
-        return !getError().isNone() && !getError().isIgnored();
+        return !grammaticalError().isNone() && !grammaticalError().isIgnored();
     }
 
     public final boolean hasNoError() {
