@@ -17,7 +17,7 @@
                 </repository>
                 <repository>
                     <id>github</id>
-                    <url>https://maven.pkg.github.com/manzurola/*</url>
+                    <url>https://maven.pkg.github.com/LanguageToys/*</url>
                     <snapshots>
                         <enabled>true</enabled>
                     </snapshots>
