@@ -12,7 +12,7 @@ From the offical docs:
 
 ```java
 // Get a spaCy instance (from spacy-java)
-SpaCy spacy = SpaCy.create(CoreNlpAdapter.create());
+SpaCy spacy = SpaCy.create(CoreNLPAdapter.create());
 
 // Create an english annotator
 Annotator annotator = Errant.en(spacy);
