@@ -1,4 +1,4 @@
-# ErrantJ
+# Errant4J 🧑🏻‍🏫📝
 
 An unofficial Java port of [ERRANT](https://github.com/chrisjbryant/errant)
 
