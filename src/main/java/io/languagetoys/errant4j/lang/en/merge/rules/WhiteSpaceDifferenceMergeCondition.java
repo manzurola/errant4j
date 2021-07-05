@@ -1,12 +1,12 @@
 package io.languagetoys.errant4j.lang.en.merge.rules;
 
 import io.languagetoys.aligner.edit.Edit;
-import io.languagetoys.errant4j.core.annotator.MergeRule;
+import io.languagetoys.errant4j.core.merge.Merger;
 import io.languagetoys.spacy4j.api.containers.Token;
 
 import java.util.List;
 
-public class WhiteSpaceDifferenceMergeCondition implements MergeRule {
+public class WhiteSpaceDifferenceMergeCondition implements Merger.Rule {
 
     // TODO - this can only handle max 2 words
     @Override

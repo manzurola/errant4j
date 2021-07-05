@@ -1,8 +1,8 @@
 package io.languagetoys.errant4j.lang.en.classify.rules;
 
 import io.languagetoys.aligner.edit.Edit;
+import io.languagetoys.errant4j.core.classify.Classifier;
 import io.languagetoys.errant4j.core.grammar.GrammaticalError;
-import io.languagetoys.errant4j.core.annotator.ClassificationPredicate;
 import io.languagetoys.errant4j.lang.en.classify.rules.common.Predicates;
 import io.languagetoys.errant4j.lang.en.utils.lemmatize.Lemmatizer;
 import io.languagetoys.spacy4j.api.containers.Token;
@@ -49,7 +49,7 @@ import java.util.stream.Collectors;
  * 1. All tokens on both sides of the edit are POS tagged as PART or VERB, and
  * 2. The last token on both sides has the same lemma.
  */
-public class VerbFormRule extends ClassificationPredicate {
+public class VerbFormRule extends Classifier.Predicate {
 
     private final Lemmatizer lemmatizer;
 
@@ -63,7 +63,7 @@ public class VerbFormRule extends ClassificationPredicate {
     }
 
     @Override
-    public boolean isSatisfied(Edit<Token> edit) {
+    public boolean test(Edit<Token> edit) {
         return edit
                 .filter(Predicates.ofSizeOneToOne())
                 .filter(sameLemma())
@@ -105,7 +105,7 @@ public class VerbFormRule extends ClassificationPredicate {
         return token -> Tag.VBG.matches(token.tag()) || Tag.VBN.matches(token.tag()) ;
     }
 
-    public Predicate<? super Edit<Token>> sameLemma() {
+    public Predicate<Edit<Token>> sameLemma() {
         return Predicates.lemmasIntersect(lemmatizer);
     }
 }

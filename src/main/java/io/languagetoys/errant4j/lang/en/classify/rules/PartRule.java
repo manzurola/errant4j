@@ -1,8 +1,8 @@
 package io.languagetoys.errant4j.lang.en.classify.rules;
 
 import io.languagetoys.aligner.edit.Edit;
+import io.languagetoys.errant4j.core.classify.Classifier;
 import io.languagetoys.errant4j.core.grammar.GrammaticalError;
-import io.languagetoys.errant4j.core.annotator.ClassificationPredicate;
 import io.languagetoys.errant4j.lang.en.classify.rules.common.Predicates;
 import io.languagetoys.spacy4j.api.containers.Token;
 import io.languagetoys.spacy4j.api.features.Pos;
@@ -16,7 +16,7 @@ import io.languagetoys.spacy4j.api.features.Pos;
  *  (b) The set of dependency labels for these tokens is prep and part.
  *
  */
-public class PartRule extends ClassificationPredicate {
+public class PartRule extends Classifier.Predicate {
 
     @Override
     public GrammaticalError.Category getCategory() {
@@ -24,7 +24,7 @@ public class PartRule extends ClassificationPredicate {
     }
 
     @Override
-    public boolean isSatisfied(Edit<Token> edit) {
+    public boolean test(Edit<Token> edit) {
         //TODO implement failover with dependencies
         return edit.filter(Predicates.ofSizeOneToOne())
                 .filter(Predicates.PosTagSetEquals(Pos.PART, Pos.ADP))

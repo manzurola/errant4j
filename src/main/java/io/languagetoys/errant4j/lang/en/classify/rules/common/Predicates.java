@@ -100,7 +100,7 @@ public class Predicates {
         return word -> Pos.NOUN.matches(word.pos());
     }
 
-    public static Predicate<? super Edit<Token>> lemmasIntersect(Lemmatizer lemmatizer) {
+    public static Predicate<Edit<Token>> lemmasIntersect(Lemmatizer lemmatizer) {
         return edit -> {
             Set<String> sourceLemmas = edit.source()
                     .stream()

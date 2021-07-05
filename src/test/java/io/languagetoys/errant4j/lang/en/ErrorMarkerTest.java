@@ -1,8 +1,7 @@
 package io.languagetoys.errant4j.lang.en;
 
 import io.languagetoys.aligner.edit.Edit;
-import io.languagetoys.errant4j.Errant;
-import io.languagetoys.errant4j.core.annotator.Annotator;
+import io.languagetoys.errant4j.core.Errant;
 import io.languagetoys.errant4j.core.tools.mark.CharOffset;
 import io.languagetoys.errant4j.core.tools.mark.ErrorMarker;
 import io.languagetoys.spacy4j.adapters.corenlp.CoreNLPAdapter;
@@ -14,12 +13,12 @@ import org.junit.jupiter.api.Test;
 
 public class ErrorMarkerTest {
 
-    private final static Annotator annotator = Errant.en(SpaCy.create(CoreNLPAdapter.create()));
+    private final static Errant errant = Errant.en(SpaCy.create(CoreNLPAdapter.create()));
 
     @Test
     void missingWordHasBeforeAndAfter() {
-        Doc source = annotator.parse("My name guy.");
-        Doc target = annotator.parse("My name is guy.");
+        Doc source = errant.parse("My name guy.");
+        Doc target = errant.parse("My name is guy.");
         Edit<Token> edit = Edit.builder()
                 .insert("is")
                 .atPosition(2, 2)
@@ -33,8 +32,8 @@ public class ErrorMarkerTest {
 
     @Test
     void missingWordEmptySentence() {
-        Doc source = annotator.parse("");
-        Doc target = annotator.parse("My name is guy.");
+        Doc source = errant.parse("");
+        Doc target = errant.parse("My name is guy.");
         Edit<Token> edit = Edit.builder()
                 .insert("is")
                 .atPosition(2, 2)

@@ -1,8 +1,8 @@
 package io.languagetoys.errant4j.lang.en.classify.rules;
 
 import io.languagetoys.aligner.edit.Edit;
+import io.languagetoys.errant4j.core.classify.Classifier;
 import io.languagetoys.errant4j.core.grammar.GrammaticalError;
-import io.languagetoys.errant4j.core.annotator.ClassificationRule;
 import io.languagetoys.errant4j.lang.en.classify.rules.common.Predicates;
 import io.languagetoys.spacy4j.api.containers.Token;
 
@@ -14,7 +14,7 @@ import io.languagetoys.spacy4j.api.containers.Token;
  * <p>
  * Basically if edit is transpose than this is a word order classify
  */
-public class WordOrderRule implements ClassificationRule {
+public class WordOrderRule implements Classifier.Rule {
 
     @Override
     public GrammaticalError classify(Edit<Token> edit) {

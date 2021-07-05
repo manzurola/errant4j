@@ -1,15 +1,18 @@
-package io.languagetoys.errant4j.core.annotator;
+package io.languagetoys.errant4j.core;
 
 import io.languagetoys.aligner.edit.Edit;
 import io.languagetoys.errant4j.core.grammar.GrammaticalError;
 import io.languagetoys.errant4j.core.tools.TokenEditUtils;
 import io.languagetoys.errant4j.core.tools.mark.CharOffset;
 import io.languagetoys.errant4j.core.tools.mark.ErrorMarker;
+import io.languagetoys.spacy4j.api.containers.Doc;
 import io.languagetoys.spacy4j.api.containers.Token;
+import io.languagetoys.spacy4j.api.utils.TextUtils;
 
 import java.util.Objects;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 /**
  * An Annotation matches an {@link Edit} with its associated {@link GrammaticalError}.
@@ -42,11 +45,21 @@ public final class Annotation {
     }
 
     public final String sourceText() {
-        return TokenEditUtils.getSourceText(edit);
+        return TextUtils.writeTextWithoutWs(edit
+                .source()
+                .tokens()
+                .stream()
+                .map(Token::data)
+                .collect(Collectors.toList()));
     }
 
     public final String targetText() {
-        return TokenEditUtils.getTargetText(edit);
+        return TextUtils.writeTextWithoutWs(edit
+                .target()
+                .tokens()
+                .stream()
+                .map(Token::data)
+                .collect(Collectors.toList()));
     }
 
     public final boolean matches(Predicate<? super Annotation> predicate) {

@@ -1,8 +1,8 @@
 package io.languagetoys.errant4j.lang.en.classify.rules;
 
 import io.languagetoys.aligner.edit.Edit;
+import io.languagetoys.errant4j.core.classify.Classifier;
 import io.languagetoys.errant4j.core.grammar.GrammaticalError;
-import io.languagetoys.errant4j.core.annotator.ClassificationRule;
 import io.languagetoys.errant4j.lang.en.classify.rules.common.Predicates;
 import io.languagetoys.spacy4j.api.containers.Token;
 import io.languagetoys.spacy4j.api.features.Dependency;
@@ -15,7 +15,7 @@ import java.util.Optional;
  * The following special rule differentiates between determiners and pronouns that have the same surface form;
  * e.g. ‘His book’ (DET) vs. ‘This book is his’ (PRON).
  */
-public class DetPronRule implements ClassificationRule {
+public class DetPronRule implements Classifier.Rule {
 
     /**
      * 1. There is exactly one token on both sides of the edit, and

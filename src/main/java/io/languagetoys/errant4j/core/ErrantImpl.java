@@ -1,8 +1,10 @@
-package io.languagetoys.errant4j.core.annotator;
+package io.languagetoys.errant4j.core;
 
 import io.languagetoys.aligner.Aligner;
 import io.languagetoys.aligner.Alignment;
 import io.languagetoys.aligner.edit.Edit;
+import io.languagetoys.errant4j.core.classify.Classifier;
+import io.languagetoys.errant4j.core.merge.Merger;
 import io.languagetoys.errant4j.core.grammar.GrammaticalError;
 import io.languagetoys.spacy4j.api.SpaCy;
 import io.languagetoys.spacy4j.api.containers.Doc;
@@ -11,35 +13,18 @@ import io.languagetoys.spacy4j.api.containers.Token;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * A configurable parallel text grammatical error annotator.
- * The Annotator acts as a pipeline that consists of four steps:
- * <ol>
- *     <li>Parse a text to {@link Doc} objects
- *     <li>Align the tokens of the doc
- *     <li>Merge the edits of the alignment
- *     <li>Classify each merged edit with a {@link GrammaticalError}
- * </ol>
- */
-public final class Annotator {
+final class ErrantImpl implements Errant {
 
     private final SpaCy spacy;
     private final Aligner<Token> aligner;
     private final Merger merger;
     private final Classifier classifier;
 
-    private Annotator(SpaCy spacy, Aligner<Token> aligner, Merger merger, Classifier classifier) {
+    ErrantImpl(SpaCy spacy, Aligner<Token> aligner, Merger merger, Classifier classifier) {
         this.spacy = spacy;
         this.aligner = aligner;
         this.merger = merger;
         this.classifier = classifier;
-    }
-
-    public static Annotator create(SpaCy spacy,
-                                   Aligner<Token> aligner,
-                                   Merger merger,
-                                   Classifier classifier) {
-        return new Annotator(spacy, aligner, merger, classifier);
     }
 
     public final Doc parse(String text) {

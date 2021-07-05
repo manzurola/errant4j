@@ -1,8 +1,8 @@
 package io.languagetoys.errant4j.lang.en.classify.rules;
 
 import io.languagetoys.aligner.edit.Edit;
+import io.languagetoys.errant4j.core.classify.Classifier;
 import io.languagetoys.errant4j.core.grammar.GrammaticalError;
-import io.languagetoys.errant4j.core.annotator.ClassificationPredicate;
 import io.languagetoys.errant4j.lang.en.classify.rules.common.Predicates;
 import io.languagetoys.errant4j.lang.en.utils.lemmatize.Lemmatizer;
 import io.languagetoys.spacy4j.api.containers.Token;
@@ -32,7 +32,7 @@ import java.util.function.Predicate;
  * (d)      i. Both tokens do not have the same lemma, and
  * ii. Both tokens are parsed as an auxiliary verb (aux or auxpass).
  */
-public class VerbTenseRule extends ClassificationPredicate {
+public class VerbTenseRule extends Classifier.Predicate {
 
     private final Lemmatizer lemmatizer;
 
@@ -46,7 +46,7 @@ public class VerbTenseRule extends ClassificationPredicate {
     }
 
     @Override
-    public boolean isSatisfied(Edit<Token> edit) {
+    public boolean test(Edit<Token> edit) {
         return edit
                 .filter(Predicates.ofSizeOneToOne())
                 .filter(case1()
@@ -114,7 +114,7 @@ public class VerbTenseRule extends ClassificationPredicate {
                 .isPresent();
     }
 
-    public Predicate<? super Edit<Token>> sameLemma() {
+    public Predicate<Edit<Token>> sameLemma() {
         return Predicates.lemmasIntersect(lemmatizer);
     }
 

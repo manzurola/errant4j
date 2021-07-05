@@ -2,8 +2,8 @@ package io.languagetoys.errant4j.lang.en.classify.rules;
 
 import io.languagetoys.aligner.edit.Edit;
 import io.languagetoys.aligner.utils.AlignerUtils;
+import io.languagetoys.errant4j.core.classify.Classifier;
 import io.languagetoys.errant4j.core.grammar.GrammaticalError;
-import io.languagetoys.errant4j.core.annotator.ClassificationPredicate;
 import io.languagetoys.errant4j.lang.en.classify.rules.common.Predicates;
 import io.languagetoys.errant4j.lang.en.utils.wordlist.WordList;
 import io.languagetoys.spacy4j.api.containers.Token;
@@ -19,7 +19,7 @@ import io.languagetoys.spacy4j.api.containers.Token;
  * 5. The original and corrected tokens do not have the same lemma, and
  * 6. The original and corrected tokens share at least 50% of the same characters in the same relative order.
  */
-public class SpellingErrorRule extends ClassificationPredicate {
+public class SpellingErrorRule extends Classifier.Predicate {
 
     private final WordList wordList;
 
@@ -33,7 +33,7 @@ public class SpellingErrorRule extends ClassificationPredicate {
     }
 
     @Override
-    public boolean isSatisfied(Edit<Token> edit) {
+    public boolean test(Edit<Token> edit) {
         return edit
                 .filter(Predicates.ofSize(1, 1))
                 .filter(e -> e.source().first().isAlpha())

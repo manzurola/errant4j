@@ -1,9 +1,10 @@
-package io.languagetoys.errant4j.core.annotator;
+package io.languagetoys.errant4j.core.merge;
 
 import io.languagetoys.aligner.edit.Edit;
 import io.languagetoys.spacy4j.api.containers.Token;
 
 import java.util.List;
+import java.util.function.BiPredicate;
 
 public interface Merger {
 
@@ -24,7 +25,11 @@ public interface Merger {
         return new RuleBasedMerger((a, b) -> a.operation().equals(b.operation()));
     }
 
-    static Merger rules(List<MergeRule> rules) {
+    static Merger rules(List<Rule> rules) {
         return new RuleBasedMerger((a, b) -> rules.stream().anyMatch(rule -> rule.test(a, b)));
+    }
+
+    interface Rule extends BiPredicate<Edit<Token>, Edit<Token>> {
+        boolean test(Edit<Token> left, Edit<Token> right);
     }
 }

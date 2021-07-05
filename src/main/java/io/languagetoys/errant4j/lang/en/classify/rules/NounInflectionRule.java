@@ -1,8 +1,8 @@
 package io.languagetoys.errant4j.lang.en.classify.rules;
 
 import io.languagetoys.aligner.edit.Edit;
+import io.languagetoys.errant4j.core.classify.Classifier;
 import io.languagetoys.errant4j.core.grammar.GrammaticalError;
-import io.languagetoys.errant4j.core.annotator.ClassificationPredicate;
 import io.languagetoys.errant4j.lang.en.classify.rules.common.Predicates;
 import io.languagetoys.errant4j.lang.en.utils.wordlist.WordList;
 import io.languagetoys.spacy4j.api.containers.Token;
@@ -20,7 +20,7 @@ import java.util.function.Predicate;
  * 5. The original and corrected tokens have the same lemma, and
  * 6. The original and corrected tokens are both POS tagged as NOUN.
  */
-public class NounInflectionRule extends ClassificationPredicate {
+public class NounInflectionRule extends Classifier.Predicate {
 
     private final WordList wordList;
 
@@ -34,7 +34,7 @@ public class NounInflectionRule extends ClassificationPredicate {
     }
 
     @Override
-    public boolean isSatisfied(Edit<Token> edit) {
+    public boolean test(Edit<Token> edit) {
         return edit
                 .filter(Predicates.ofSizeOneToOne())
                 .filter(e -> e.source().allMatch(Token::isAlpha))

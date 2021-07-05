@@ -1,8 +1,7 @@
 package io.languagetoys.errant4j.lang.en;
 
-import io.languagetoys.errant4j.Errant;
-import io.languagetoys.errant4j.core.annotator.Annotation;
-import io.languagetoys.errant4j.core.annotator.Annotator;
+import io.languagetoys.errant4j.core.Annotation;
+import io.languagetoys.errant4j.core.Errant;
 import io.languagetoys.spacy4j.adapters.corenlp.CoreNLPAdapter;
 import io.languagetoys.spacy4j.api.SpaCy;
 import io.languagetoys.spacy4j.api.containers.Doc;
@@ -17,14 +16,14 @@ public class UsageExamples {
         // Get a spaCy instance (from spacy-java)
         SpaCy spacy = SpaCy.create(CoreNLPAdapter.create());
         // Create an english annotator
-        Annotator annotator = Errant.en(spacy);
+        Errant errant = Errant.en(spacy);
 
         // Parse source and target sentences
-        Doc source = annotator.parse("Yesterday I went to see my therapist.");
-        Doc target = annotator.parse("Yesterday I go to see my therapist.");
+        Doc source = errant.parse("Yesterday I went to see my therapist.");
+        Doc target = errant.parse("Yesterday I go to see my therapist.");
 
         // Annotate grammatical errors
-        List<Annotation> annotations = annotator.annotate(source.tokens(), target.tokens());
+        List<Annotation> annotations = errant.annotate(source.tokens(), target.tokens());
 
         // Inspect annotations
         for (Annotation annotation : annotations) {

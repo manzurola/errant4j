@@ -1,9 +1,9 @@
 package io.languagetoys.errant4j.lang.en.classify.rules;
 
 import io.languagetoys.aligner.edit.Edit;
+import io.languagetoys.errant4j.core.classify.Classifier;
 import io.languagetoys.errant4j.core.grammar.GrammaticalError;
 import io.languagetoys.errant4j.core.tools.Collectors;
-import io.languagetoys.errant4j.core.annotator.ClassificationPredicate;
 import io.languagetoys.errant4j.lang.en.classify.rules.common.Predicates;
 import io.languagetoys.spacy4j.api.containers.Token;
 
@@ -19,7 +19,7 @@ import java.util.function.Predicate;
  * 2. All tokens have the same POS, and
  * 3. At least one token on either side is a member of the above set of 7 contractions.
  */
-public class ContractionRule extends ClassificationPredicate {
+public class ContractionRule extends Classifier.Predicate {
 
     private final Set<String> contractions = Set.of("'d", "'ll", "'m", "n't", "'re", "'s", "'ve");
 
@@ -29,14 +29,14 @@ public class ContractionRule extends ClassificationPredicate {
     }
 
     @Override
-    public boolean isSatisfied(Edit<Token> edit) {
+    public boolean test(Edit<Token> edit) {
         return edit.filter(Predicates.ofSizeOneToOne())
                 .filter(tokensShareSamePos())
                 .filter(e -> e.stream().anyMatch(token -> contractions.contains(token.text())))
                 .isPresent();
     }
 
-    private Predicate<? super Edit<Token>> tokensShareSamePos() {
+    private Predicate<Edit<Token>> tokensShareSamePos() {
         return edit -> edit
                 .stream()
                 .map(Token::pos)
