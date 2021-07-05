@@ -48,8 +48,8 @@ public class ErrorMarkerTest {
 
     private Edit<Token> tokenize(Edit<String> edit, Doc sourceDoc, Doc targetDoc) {
         return edit.mapSegments(
-                source -> source.mapWithIndex(sourceDoc::getToken),
-                target -> target.mapWithIndex(targetDoc::getToken)
+                source -> source.mapWithIndex(sourceDoc::token),
+                target -> target.mapWithIndex(targetDoc::token)
         );
     }
 }
