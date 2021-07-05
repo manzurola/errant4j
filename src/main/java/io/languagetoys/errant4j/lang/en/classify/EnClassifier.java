@@ -1,8 +1,7 @@
 package io.languagetoys.errant4j.lang.en.classify;
 
 import io.languagetoys.aligner.edit.Edit;
-import io.languagetoys.errant4j.core.annotator.ClassificationRule;
-import io.languagetoys.errant4j.core.annotator.Classifier;
+import io.languagetoys.errant4j.core.classify.Classifier;
 import io.languagetoys.errant4j.core.grammar.GrammaticalError;
 import io.languagetoys.errant4j.lang.en.classify.rules.*;
 import io.languagetoys.errant4j.lang.en.utils.lemmatize.Lemmatizer;
@@ -16,7 +15,7 @@ public class EnClassifier implements Classifier {
     private final Classifier impl;
 
     public EnClassifier(Lemmatizer lemmatizer, WordList wordList) {
-        List<ClassificationRule> rules = List.of(
+        List<Rule> rules = List.of(
                 new IgnoreSpaceErrorRule(),
 
                 new WordOrderRule(),

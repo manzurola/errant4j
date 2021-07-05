@@ -1,8 +1,8 @@
 package io.languagetoys.errant4j.lang.en.classify.rules;
 
 import io.languagetoys.aligner.edit.Edit;
+import io.languagetoys.errant4j.core.classify.Classifier;
 import io.languagetoys.errant4j.core.grammar.GrammaticalError;
-import io.languagetoys.errant4j.core.annotator.ClassificationRule;
 import io.languagetoys.spacy4j.api.containers.Token;
 import io.languagetoys.spacy4j.api.features.Pos;
 
@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
  * 1. All tokens on both sides of the edit have the same POS tag, and
  * 2. The edit does not meet any criteria for a more specific type.
  */
-public class PartOfSpeechRule implements ClassificationRule {
+public class PartOfSpeechRule implements Classifier.Rule {
 
     @Override
     public GrammaticalError classify(Edit<Token> edit) {

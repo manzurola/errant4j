@@ -1,8 +1,8 @@
 package io.languagetoys.errant4j.lang.en.classify.rules;
 
 import io.languagetoys.aligner.edit.Edit;
+import io.languagetoys.errant4j.core.classify.Classifier;
 import io.languagetoys.errant4j.core.grammar.GrammaticalError;
-import io.languagetoys.errant4j.core.annotator.ClassificationPredicate;
 import io.languagetoys.errant4j.lang.en.classify.rules.common.Predicates;
 import io.languagetoys.spacy4j.api.containers.Token;
 import io.languagetoys.spacy4j.api.features.Pos;
@@ -20,7 +20,7 @@ import java.util.function.Predicate;
  * (c) i. Both tokens do not have the same POS tag, and
  * ii. The corrected token is POS tagged as 3rd-person present tense verb form (VBZ).
  */
-public class SubjectVerbAgreementRule extends ClassificationPredicate {
+public class SubjectVerbAgreementRule extends Classifier.Predicate {
 
     @Override
     public GrammaticalError.Category getCategory() {
@@ -28,7 +28,7 @@ public class SubjectVerbAgreementRule extends ClassificationPredicate {
     }
 
     @Override
-    public boolean isSatisfied(Edit<Token> edit) {
+    public boolean test(Edit<Token> edit) {
         return edit
                 .filter(Predicates.ofSizeOneToOne())
                 .filter(bothTokensAreWasAndWere().or(

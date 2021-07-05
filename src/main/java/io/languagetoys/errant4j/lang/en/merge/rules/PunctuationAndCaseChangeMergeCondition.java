@@ -1,7 +1,7 @@
 package io.languagetoys.errant4j.lang.en.merge.rules;
 
 import io.languagetoys.aligner.edit.Edit;
-import io.languagetoys.errant4j.core.annotator.MergeRule;
+import io.languagetoys.errant4j.core.merge.Merger;
 import io.languagetoys.errant4j.lang.en.classify.rules.common.Predicates;
 import io.languagetoys.spacy4j.api.containers.Token;
 
@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 import static io.languagetoys.errant4j.lang.en.classify.rules.common.Predicates.ofSizeOneToOne;
 
-public class PunctuationAndCaseChangeMergeCondition implements MergeRule {
+public class PunctuationAndCaseChangeMergeCondition implements Merger.Rule {
 
     @Override
     public boolean test(Edit<Token> left, Edit<Token> right) {

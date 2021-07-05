@@ -2,8 +2,8 @@ package io.languagetoys.errant4j.lang.en.classify.rules;
 
 import io.languagetoys.aligner.edit.Edit;
 import io.languagetoys.aligner.edit.Segment;
+import io.languagetoys.errant4j.core.classify.Classifier;
 import io.languagetoys.errant4j.core.grammar.GrammaticalError;
-import io.languagetoys.errant4j.core.annotator.ClassificationPredicate;
 import io.languagetoys.errant4j.lang.en.classify.rules.common.Predicates;
 import io.languagetoys.errant4j.lang.en.utils.lemmatize.Lemmatizer;
 import io.languagetoys.spacy4j.api.containers.Token;
@@ -20,7 +20,7 @@ import java.util.function.Predicate;
  * 2. The first token on either side is more or most, and
  * 3. The last token on both sides has the same lemma.
  */
-public class MultiTokenAdjectiveFormRule extends ClassificationPredicate {
+public class MultiTokenAdjectiveFormRule extends Classifier.Predicate {
 
     private final Lemmatizer lemmatizer;
 
@@ -34,7 +34,7 @@ public class MultiTokenAdjectiveFormRule extends ClassificationPredicate {
     }
 
     @Override
-    public boolean isSatisfied(Edit<Token> edit) {
+    public boolean test(Edit<Token> edit) {
         return edit
                 .filter(Predicates.isSubstitute())
                 .filter(Predicates.ofMaxSize(2, 2))
@@ -43,17 +43,17 @@ public class MultiTokenAdjectiveFormRule extends ClassificationPredicate {
                 .isPresent();
     }
 
-    public Predicate<? super Token> moreOrMost() {
+    public Predicate<Token> moreOrMost() {
         return word -> Set.of("more", "most").contains(word.lower());
     }
 
-    public Predicate<? super Edit<Token>> firstTokensAnyMatch(Predicate<? super Token> condition) {
+    public Predicate<Edit<Token>> firstTokensAnyMatch(Predicate<Token> condition) {
         return edit -> edit
                 .streamSegments(Segment::first, Segment::first)
                 .anyMatch(condition);
     }
 
-    public Predicate<? super Edit<Token>> lastTokensHasSameLemma() {
+    public Predicate<Edit<Token>> lastTokensHasSameLemma() {
         return edit -> {
             Set<String> sourceLemmas = lemmatizer.lemmas(edit.source().last().text());
             Set<String> targetLemmas = lemmatizer.lemmas(edit.target().last().text());

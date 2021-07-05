@@ -1,9 +1,9 @@
 package io.languagetoys.errant4j.lang.en.classify.rules;
 
 import io.languagetoys.aligner.edit.Edit;
+import io.languagetoys.errant4j.core.classify.Classifier;
 import io.languagetoys.errant4j.core.grammar.GrammaticalError;
 import io.languagetoys.errant4j.core.tools.Collectors;
-import io.languagetoys.errant4j.core.annotator.ClassificationPredicate;
 import io.languagetoys.errant4j.lang.en.classify.rules.common.Predicates;
 import io.languagetoys.spacy4j.api.containers.Token;
 import io.languagetoys.spacy4j.api.features.Pos;
@@ -20,7 +20,7 @@ import java.util.function.Predicate;
  * 4. The corrected token is POS tagged as a plural noun (NNS).
  * Note that this second rule was only found to be effective in the singular to plural direction and not the other way around.
  */
-public class NounNumberAdjConfusion extends ClassificationPredicate {
+public class NounNumberAdjConfusion extends Classifier.Predicate {
 
     @Override
     public GrammaticalError.Category getCategory() {
@@ -28,7 +28,7 @@ public class NounNumberAdjConfusion extends ClassificationPredicate {
     }
 
     @Override
-    public boolean isSatisfied(Edit<Token> edit) {
+    public boolean test(Edit<Token> edit) {
         return edit
                 .filter(Predicates.isSubstitute())
                 .filter(Predicates.ofSizeOneToOne())

@@ -1,8 +1,7 @@
 package io.languagetoys.errant4j.lang.en.merge;
 
 import io.languagetoys.aligner.edit.Edit;
-import io.languagetoys.errant4j.core.annotator.MergeRule;
-import io.languagetoys.errant4j.core.annotator.Merger;
+import io.languagetoys.errant4j.core.merge.Merger;
 import io.languagetoys.errant4j.lang.en.merge.rules.*;
 import io.languagetoys.spacy4j.api.containers.Token;
 
@@ -39,7 +38,7 @@ public class EnMerger implements Merger {
     private final Merger impl;
 
     public EnMerger() {
-        List<MergeRule> rules = List.of(
+        List<Rule> rules = List.of(
                 new PunctuationAndCaseChangeMergeCondition(),
                 new PossessiveSuffixMergeCondition(),
                 new WhiteSpaceDifferenceMergeCondition(),

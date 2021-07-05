@@ -1,8 +1,8 @@
 package io.languagetoys.errant4j.lang.en.classify.rules;
 
 import io.languagetoys.aligner.edit.Edit;
+import io.languagetoys.errant4j.core.classify.Classifier;
 import io.languagetoys.errant4j.core.grammar.GrammaticalError;
-import io.languagetoys.errant4j.core.annotator.ClassificationPredicate;
 import io.languagetoys.errant4j.lang.en.classify.rules.common.Predicates;
 import io.languagetoys.spacy4j.api.containers.Token;
 import io.languagetoys.spacy4j.api.features.Tag;
@@ -25,7 +25,7 @@ import static java.util.stream.Collectors.toList;
  * (b) The corrected tokens are POS tagged sequentially as NOUN and PART, and
  * 3. The first token on both sides of the edit has the same lemma.
  */
-public class NounPossessiveRule extends ClassificationPredicate {
+public class NounPossessiveRule extends Classifier.Predicate {
 
     @Override
     public GrammaticalError.Category getCategory() {
@@ -33,7 +33,7 @@ public class NounPossessiveRule extends ClassificationPredicate {
     }
 
     @Override
-    public boolean isSatisfied(Edit<Token> edit) {
+    public boolean test(Edit<Token> edit) {
         if (edit.matches(Predicates.ofSize(1, 0).or(Predicates.ofSize(0, 1)))) {
             List<String> posSet = edit.stream().map(Token::tag).distinct().collect(toList());
             if (posSet.size() == 1 && isPossessiveCase(posSet.get(0))) {

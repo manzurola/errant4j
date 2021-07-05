@@ -1,9 +1,8 @@
 package io.languagetoys.errant4j.lang.en;
 
 import io.languagetoys.aligner.edit.Edit;
-import io.languagetoys.errant4j.Errant;
-import io.languagetoys.errant4j.core.annotator.Annotation;
-import io.languagetoys.errant4j.core.annotator.Annotator;
+import io.languagetoys.errant4j.core.Annotation;
+import io.languagetoys.errant4j.core.Errant;
 import io.languagetoys.errant4j.core.grammar.GrammaticalError;
 import io.languagetoys.errant4j.core.tools.TokenEditUtils;
 import io.languagetoys.spacy4j.adapters.corenlp.CoreNLPAdapter;
@@ -27,11 +26,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class AnnotatorTest {
 
     private static final Logger logger = LoggerFactory.getLogger(AnnotatorTest.class);
-    private Annotator annotator;
+    private Errant errant;
 
     @BeforeAll
     void setup() {
-        this.annotator = Errant.en(SpaCy.create(CoreNLPAdapter.create()));
+        this.errant = Errant.en(SpaCy.create(CoreNLPAdapter.create()));
     }
 
     @Test
@@ -541,11 +540,11 @@ public class AnnotatorTest {
     }
 
     final Doc nlp(String text) {
-        return annotator.parse(text);
+        return errant.parse(text);
     }
 
     List<Annotation> annotate(Doc source, Doc target) {
-        return annotator
+        return errant
                 .annotate(source.tokens(), target.tokens())
                 .stream()
                 .filter(annotation -> !annotation.grammaticalError().isNoneOrIgnored())

@@ -1,8 +1,8 @@
 package io.languagetoys.errant4j.lang.en.classify.rules;
 
 import io.languagetoys.aligner.edit.Edit;
+import io.languagetoys.errant4j.core.classify.Classifier;
 import io.languagetoys.errant4j.core.grammar.GrammaticalError;
-import io.languagetoys.errant4j.core.annotator.ClassificationPredicate;
 import io.languagetoys.errant4j.lang.en.classify.rules.common.Predicates;
 import io.languagetoys.spacy4j.api.containers.Token;
 
@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
  * 1. There is exactly one token on both sides of the edit, and
  * 2. The set of strings for these tokens is ca and can, sha and shall, or wo and will.
  */
-public class ContractionAuxRule extends ClassificationPredicate {
+public class ContractionAuxRule extends Classifier.Predicate {
 
     @Override
     public GrammaticalError.Category getCategory() {
@@ -25,7 +25,7 @@ public class ContractionAuxRule extends ClassificationPredicate {
     }
 
     @Override
-    public boolean isSatisfied(Edit<Token> edit) {
+    public boolean test(Edit<Token> edit) {
         return edit
                 .filter(Predicates.ofSizeOneToOne())
                 .filter(wordsAreAuxContractions())
