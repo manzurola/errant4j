@@ -8,7 +8,7 @@ import java.util.List;
 public interface Merger {
 
     /**
-     * Merge a list of Edits, producing a new list of equal all smaller size.
+     * Merge a list of Edits, producing a new list of equal or smaller size.
      */
     List<Edit<Token>> merge(List<Edit<Token>> edits);
 }
