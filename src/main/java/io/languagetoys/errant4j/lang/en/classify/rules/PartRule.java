@@ -2,7 +2,7 @@ package io.languagetoys.errant4j.lang.en.classify.rules;
 
 import io.languagetoys.aligner.edit.Edit;
 import io.languagetoys.errant4j.core.grammar.GrammaticalError;
-import io.languagetoys.errant4j.lang.en.classify.CategoryMatchRule;
+import io.languagetoys.errant4j.core.annotator.ClassificationPredicate;
 import io.languagetoys.errant4j.lang.en.classify.rules.common.Predicates;
 import io.languagetoys.spacy4j.api.containers.Token;
 import io.languagetoys.spacy4j.api.features.Pos;
@@ -16,7 +16,7 @@ import io.languagetoys.spacy4j.api.features.Pos;
  *  (b) The set of dependency labels for these tokens is prep and part.
  *
  */
-public class PartRule extends CategoryMatchRule {
+public class PartRule extends ClassificationPredicate {
 
     @Override
     public GrammaticalError.Category getCategory() {

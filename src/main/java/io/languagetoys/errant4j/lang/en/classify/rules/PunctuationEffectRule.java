@@ -2,7 +2,7 @@ package io.languagetoys.errant4j.lang.en.classify.rules;
 
 import io.languagetoys.aligner.edit.Edit;
 import io.languagetoys.errant4j.core.grammar.GrammaticalError;
-import io.languagetoys.errant4j.lang.en.classify.CategoryMatchRule;
+import io.languagetoys.errant4j.core.annotator.ClassificationPredicate;
 import io.languagetoys.errant4j.lang.en.classify.rules.common.Predicates;
 import io.languagetoys.spacy4j.api.containers.Token;
 
@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
  * The following special PUNCT rule captures edits where a change in punctuation also affects the case of
  * the following word; e.g. [. Because → , because] and [Because → , because].
  */
-public class PunctuationEffectRule extends CategoryMatchRule {
+public class PunctuationEffectRule extends ClassificationPredicate {
 
     @Override
     public GrammaticalError.Category getCategory() {

@@ -2,7 +2,7 @@ package io.languagetoys.errant4j.lang.en.classify.rules;
 
 import io.languagetoys.aligner.edit.Edit;
 import io.languagetoys.errant4j.core.grammar.GrammaticalError;
-import io.languagetoys.errant4j.lang.en.classify.CategoryMatchRule;
+import io.languagetoys.errant4j.core.annotator.ClassificationPredicate;
 import io.languagetoys.errant4j.lang.en.classify.rules.common.Predicates;
 import io.languagetoys.spacy4j.api.containers.Token;
 import io.languagetoys.spacy4j.api.features.Pos;
@@ -24,7 +24,7 @@ import java.util.function.Predicate;
  * 3. That token is POS tagged as PART, and
  * 4. That token is not parsed as prep.
  */
-public class MissingOrUnnecessaryVerbFormInfinitivalToRule extends CategoryMatchRule {
+public class MissingOrUnnecessaryVerbFormInfinitivalToRule extends ClassificationPredicate {
 
     @Override
     public GrammaticalError.Category getCategory() {

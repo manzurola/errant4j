@@ -2,7 +2,7 @@ package io.languagetoys.errant4j.lang.en.classify.rules;
 
 import io.languagetoys.aligner.edit.Edit;
 import io.languagetoys.errant4j.core.grammar.GrammaticalError;
-import io.languagetoys.errant4j.lang.en.classify.CategoryMatchRule;
+import io.languagetoys.errant4j.core.annotator.ClassificationPredicate;
 import io.languagetoys.errant4j.lang.en.classify.rules.common.Predicates;
 import io.languagetoys.spacy4j.api.containers.Token;
 import io.languagetoys.spacy4j.api.features.Tag;
@@ -25,7 +25,7 @@ import static java.util.stream.Collectors.toList;
  * (b) The corrected tokens are POS tagged sequentially as NOUN and PART, and
  * 3. The first token on both sides of the edit has the same lemma.
  */
-public class NounPossessiveRule extends CategoryMatchRule {
+public class NounPossessiveRule extends ClassificationPredicate {
 
     @Override
     public GrammaticalError.Category getCategory() {
