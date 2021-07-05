@@ -2,7 +2,7 @@ package io.languagetoys.errant4j.lang.en.classify.rules;
 
 import io.languagetoys.aligner.edit.Edit;
 import io.languagetoys.errant4j.core.grammar.GrammaticalError;
-import io.languagetoys.errant4j.lang.en.classify.CategoryMatchRule;
+import io.languagetoys.errant4j.core.annotator.ClassificationPredicate;
 import io.languagetoys.errant4j.lang.en.classify.rules.common.Predicates;
 import io.languagetoys.errant4j.lang.en.utils.wordlist.WordList;
 import io.languagetoys.spacy4j.api.containers.Token;
@@ -20,7 +20,7 @@ import java.util.function.Predicate;
  * 5. The original and corrected tokens have the same lemma, and
  * 6. The original and corrected tokens are both POS tagged as VERB.
  */
-public class VerbInflectionRule extends CategoryMatchRule {
+public class VerbInflectionRule extends ClassificationPredicate {
 
     private final WordList wordList;
 

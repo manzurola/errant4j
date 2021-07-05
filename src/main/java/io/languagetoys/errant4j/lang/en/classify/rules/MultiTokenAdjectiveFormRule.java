@@ -3,7 +3,7 @@ package io.languagetoys.errant4j.lang.en.classify.rules;
 import io.languagetoys.aligner.edit.Edit;
 import io.languagetoys.aligner.edit.Segment;
 import io.languagetoys.errant4j.core.grammar.GrammaticalError;
-import io.languagetoys.errant4j.lang.en.classify.CategoryMatchRule;
+import io.languagetoys.errant4j.core.annotator.ClassificationPredicate;
 import io.languagetoys.errant4j.lang.en.classify.rules.common.Predicates;
 import io.languagetoys.errant4j.lang.en.utils.lemmatize.Lemmatizer;
 import io.languagetoys.spacy4j.api.containers.Token;
@@ -20,7 +20,7 @@ import java.util.function.Predicate;
  * 2. The first token on either side is more or most, and
  * 3. The last token on both sides has the same lemma.
  */
-public class MultiTokenAdjectiveFormRule extends CategoryMatchRule {
+public class MultiTokenAdjectiveFormRule extends ClassificationPredicate {
 
     private final Lemmatizer lemmatizer;
 

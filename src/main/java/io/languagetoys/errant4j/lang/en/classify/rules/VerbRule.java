@@ -3,7 +3,7 @@ package io.languagetoys.errant4j.lang.en.classify.rules;
 import io.languagetoys.aligner.edit.Edit;
 import io.languagetoys.aligner.edit.Segment;
 import io.languagetoys.errant4j.core.grammar.GrammaticalError;
-import io.languagetoys.errant4j.lang.en.classify.CategoryMatchRule;
+import io.languagetoys.errant4j.core.annotator.ClassificationPredicate;
 import io.languagetoys.spacy4j.api.containers.Token;
 import io.languagetoys.spacy4j.api.features.Pos;
 
@@ -20,7 +20,7 @@ import static io.languagetoys.errant4j.lang.en.classify.rules.common.Predicates.
  * 1. All tokens on both sides of the edit are either PART or VERB, and
  * 2. The last token on each side has a different lemma.
  */
-public class VerbRule extends CategoryMatchRule {
+public class VerbRule extends ClassificationPredicate {
 
     @Override
     public GrammaticalError.Category getCategory() {

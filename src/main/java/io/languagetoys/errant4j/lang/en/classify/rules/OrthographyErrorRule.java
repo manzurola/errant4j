@@ -2,7 +2,7 @@ package io.languagetoys.errant4j.lang.en.classify.rules;
 
 import io.languagetoys.aligner.edit.Edit;
 import io.languagetoys.errant4j.core.grammar.GrammaticalError;
-import io.languagetoys.errant4j.lang.en.classify.CategoryMatchRule;
+import io.languagetoys.errant4j.core.annotator.ClassificationPredicate;
 import io.languagetoys.errant4j.lang.en.classify.rules.common.Predicates;
 import io.languagetoys.spacy4j.api.containers.Token;
 
@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
  * e.g. [first → First] or [Bestfriend → best friend].
  * 1. The lower cased form of both sides of the edit with all whitespace removed results in the same string.
  */
-public class OrthographyErrorRule extends CategoryMatchRule {
+public class OrthographyErrorRule extends ClassificationPredicate {
 
     @Override
     public GrammaticalError.Category getCategory() {

@@ -3,7 +3,7 @@ package io.languagetoys.errant4j.lang.en.classify.rules;
 import io.languagetoys.aligner.edit.Edit;
 import io.languagetoys.aligner.utils.AlignerUtils;
 import io.languagetoys.errant4j.core.grammar.GrammaticalError;
-import io.languagetoys.errant4j.lang.en.classify.CategoryMatchRule;
+import io.languagetoys.errant4j.core.annotator.ClassificationPredicate;
 import io.languagetoys.errant4j.lang.en.classify.rules.common.Predicates;
 import io.languagetoys.errant4j.lang.en.utils.wordlist.WordList;
 import io.languagetoys.spacy4j.api.containers.Token;
@@ -19,7 +19,7 @@ import io.languagetoys.spacy4j.api.containers.Token;
  * 5. The original and corrected tokens do not have the same lemma, and
  * 6. The original and corrected tokens share at least 50% of the same characters in the same relative order.
  */
-public class SpellingErrorRule extends CategoryMatchRule {
+public class SpellingErrorRule extends ClassificationPredicate {
 
     private final WordList wordList;
 

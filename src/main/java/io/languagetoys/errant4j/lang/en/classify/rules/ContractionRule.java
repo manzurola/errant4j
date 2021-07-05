@@ -3,7 +3,7 @@ package io.languagetoys.errant4j.lang.en.classify.rules;
 import io.languagetoys.aligner.edit.Edit;
 import io.languagetoys.errant4j.core.grammar.GrammaticalError;
 import io.languagetoys.errant4j.core.tools.Collectors;
-import io.languagetoys.errant4j.lang.en.classify.CategoryMatchRule;
+import io.languagetoys.errant4j.core.annotator.ClassificationPredicate;
 import io.languagetoys.errant4j.lang.en.classify.rules.common.Predicates;
 import io.languagetoys.spacy4j.api.containers.Token;
 
@@ -19,7 +19,7 @@ import java.util.function.Predicate;
  * 2. All tokens have the same POS, and
  * 3. At least one token on either side is a member of the above set of 7 contractions.
  */
-public class ContractionRule extends CategoryMatchRule {
+public class ContractionRule extends ClassificationPredicate {
 
     private final Set<String> contractions = Set.of("'d", "'ll", "'m", "n't", "'re", "'s", "'ve");
 
