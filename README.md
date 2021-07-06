@@ -11,7 +11,7 @@ From the offical docs:
 ## Quick Start:
 
 ```java
-// Get a spaCy instance (from spacy-java)
+// Get a spaCy instance (from spacy4j)
 SpaCy spacy = SpaCy.create(CoreNLPAdapter.create());
 
 // Create an english annotator
