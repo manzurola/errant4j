@@ -1,8 +1,8 @@
 package io.languagetoys.errant4j.lang.en.classify;
 
 import io.languagetoys.aligner.edit.Edit;
-import io.languagetoys.errant4j.core.classify.Classifier;
-import io.languagetoys.errant4j.core.grammar.GrammaticalError;
+import io.languagetoys.errant4j.core.GrammaticalError;
+import io.languagetoys.errant4j.core.annotate.Classifier;
 import io.languagetoys.errant4j.lang.en.classify.rules.*;
 import io.languagetoys.errant4j.lang.en.utils.lemmatize.Lemmatizer;
 import io.languagetoys.errant4j.lang.en.utils.wordlist.WordList;

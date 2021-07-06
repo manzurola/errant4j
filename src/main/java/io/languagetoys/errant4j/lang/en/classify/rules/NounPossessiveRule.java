@@ -1,8 +1,8 @@
 package io.languagetoys.errant4j.lang.en.classify.rules;
 
 import io.languagetoys.aligner.edit.Edit;
-import io.languagetoys.errant4j.core.classify.Classifier;
-import io.languagetoys.errant4j.core.grammar.GrammaticalError;
+import io.languagetoys.errant4j.core.GrammaticalError;
+import io.languagetoys.errant4j.core.annotate.Classifier;
 import io.languagetoys.errant4j.lang.en.classify.rules.common.Predicates;
 import io.languagetoys.spacy4j.api.containers.Token;
 import io.languagetoys.spacy4j.api.features.Tag;
@@ -12,17 +12,14 @@ import java.util.List;
 import static java.util.stream.Collectors.toList;
 
 /**
- * Noun possessive errors typically involve edits that change a possessive suffix on a noun phrase;
- * e.g. [(Tom) ε → (Tom) ’s] or [(Chris) ’s → (Chris) ’]. They are captured by the following rule:
- * 1. There is exactly one token on both sides of the edit, and
- * 2. At least one side of the edit is POS tagged as a possessive suffix (POS)
+ * Noun possessive errors typically involve edits that change a possessive suffix on a noun phrase; e.g. [(Tom) ε →
+ * (Tom) ’s] or [(Chris) ’s → (Chris) ’]. They are captured by the following rule: 1. There is exactly one token on both
+ * sides of the edit, and 2. At least one side of the edit is POS tagged as a possessive suffix (POS)
  * <p>
- * While the above rule handles possessive suffixes that have become separated from their dependent nouns
- * as a result of an automatic alignment, the following rule handles multi-token edits where this is not the case;
- * e.g. [friends → friend ’s]:
- * 1. There are exactly two tokens on at least one side of the edit, and
- * 2. (a) The original tokens are POS tagged sequentially as NOUN and PART, or
- * (b) The corrected tokens are POS tagged sequentially as NOUN and PART, and
+ * While the above rule handles possessive suffixes that have become separated from their dependent nouns as a result of
+ * an automatic alignment, the following rule handles multi-token edits where this is not the case; e.g. [friends →
+ * friend ’s]: 1. There are exactly two tokens on at least one side of the edit, and 2. (a) The original tokens are POS
+ * tagged sequentially as NOUN and PART, or (b) The corrected tokens are POS tagged sequentially as NOUN and PART, and
  * 3. The first token on both sides of the edit has the same lemma.
  */
 public class NounPossessiveRule extends Classifier.Predicate {

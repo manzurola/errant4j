@@ -1,12 +1,14 @@
 # Contributing
 
-Please feel free to open issues at will, from refactoring suggestions to feature suggestions or else.
-Also feel free to fork at will, but know that I'm more than happy to incorporate any additional use cases and improvements in this project.
+Please feel free to open issues at will, from refactoring suggestions to feature suggestions or else. Also feel free to
+fork at will, but know that I'm more than happy to incorporate any additional use cases and improvements in this
+project.
 
 ## Creating a new issue:
 
 1. State the problem as the title of the issue. For example - NPE when using X.
-2. Be as descriptive as possible in the description of the issue. If the issue is a bug, add steps to reproduce, and any additional information you may find relevant. For new features state the use case as clearly as possible.
+2. Be as descriptive as possible in the description of the issue. If the issue is a bug, add steps to reproduce, and any
+   additional information you may find relevant. For new features state the use case as clearly as possible.
 3. Assign the issue to me and optionally tag me in a comment.
 4. If you can't find a proper tag for the issue don't bother :) Just write what's on your mind.
 

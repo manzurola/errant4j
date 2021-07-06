@@ -1,4 +1,4 @@
-package io.languagetoys.errant4j.core.merge;
+package io.languagetoys.errant4j.core.annotate;
 
 import io.languagetoys.aligner.edit.Edit;
 import io.languagetoys.aligner.edit.EqualEdit;
@@ -10,16 +10,16 @@ import java.util.*;
 import java.util.function.BiPredicate;
 import java.util.stream.Collectors;
 
-class RuleBasedMerger implements Merger {
+final class MergerImpl implements Merger {
 
     private final BiPredicate<Edit<Token>, Edit<Token>> strategy;
 
-    RuleBasedMerger(BiPredicate<Edit<Token>, Edit<Token>> strategy) {
+    MergerImpl(BiPredicate<Edit<Token>, Edit<Token>> strategy) {
         this.strategy = strategy;
     }
 
     @Override
-    public List<Edit<Token>> merge(List<Edit<Token>> edits) {
+    public final List<Edit<Token>> merge(List<Edit<Token>> edits) {
         List<Edit<Token>> unmergeable = new ArrayList<>();
         List<Edit<Token>> result = new ArrayList<>(edits);
         boolean moreToMerge = true;
@@ -48,7 +48,7 @@ class RuleBasedMerger implements Merger {
                 .collect(Collectors.toList());
     }
 
-    public List<Edit<Token>> applyConditions(List<Edit<Token>> edits) {
+    public final List<Edit<Token>> applyConditions(List<Edit<Token>> edits) {
 
         if (edits.isEmpty() || edits.size() == 1) {
             return edits;

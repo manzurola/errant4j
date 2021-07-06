@@ -1,8 +1,8 @@
 package io.languagetoys.errant4j.lang.en.classify.rules;
 
 import io.languagetoys.aligner.edit.Edit;
-import io.languagetoys.errant4j.core.classify.Classifier;
-import io.languagetoys.errant4j.core.grammar.GrammaticalError;
+import io.languagetoys.errant4j.core.GrammaticalError;
+import io.languagetoys.errant4j.core.annotate.Classifier;
 import io.languagetoys.errant4j.lang.en.classify.rules.common.Predicates;
 import io.languagetoys.spacy4j.api.containers.Token;
 import io.languagetoys.spacy4j.api.features.Pos;
@@ -10,11 +10,9 @@ import io.languagetoys.spacy4j.api.features.Pos;
 import java.util.function.Predicate;
 
 /**
- * Noun number errors all involve count nouns that have been changed from singular to plural or vice versa;
- * e.g. [cat → cats] or [dogs → dog]. They are captured by the following rule:
- * 1. There is exactly one token on both sides of the edit, and
- * 2. Both tokens have the same lemma, and
- * 3. Both tokens are POS tagged as NOUN.
+ * Noun number errors all involve count nouns that have been changed from singular to plural or vice versa; e.g. [cat →
+ * cats] or [dogs → dog]. They are captured by the following rule: 1. There is exactly one token on both sides of the
+ * edit, and 2. Both tokens have the same lemma, and 3. Both tokens are POS tagged as NOUN.
  */
 public class NounNumberErrorRule extends Classifier.Predicate {
 

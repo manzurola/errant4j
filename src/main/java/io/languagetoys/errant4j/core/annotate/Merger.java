@@ -1,4 +1,4 @@
-package io.languagetoys.errant4j.core.merge;
+package io.languagetoys.errant4j.core.annotate;
 
 import io.languagetoys.aligner.edit.Edit;
 import io.languagetoys.spacy4j.api.containers.Token;
@@ -14,19 +14,19 @@ public interface Merger {
     List<Edit<Token>> merge(List<Edit<Token>> edits);
 
     static Merger allSplit() {
-        return new RuleBasedMerger((a, b) -> false);
+        return new MergerImpl((a, b) -> false);
     }
 
     static Merger allMerge() {
-        return new RuleBasedMerger((a, b) -> true);
+        return new MergerImpl((a, b) -> true);
     }
 
     static Merger allEqual() {
-        return new RuleBasedMerger((a, b) -> a.operation().equals(b.operation()));
+        return new MergerImpl((a, b) -> a.operation().equals(b.operation()));
     }
 
     static Merger rules(List<Rule> rules) {
-        return new RuleBasedMerger((a, b) -> rules.stream().anyMatch(rule -> rule.test(a, b)));
+        return new MergerImpl((a, b) -> rules.stream().anyMatch(rule -> rule.test(a, b)));
     }
 
     interface Rule extends BiPredicate<Edit<Token>, Edit<Token>> {

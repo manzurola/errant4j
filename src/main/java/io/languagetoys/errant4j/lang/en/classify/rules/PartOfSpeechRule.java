@@ -1,8 +1,8 @@
 package io.languagetoys.errant4j.lang.en.classify.rules;
 
 import io.languagetoys.aligner.edit.Edit;
-import io.languagetoys.errant4j.core.classify.Classifier;
-import io.languagetoys.errant4j.core.grammar.GrammaticalError;
+import io.languagetoys.errant4j.core.GrammaticalError;
+import io.languagetoys.errant4j.core.annotate.Classifier;
 import io.languagetoys.spacy4j.api.containers.Token;
 import io.languagetoys.spacy4j.api.features.Pos;
 
@@ -10,9 +10,9 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
- * In the majority of cases, an edit may hence be assigned a POS-based classify type if it meets the following conditions:
- * 1. All tokens on both sides of the edit have the same POS tag, and
- * 2. The edit does not meet any criteria for a more specific type.
+ * In the majority of cases, an edit may hence be assigned a POS-based classify type if it meets the following
+ * conditions: 1. All tokens on both sides of the edit have the same POS tag, and 2. The edit does not meet any criteria
+ * for a more specific type.
  */
 public class PartOfSpeechRule implements Classifier.Rule {
 

@@ -1,21 +1,21 @@
-package io.languagetoys.errant4j.core.classify;
+package io.languagetoys.errant4j.core.annotate;
 
 import io.languagetoys.aligner.edit.Edit;
-import io.languagetoys.errant4j.core.grammar.GrammaticalError;
+import io.languagetoys.errant4j.core.GrammaticalError;
 import io.languagetoys.errant4j.lang.en.classify.rules.common.Predicates;
 import io.languagetoys.spacy4j.api.containers.Token;
 
 import java.util.List;
 
-class RuleBasedClassifier implements Classifier {
+final class ClassifierImpl implements Classifier {
     private final List<Rule> rules;
 
-    RuleBasedClassifier(List<Rule> rules) {
+    ClassifierImpl(List<Rule> rules) {
         this.rules = rules;
     }
 
     @Override
-    public GrammaticalError classify(Edit<Token> edit) {
+    public final GrammaticalError classify(Edit<Token> edit) {
         if (edit.matches(Predicates.isEqual())) {
             return GrammaticalError.NONE;
         }

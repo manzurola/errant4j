@@ -1,7 +1,7 @@
-package io.languagetoys.errant4j.core.classify;
+package io.languagetoys.errant4j.core.annotate;
 
 import io.languagetoys.aligner.edit.Edit;
-import io.languagetoys.errant4j.core.grammar.GrammaticalError;
+import io.languagetoys.errant4j.core.GrammaticalError;
 import io.languagetoys.spacy4j.api.containers.Token;
 
 import java.util.List;
@@ -15,7 +15,7 @@ public interface Classifier {
     GrammaticalError classify(Edit<Token> edit);
 
     static Classifier rules(List<Rule> rules) {
-        return new RuleBasedClassifier(rules);
+        return new ClassifierImpl(rules);
     }
 
     interface Rule {

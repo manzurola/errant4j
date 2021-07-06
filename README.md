@@ -12,21 +12,21 @@ From the offical docs:
 
 ```java
 // Get a spaCy instance (from spacy-java)
-SpaCy spacy = SpaCy.create(CoreNLPAdapter.create());
+SpaCy spacy=SpaCy.create(CoreNLPAdapter.create());
 
 // Create an english annotator
-Annotator annotator = Errant.en(spacy);
+        Annotator annotator=Errant.en(spacy);
 
 // Parse source and target sentences
-Doc source = annotator.parse("Yesterday I went to see my therapist.");
-Doc target = annotator.parse("Yesterday I go to see my therapist.");
+        Doc source=annotator.parse("Yesterday I went to see my therapist.");
+        Doc target=annotator.parse("Yesterday I go to see my therapist.");
 
 // Annotate grammatical errors
-List<Annotation> annotations = annotator.annotate(source.tokens(), target.tokens());
+        List<Annotation> annotations=annotator.annotate(source.tokens(),target.tokens());
 
 // Inspect annotations
-for (Annotation annotation : annotations) {
-    System.out.printf("Error: %s, sourceText: %s, targetText: %s%n",
-            annotation.grammaticalError(), annotation.sourceText(), annotation.targetText());
-}
+        for(Annotation annotation:annotations){
+        System.out.printf("Error: %s, sourceText: %s, targetText: %s%n",
+        annotation.grammaticalError(),annotation.sourceText(),annotation.targetText());
+        }
 ```
