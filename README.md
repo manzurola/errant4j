@@ -14,19 +14,19 @@ From the offical docs:
 // Get a spaCy instance (from spacy4j)
 SpaCy spacy = SpaCy.create(CoreNLPAdapter.create());
 
-// Create an english annotator
-Annotator annotator = Errant.en(spacy);
+// Create an English Errant
+Errant errant = Errant.en(spacy);
 
 // Parse source and target sentences
-Doc source = annotator.parse("Yesterday I went to see my therapist.");
-Doc target = annotator.parse("Yesterday I go to see my therapist.");
+Doc source = errant.parse("Yesterday I went to see my therapist.");
+Doc target = errant.parse("Yesterday I go to see my therapist.");
 
 // Annotate grammatical errors
-List<Annotation> annotations = annotator.annotate(source.tokens(), target.tokens());
+List<Annotation> annotations = errant.annotate(source.tokens(), target.tokens());
 
 // Inspect annotations
 for (Annotation annotation : annotations) {
     System.out.printf("Error: %s, sourceText: %s, targetText: %s%n",
-            annotation.grammaticalError(), annotation.sourceText(), annotation.targetText());
+                      annotation.grammaticalError(), annotation.sourceText(), annotation.targetText());
 }
 ```
