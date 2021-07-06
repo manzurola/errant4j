@@ -1,11 +1,8 @@
 package io.languagetoys.errant4j.core;
 
-import io.languagetoys.aligner.Aligner;
 import io.languagetoys.aligner.Alignment;
 import io.languagetoys.aligner.edit.Edit;
-import io.languagetoys.errant4j.core.classify.Classifier;
-import io.languagetoys.errant4j.core.merge.Merger;
-import io.languagetoys.errant4j.core.grammar.GrammaticalError;
+import io.languagetoys.errant4j.core.annotate.Annotator;
 import io.languagetoys.spacy4j.api.SpaCy;
 import io.languagetoys.spacy4j.api.containers.Doc;
 import io.languagetoys.spacy4j.api.containers.Token;
@@ -16,15 +13,11 @@ import java.util.stream.Collectors;
 final class ErrantImpl implements Errant {
 
     private final SpaCy spacy;
-    private final Aligner<Token> aligner;
-    private final Merger merger;
-    private final Classifier classifier;
+    private final Annotator annotator;
 
-    ErrantImpl(SpaCy spacy, Aligner<Token> aligner, Merger merger, Classifier classifier) {
+    ErrantImpl(SpaCy spacy, Annotator annotator) {
         this.spacy = spacy;
-        this.aligner = aligner;
-        this.merger = merger;
-        this.classifier = classifier;
+        this.annotator = annotator;
     }
 
     public final Doc parse(String text) {
@@ -43,14 +36,14 @@ final class ErrantImpl implements Errant {
     }
 
     public final Alignment<Token> align(List<Token> source, List<Token> target) {
-        return aligner.align(source, target);
+        return annotator.align(source, target);
     }
 
     public final List<Edit<Token>> merge(List<Edit<Token>> edits) {
-        return merger.merge(edits);
+        return annotator.merge(edits);
     }
 
     public final GrammaticalError classify(Edit<Token> edit) {
-        return classifier.classify(edit);
+        return annotator.classify(edit);
     }
 }

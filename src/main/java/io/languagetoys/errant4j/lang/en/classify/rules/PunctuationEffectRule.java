@@ -1,8 +1,8 @@
 package io.languagetoys.errant4j.lang.en.classify.rules;
 
 import io.languagetoys.aligner.edit.Edit;
-import io.languagetoys.errant4j.core.classify.Classifier;
-import io.languagetoys.errant4j.core.grammar.GrammaticalError;
+import io.languagetoys.errant4j.core.GrammaticalError;
+import io.languagetoys.errant4j.core.annotate.Classifier;
 import io.languagetoys.errant4j.lang.en.classify.rules.common.Predicates;
 import io.languagetoys.spacy4j.api.containers.Token;
 
@@ -10,8 +10,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * The following special PUNCT rule captures edits where a change in punctuation also affects the case of
- * the following word; e.g. [. Because → , because] and [Because → , because].
+ * The following special PUNCT rule captures edits where a change in punctuation also affects the case of the following
+ * word; e.g. [. Because → , because] and [Because → , because].
  */
 public class PunctuationEffectRule extends Classifier.Predicate {
 
@@ -33,7 +33,7 @@ public class PunctuationEffectRule extends Classifier.Predicate {
                     .collect(Collectors.toList());
 
             return sourceLast.lower().equals(targetLast.lower()) &&
-                    remaining.stream().allMatch(Predicates.isPunctuation());
+                   remaining.stream().allMatch(Predicates.isPunctuation());
         }
 
         return false;

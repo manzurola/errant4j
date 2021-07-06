@@ -72,9 +72,9 @@ public class Predicates {
     public static Predicate<Token> isContentWord() {
         return word -> word
                 .matches(isAdjective()
-                        .or(isAdverb())
-                        .or(isNoun())
-                        .or(isVerb()));
+                                 .or(isAdverb())
+                                 .or(isNoun())
+                                 .or(isVerb()));
     }
 
     public static Predicate<Token> isAuxVerb() {

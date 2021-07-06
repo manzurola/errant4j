@@ -5,15 +5,17 @@ import io.languagetoys.errant4j.core.Errant;
 import io.languagetoys.spacy4j.adapters.corenlp.CoreNLPAdapter;
 import io.languagetoys.spacy4j.api.SpaCy;
 import io.languagetoys.spacy4j.api.containers.Doc;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
 public class UsageExamples {
 
+    @Disabled
     @Test
     void annotateParallelEnglishSentences() {
-        // Get a spaCy instance (from spacy-java)
+        // Get a spaCy instance (from spacy4j)
         SpaCy spacy = SpaCy.create(CoreNLPAdapter.create());
         // Create an english annotator
         Errant errant = Errant.en(spacy);
@@ -28,7 +30,7 @@ public class UsageExamples {
         // Inspect annotations
         for (Annotation annotation : annotations) {
             System.out.printf("Error: %s, sourceText: %s, targetText: %s%n",
-                    annotation.grammaticalError(), annotation.sourceText(), annotation.targetText());
+                              annotation.grammaticalError(), annotation.sourceText(), annotation.targetText());
         }
     }
 }

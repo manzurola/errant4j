@@ -24,9 +24,9 @@ public class EnSubstituteCost implements SubstituteCost<Token> {
             return 0.0;
         } else {
             return lemmaCost(source, target) +
-                    posCost(source, target) +
-                    charCost(source, target) +
-                    whitespaceCost(source, target);
+                   posCost(source, target) +
+                   charCost(source, target) +
+                   whitespaceCost(source, target);
         }
     }
 
@@ -59,7 +59,7 @@ public class EnSubstituteCost implements SubstituteCost<Token> {
     private double whitespaceCost(Token source, Token target) {
         // special treatment for spacy whitespace tokens: penalize word - whitespace substitution
         if (Pos.SPACE.matches(source.pos()) && !Pos.SPACE.matches(target.pos()) ||
-                !Pos.SPACE.matches(source.pos()) && Pos.SPACE.matches(target.pos())) {
+            !Pos.SPACE.matches(source.pos()) && Pos.SPACE.matches(target.pos())) {
             return 2.0;
         }
         return 0.0;

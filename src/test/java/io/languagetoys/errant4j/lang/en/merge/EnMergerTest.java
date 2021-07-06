@@ -3,7 +3,7 @@ package io.languagetoys.errant4j.lang.en.merge;
 import io.languagetoys.aligner.Aligner;
 import io.languagetoys.aligner.Alignment;
 import io.languagetoys.aligner.edit.Edit;
-import io.languagetoys.errant4j.core.merge.Merger;
+import io.languagetoys.errant4j.core.annotate.Merger;
 import io.languagetoys.errant4j.lang.en.align.EnAligner;
 import io.languagetoys.errant4j.lang.en.utils.lemmatize.WordNetLemmatizer;
 import io.languagetoys.spacy4j.adapters.corenlp.CoreNLPAdapter;

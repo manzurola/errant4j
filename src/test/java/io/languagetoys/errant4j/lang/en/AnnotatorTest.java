@@ -3,7 +3,7 @@ package io.languagetoys.errant4j.lang.en;
 import io.languagetoys.aligner.edit.Edit;
 import io.languagetoys.errant4j.core.Annotation;
 import io.languagetoys.errant4j.core.Errant;
-import io.languagetoys.errant4j.core.grammar.GrammaticalError;
+import io.languagetoys.errant4j.core.GrammaticalError;
 import io.languagetoys.spacy4j.adapters.corenlp.CoreNLPAdapter;
 import io.languagetoys.spacy4j.api.SpaCy;
 import io.languagetoys.spacy4j.api.containers.Doc;
@@ -499,7 +499,12 @@ public class AnnotatorTest {
     void assertContainsError(Annotation expected, Doc source, Doc target) {
         List<Annotation> actual = annotate(source, target);
         if (actual.isEmpty()) {
-            throw new AssertionError("Could not matchError expected " + expected + ".\nSource: " + source + "\nTarget: " + target);
+            throw new AssertionError("Could not matchError expected " +
+                                     expected +
+                                     ".\nSource: " +
+                                     source +
+                                     "\nTarget: " +
+                                     target);
         }
         try {
             assertTrue(actual.contains(expected));
@@ -513,7 +518,12 @@ public class AnnotatorTest {
     void assertAllErrors(List<Annotation> expected, Doc source, Doc target) {
         List<Annotation> actual = annotate(source, target);
         if (actual.isEmpty()) {
-            throw new AssertionError("Could not matchError expected " + expected + ".\nSource: " + source + "\nTarget: " + target);
+            throw new AssertionError("Could not matchError expected " +
+                                     expected +
+                                     ".\nSource: " +
+                                     source +
+                                     "\nTarget: " +
+                                     target);
         }
         try {
             assertEquals(expected, actual);

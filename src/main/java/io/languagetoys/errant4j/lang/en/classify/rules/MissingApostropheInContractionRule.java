@@ -1,8 +1,8 @@
 package io.languagetoys.errant4j.lang.en.classify.rules;
 
 import io.languagetoys.aligner.edit.Edit;
-import io.languagetoys.errant4j.core.classify.Classifier;
-import io.languagetoys.errant4j.core.grammar.GrammaticalError;
+import io.languagetoys.errant4j.core.GrammaticalError;
+import io.languagetoys.errant4j.core.annotate.Classifier;
 import io.languagetoys.errant4j.lang.en.classify.rules.common.Predicates;
 import io.languagetoys.spacy4j.api.containers.Token;
 
@@ -19,7 +19,7 @@ public class MissingApostropheInContractionRule extends Classifier.Predicate {
     @Override
     public boolean test(Edit<Token> edit) {
         return edit
-                .filter(e -> e.matches(Predicates.ofSize(1, 2).or(Predicates.ofSize(2,1))))
+                .filter(e -> e.matches(Predicates.ofSize(1, 2).or(Predicates.ofSize(2, 1))))
                 .filter(missingApostropheInContraction())
                 .isPresent();
     }

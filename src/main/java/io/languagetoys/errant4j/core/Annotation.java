@@ -1,7 +1,6 @@
 package io.languagetoys.errant4j.core;
 
 import io.languagetoys.aligner.edit.Edit;
-import io.languagetoys.errant4j.core.grammar.GrammaticalError;
 import io.languagetoys.errant4j.core.tools.mark.CharOffset;
 import io.languagetoys.errant4j.core.tools.mark.ErrorMarker;
 import io.languagetoys.spacy4j.api.containers.Doc;
@@ -16,7 +15,6 @@ import java.util.stream.Collectors;
 
 /**
  * An Annotation matches an {@link Edit} with its associated {@link GrammaticalError}.
- *
  */
 public final class Annotation {
 
@@ -58,20 +56,20 @@ public final class Annotation {
 
     public final String sourceText() {
         return TextUtils.writeTextWithoutWs(edit
-                .source()
-                .tokens()
-                .stream()
-                .map(Token::data)
-                .collect(Collectors.toList()));
+                                                    .source()
+                                                    .tokens()
+                                                    .stream()
+                                                    .map(Token::data)
+                                                    .collect(Collectors.toList()));
     }
 
     public final String targetText() {
         return TextUtils.writeTextWithoutWs(edit
-                .target()
-                .tokens()
-                .stream()
-                .map(Token::data)
-                .collect(Collectors.toList()));
+                                                    .target()
+                                                    .tokens()
+                                                    .stream()
+                                                    .map(Token::data)
+                                                    .collect(Collectors.toList()));
     }
 
     public final boolean matches(Predicate<? super Annotation> predicate) {
@@ -118,8 +116,8 @@ public final class Annotation {
     @Override
     public final String toString() {
         return "Annotation{" +
-                "edit=" + edit +
-                "error=" + error +
-                "} ";
+               "edit=" + edit +
+               "error=" + error +
+               "} ";
     }
 }
