@@ -4,10 +4,10 @@ import io.languagetoys.aligner.edit.Edit;
 import io.languagetoys.errant4j.core.Annotation;
 import io.languagetoys.errant4j.core.Errant;
 import io.languagetoys.errant4j.core.grammar.GrammaticalError;
-import io.languagetoys.errant4j.core.tools.TokenEditUtils;
 import io.languagetoys.spacy4j.adapters.corenlp.CoreNLPAdapter;
 import io.languagetoys.spacy4j.api.SpaCy;
 import io.languagetoys.spacy4j.api.containers.Doc;
+import io.languagetoys.spacy4j.api.containers.Token;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -17,6 +17,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -41,9 +42,8 @@ public class AnnotatorTest {
                 .substitute("consume")
                 .with("to", "eat")
                 .atPosition(2, 2)
-                .transform(e -> TokenEditUtils.toTokenEdit(e, source, target))
-                .transform(Annotation::of)
-                .withError(GrammaticalError.REPLACEMENT_VERB);
+                .transform(toTokenEdit(source, target))
+                .transform(annotate(GrammaticalError.REPLACEMENT_VERB));
         List<Annotation> actual = annotate(source, target);
         assertEquals(List.of(expected), actual);
     }
@@ -56,9 +56,8 @@ public class AnnotatorTest {
                 .substitute("in")
                 .with("to")
                 .atPosition(2, 2)
-                .transform(e -> TokenEditUtils.toTokenEdit(e, source.tokens(), target.tokens()))
-                .transform(Annotation::of)
-                .withError(GrammaticalError.REPLACEMENT_PARTICLE);
+                .transform(toTokenEdit(source, target))
+                .transform(annotate(GrammaticalError.REPLACEMENT_PARTICLE));
         assertSingleError(expected, source, target);
     }
 
@@ -70,9 +69,8 @@ public class AnnotatorTest {
                 .substitute("Because")
                 .with(",", "because")
                 .atPosition(0, 0)
-                .transform(e -> TokenEditUtils.toTokenEdit(e, source, target))
-                .transform(Annotation::of)
-                .withError(GrammaticalError.REPLACEMENT_PUNCTUATION);
+                .transform(toTokenEdit(source, target))
+                .transform(annotate(GrammaticalError.REPLACEMENT_PUNCTUATION));
         assertSingleError(expected, source, target);
     }
 
@@ -84,97 +82,86 @@ public class AnnotatorTest {
                 .substitute("'ve")
                 .with("have")
                 .atPosition(1, 1)
-                .transform(e -> TokenEditUtils.toTokenEdit(e, source, target))
-                .transform(Annotation::of)
-                .withError(GrammaticalError.REPLACEMENT_CONTRACTION);
+                .transform(toTokenEdit(source, target))
+                .transform(annotate(GrammaticalError.REPLACEMENT_CONTRACTION));
         assertSingleError(expected, source, target);
     }
 
     @Test
-    void tokenTier_Orthography() {
-        // case
-        Doc source1 = nlp("My friend sleeps at Home.");
-        Doc target1 = nlp("My friend sleeps at home.");
+    void tokenTier_Orthography_case() {
+        Doc source = nlp("My friend sleeps at Home.");
+        Doc target = nlp("My friend sleeps at home.");
         Annotation expected1 = Edit.builder()
                 .substitute("Home")
                 .with("home")
                 .atPosition(4, 4)
-                .transform(e -> TokenEditUtils.toTokenEdit(e, source1, target1))
-                .transform(Annotation::of)
-                .withError(GrammaticalError.REPLACEMENT_ORTHOGRAPHY);
-        assertSingleError(expected1, source1, target1);
+                .transform(toTokenEdit(source, target))
+                .transform(annotate(GrammaticalError.REPLACEMENT_ORTHOGRAPHY));
+        assertSingleError(expected1, source, target);
+    }
 
-        // whitespace
-        Doc source2 = nlp("My friendsleeps at home.");
-        Doc target2 = nlp("My friend sleeps at home.");
+    @Test
+    void tokenTier_Orthography_whitespace() {
+        Doc source = nlp("My friendsleeps at home.");
+        Doc target = nlp("My friend sleeps at home.");
         Annotation expected2 = Edit.builder()
                 .substitute("friendsleeps")
                 .with("friend", "sleeps")
                 .atPosition(1, 1)
-                .transform(e -> TokenEditUtils.toTokenEdit(e, source2, target2))
-                .transform(Annotation::of)
-                .withError(GrammaticalError.REPLACEMENT_ORTHOGRAPHY);
-        assertSingleError(expected2, source2, target2);
+                .transform(toTokenEdit(source, target))
+                .transform(annotate(GrammaticalError.REPLACEMENT_ORTHOGRAPHY));
+        assertSingleError(expected2, source, target);
     }
 
     @Test
     void tokenTier_Spelling() {
-        // case
         Doc source = nlp("My frien sleeps at home.");
         Doc target = nlp("My friend sleeps at home.");
         Annotation expected1 = Edit.builder()
                 .substitute("frien")
                 .with("friend")
                 .atPosition(1, 1)
-                .transform(e -> TokenEditUtils.toTokenEdit(e, source, target))
-                .transform(Annotation::of)
-                .withError(GrammaticalError.REPLACEMENT_SPELLING);
+                .transform(toTokenEdit(source, target))
+                .transform(annotate(GrammaticalError.REPLACEMENT_SPELLING));
         assertSingleError(expected1, source, target);
     }
 
     @Test
     void tokenTier_WordOrder() {
-        // case
         Doc source = nlp("This dog is cute");
         Doc target = nlp("This is cute dog");
         Annotation expected1 = Edit.builder()
                 .transpose("dog", "is", "cute")
                 .to("is", "cute", "dog")
                 .atPosition(1, 1)
-                .transform(e -> TokenEditUtils.toTokenEdit(e, source, target))
-                .transform(Annotation::of)
-                .withError(GrammaticalError.REPLACEMENT_WORD_ORDER);
+                .transform(toTokenEdit(source, target))
+                .transform(annotate(GrammaticalError.REPLACEMENT_WORD_ORDER));
         assertSingleError(expected1, source, target);
-
     }
 
     @Test
     void morphTier_AdjectiveForm() {
-        // case
         Doc source = nlp("This is the most small computer I have ever seen!");
         Doc target = nlp("This is the smallest computer I have ever seen!");
         Annotation expected2 = Edit.builder()
                 .substitute("most", "small")
                 .with("smallest")
                 .atPosition(3, 3)
-                .transform(e -> TokenEditUtils.toTokenEdit(e, source, target))
-                .transform(Annotation::of)
-                .withError(GrammaticalError.REPLACEMENT_ADJECTIVE_FORM);
+                .transform(toTokenEdit(source, target))
+                .transform(annotate(GrammaticalError.REPLACEMENT_ADJECTIVE_FORM));
         assertSingleError(expected2, source, target);
     }
 
     @Test
     void morphTier_AdjectiveForm2() {
-        // case
         Doc source = nlp("This is the big computer.");
         Doc target = nlp("This is the biggest computer.");
         Annotation expected1 = Edit.builder()
                 .substitute("big")
                 .with("biggest")
                 .atPosition(3, 3)
-                .transform(e -> TokenEditUtils.toTokenEdit(e, source, target))
-                .transform(Annotation::of)
-                .withError(GrammaticalError.REPLACEMENT_ADJECTIVE_FORM);
+                .transform(toTokenEdit(source, target))
+                .transform(annotate(GrammaticalError.REPLACEMENT_ADJECTIVE_FORM));
         assertSingleError(expected1, source, target);
     }
 
@@ -186,34 +173,34 @@ public class AnnotatorTest {
                 .substitute("Dog")
                 .with("dogs")
                 .atPosition(0, 0)
-                .transform(e -> TokenEditUtils.toTokenEdit(e, source, target))
-                .transform(Annotation::of)
-                .withError(GrammaticalError.REPLACEMENT_NOUN_NUMBER);
+                .transform(toTokenEdit(source, target))
+                .transform(annotate(GrammaticalError.REPLACEMENT_NOUN_NUMBER));
         assertSingleError(expected1, source, target);
     }
 
     @Test
-    void morphTier_nounPossessive() {
-        Doc source1 = nlp("It is at the river edge");
-        Doc target1 = nlp("It is at the river's edge");
+    void morphTier_nounPossessive_singular() {
+        Doc source = nlp("It is at the river edge");
+        Doc target = nlp("It is at the river's edge");
         Annotation expected1 = Edit.builder()
                 .insert("'s")
                 .atPosition(5, 5)
-                .transform(e -> TokenEditUtils.toTokenEdit(e, source1, target1))
-                .transform(Annotation::of)
-                .withError(GrammaticalError.MISSING_NOUN_POSSESSIVE);
-        assertSingleError(expected1, source1, target1);
+                .transform(toTokenEdit(source, target))
+                .transform(annotate(GrammaticalError.MISSING_NOUN_POSSESSIVE));
+        assertSingleError(expected1, source, target);
+    }
 
-        Doc source2 = nlp("It is at the rivers edge");
-        Doc target2 = nlp("It is at the river's edge");
+    @Test
+    void morphTier_nounPossessive_plural() {
+        Doc source = nlp("It is at the rivers edge");
+        Doc target = nlp("It is at the river's edge");
         Annotation expected2 = Edit.builder()
                 .substitute("rivers")
                 .with("river", "'s")
                 .atPosition(4, 4)
-                .transform(e -> TokenEditUtils.toTokenEdit(e, source2, target2))
-                .transform(Annotation::of)
-                .withError(GrammaticalError.REPLACEMENT_NOUN_POSSESSIVE);
-        assertSingleError(expected2, source2, target2);
+                .transform(toTokenEdit(source, target))
+                .transform(annotate(GrammaticalError.REPLACEMENT_NOUN_POSSESSIVE));
+        assertSingleError(expected2, source, target);
     }
 
     @Disabled("there is a collision between tense and form rules")
@@ -225,9 +212,8 @@ public class AnnotatorTest {
                 .substitute("became")
                 .with("become")
                 .atPosition(3, 3)
-                .transform(e -> TokenEditUtils.toTokenEdit(e, source1, target1))
-                .transform(Annotation::of)
-                .withError(GrammaticalError.REPLACEMENT_VERB_FORM);
+                .transform(toTokenEdit(source1, target1))
+                .transform(annotate(GrammaticalError.REPLACEMENT_VERB_FORM));
         assertSingleError(expected1, source1, target1);
 
         Doc source2 = nlp("is she go home?");
@@ -236,9 +222,8 @@ public class AnnotatorTest {
                 .substitute("go")
                 .with("going")
                 .atPosition(2, 2)
-                .transform(e -> TokenEditUtils.toTokenEdit(e, source2, target2))
-                .transform(Annotation::of)
-                .withError(GrammaticalError.REPLACEMENT_VERB_FORM);
+                .transform(toTokenEdit(source2, target2))
+                .transform(annotate(GrammaticalError.REPLACEMENT_VERB_FORM));
         assertSingleError(expected2, source2, target2);
 
         Doc source3 = nlp("is she went home");
@@ -247,9 +232,8 @@ public class AnnotatorTest {
                 .substitute("went")
                 .with("going")
                 .atPosition(2, 2)
-                .transform(e -> TokenEditUtils.toTokenEdit(e, source3, target3))
-                .transform(Annotation::of)
-                .withError(GrammaticalError.REPLACEMENT_VERB_FORM);
+                .transform(toTokenEdit(source3, target3))
+                .transform(annotate(GrammaticalError.REPLACEMENT_VERB_FORM));
         assertSingleError(expected3, source3, target3);
 
         Doc source4 = nlp("is she goes home");
@@ -258,114 +242,115 @@ public class AnnotatorTest {
                 .substitute("goes")
                 .with("going")
                 .atPosition(2, 2)
-                .transform(e -> TokenEditUtils.toTokenEdit(e, source4, target4))
-                .transform(Annotation::of)
-                .withError(GrammaticalError.REPLACEMENT_VERB_FORM);
+                .transform(toTokenEdit(source4, target4))
+                .transform(annotate(GrammaticalError.REPLACEMENT_VERB_FORM));
         assertSingleError(expected4, source4, target4);
     }
 
     @Test
-    public void morphTier_verbAgreementSubstitutionError() {
-        Doc source1 = nlp("I awaits your response.");
-        Doc target1 = nlp("I await your response.");
+    public void morphTier_verbAgreementSubstitutionError_1() {
+        Doc source = nlp("I awaits your response.");
+        Doc target = nlp("I await your response.");
         Annotation expected1 = Edit.builder()
                 .substitute("awaits")
                 .with("await")
                 .atPosition(1, 1)
-                .transform(e -> TokenEditUtils.toTokenEdit(e, source1, target1))
-                .transform(Annotation::of)
-                .withError(GrammaticalError.REPLACEMENT_SUBJECT_VERB_AGREEMENT);
-        assertSingleError(expected1, source1, target1);
+                .transform(toTokenEdit(source, target))
+                .transform(annotate(GrammaticalError.REPLACEMENT_SUBJECT_VERB_AGREEMENT));
+        assertSingleError(expected1, source, target);
+    }
 
-        Doc source2 = nlp("does she goes home?");
-        Doc target2 = nlp("does she go home?");
+    @Test
+    public void morphTier_verbAgreementSubstitutionError_2() {
+        Doc source = nlp("does she goes home?");
+        Doc target = nlp("does she go home?");
         Annotation expected2 = Edit.builder()
                 .substitute("goes")
                 .with("go")
                 .atPosition(2, 2)
-                .transform(e -> TokenEditUtils.toTokenEdit(e, source2, target2))
-                .transform(Annotation::of)
-                .withError(GrammaticalError.REPLACEMENT_SUBJECT_VERB_AGREEMENT);
-        assertSingleError(expected2, source2, target2);
+                .transform(toTokenEdit(source, target))
+                .transform(annotate(GrammaticalError.REPLACEMENT_SUBJECT_VERB_AGREEMENT));
+        assertSingleError(expected2, source, target);
+    }
 
-        Doc source3 = nlp("He must tells him everything.");
-        Doc target3 = nlp("He must tell him everything.");
+    @Test
+    public void morphTier_verbAgreementSubstitutionError_3() {
+        Doc source = nlp("He must tells him everything.");
+        Doc target = nlp("He must tell him everything.");
         Annotation expected3 = Edit.builder()
                 .substitute("tells")
                 .with("tell")
                 .atPosition(2, 2)
-                .transform(e -> TokenEditUtils.toTokenEdit(e, source3, target3))
-                .transform(Annotation::of)
-                .withError(GrammaticalError.REPLACEMENT_SUBJECT_VERB_AGREEMENT);
-        assertSingleError(expected3, source3, target3);
+                .transform(toTokenEdit(source, target))
+                .transform(annotate(GrammaticalError.REPLACEMENT_SUBJECT_VERB_AGREEMENT));
+        assertSingleError(expected3, source, target);
     }
 
     @Test
     public void morphTier_verbTenseError() {
-        Doc source1 = nlp("I go to see him yesterday.");
-        Doc target1 = nlp("I went to see him yesterday.");
+        Doc source = nlp("I go to see him yesterday.");
+        Doc target = nlp("I went to see him yesterday.");
         Annotation expected1 = Edit.builder()
                 .substitute("go")
                 .with("went")
                 .atPosition(1, 1)
-                .transform(e -> TokenEditUtils.toTokenEdit(e, source1, target1))
-                .transform(Annotation::of)
-                .withError(GrammaticalError.REPLACEMENT_VERB_TENSE);
-        assertSingleError(expected1, source1, target1);
+                .transform(toTokenEdit(source, target))
+                .transform(annotate(GrammaticalError.REPLACEMENT_VERB_TENSE));
+        assertSingleError(expected1, source, target);
     }
 
     @Test
     public void morphTier_verbFormError_basic() {
-        Doc source1 = nlp("I am eat dinner.");
-        Doc target1 = nlp("I am eating dinner.");
+        Doc source = nlp("I am eat dinner.");
+        Doc target = nlp("I am eating dinner.");
         Annotation expected1 = Edit.builder()
                 .substitute("eat")
                 .with("eating")
                 .atPosition(2, 2)
-                .transform(e -> TokenEditUtils.toTokenEdit(e, source1, target1))
-                .transform(Annotation::of)
-                .withError(GrammaticalError.REPLACEMENT_VERB_FORM);
-        assertSingleError(expected1, source1, target1);
+                .transform(toTokenEdit(source, target))
+
+                .transform(annotate(GrammaticalError.REPLACEMENT_VERB_FORM));
+        assertSingleError(expected1, source, target);
     }
 
     @Test
     public void morphTier_verbFormError_missingInfinitivalTo() {
-        Doc source1 = nlp("I would like go home please!");
-        Doc target1 = nlp("I would like to go home please!");
+        Doc source = nlp("I would like go home please!");
+        Doc target = nlp("I would like to go home please!");
         Annotation expected1 = Edit.builder()
                 .insert("to")
                 .atPosition(3, 3)
-                .transform(e -> TokenEditUtils.toTokenEdit(e, source1, target1))
-                .transform(Annotation::of)
-                .withError(GrammaticalError.MISSING_VERB_FORM);
-        assertSingleError(expected1, source1, target1);
+                .transform(toTokenEdit(source, target))
+
+                .transform(annotate(GrammaticalError.MISSING_VERB_FORM));
+        assertSingleError(expected1, source, target);
     }
 
     @Test
     public void morphTier_verbFormError_unnecessaryInfinitivalTo() {
-        Doc source1 = nlp("I must to eat now.");
-        Doc target1 = nlp("I must eat now.");
+        Doc source = nlp("I must to eat now.");
+        Doc target = nlp("I must eat now.");
         Annotation expected1 = Edit.builder()
                 .delete("to")
                 .atPosition(2, 2)
-                .transform(e -> TokenEditUtils.toTokenEdit(e, source1, target1))
-                .transform(Annotation::of)
-                .withError(GrammaticalError.UNNECESSARY_VERB_FORM);
-        assertSingleError(expected1, source1, target1);
+                .transform(toTokenEdit(source, target))
+
+                .transform(annotate(GrammaticalError.UNNECESSARY_VERB_FORM));
+        assertSingleError(expected1, source, target);
     }
 
     @Test
     public void morphTier_nounInflection() {
-        Doc source1 = nlp("I have five childs.");
-        Doc target1 = nlp("I have five children.");
+        Doc source = nlp("I have five childs.");
+        Doc target = nlp("I have five children.");
         Annotation expected1 = Edit.builder()
                 .substitute("childs")
                 .with("children")
                 .atPosition(3, 3)
-                .transform(e -> TokenEditUtils.toTokenEdit(e, source1, target1))
-                .transform(Annotation::of)
-                .withError(GrammaticalError.REPLACEMENT_NOUN_INFLECTION);
-        assertSingleError(expected1, source1, target1);
+                .transform(toTokenEdit(source, target))
+
+                .transform(annotate(GrammaticalError.REPLACEMENT_NOUN_INFLECTION));
+        assertSingleError(expected1, source, target);
     }
 
     /**
@@ -373,16 +358,16 @@ public class AnnotatorTest {
      */
     @Test
     public void morphTier_verbInflection() {
-        Doc source1 = nlp("I getted the money!");
-        Doc target1 = nlp("I got the money!");
+        Doc source = nlp("I getted the money!");
+        Doc target = nlp("I got the money!");
         Annotation expected1 = Edit.builder()
                 .substitute("getted")
                 .with("got")
                 .atPosition(1, 1)
-                .transform(e -> TokenEditUtils.toTokenEdit(e, source1, target1))
-                .transform(Annotation::of)
-                .withError(GrammaticalError.REPLACEMENT_VERB_INFLECTION);
-        assertSingleError(expected1, source1, target1);
+                .transform(toTokenEdit(source, target))
+
+                .transform(annotate(GrammaticalError.REPLACEMENT_VERB_INFLECTION));
+        assertSingleError(expected1, source, target);
     }
 
     /**
@@ -390,30 +375,30 @@ public class AnnotatorTest {
      */
     @Test
     public void morphTier_subjectVerbAgreement() {
-        Doc source1 = nlp("I has the money!");
-        Doc target1 = nlp("I have the money!");
+        Doc source = nlp("I has the money!");
+        Doc target = nlp("I have the money!");
         Annotation expected1 = Edit.builder()
                 .substitute("has")
                 .with("have")
                 .atPosition(1, 1)
-                .transform(e -> TokenEditUtils.toTokenEdit(e, source1, target1))
-                .transform(Annotation::of)
-                .withError(GrammaticalError.REPLACEMENT_SUBJECT_VERB_AGREEMENT);
-        assertSingleError(expected1, source1, target1);
+                .transform(toTokenEdit(source, target))
+
+                .transform(annotate(GrammaticalError.REPLACEMENT_SUBJECT_VERB_AGREEMENT));
+        assertSingleError(expected1, source, target);
     }
 
     @Test
     public void morphTier_subjectVerbAgreement2() {
-        Doc source1 = nlp("Matt like fish.");
-        Doc target1 = nlp("Matt likes fish.");
+        Doc source = nlp("Matt like fish.");
+        Doc target = nlp("Matt likes fish.");
         Annotation expected1 = Edit.builder()
                 .substitute("like")
                 .with("likes")
                 .atPosition(1, 1)
-                .transform(e -> TokenEditUtils.toTokenEdit(e, source1, target1))
-                .transform(Annotation::of)
-                .withError(GrammaticalError.REPLACEMENT_SUBJECT_VERB_AGREEMENT);
-        assertSingleError(expected1, source1, target1);
+                .transform(toTokenEdit(source, target))
+
+                .transform(annotate(GrammaticalError.REPLACEMENT_SUBJECT_VERB_AGREEMENT));
+        assertSingleError(expected1, source, target);
     }
 
     @Test
@@ -424,9 +409,9 @@ public class AnnotatorTest {
                 .substitute("was")
                 .with("were")
                 .atPosition(2, 2)
-                .transform(e -> TokenEditUtils.toTokenEdit(e, source, target))
-                .transform(Annotation::of)
-                .withError(GrammaticalError.REPLACEMENT_SUBJECT_VERB_AGREEMENT);
+                .transform(toTokenEdit(source, target))
+
+                .transform(annotate(GrammaticalError.REPLACEMENT_SUBJECT_VERB_AGREEMENT));
         assertSingleError(expected1, source, target);
     }
 
@@ -435,42 +420,42 @@ public class AnnotatorTest {
      */
     @Test
     void oneWordDoc() {
-        Doc source1 = nlp("are");
-        Doc target1 = nlp("Students are not always good.");
+        Doc source = nlp("are");
+        Doc target = nlp("Students are not always good.");
         Annotation expected1 = Edit.builder()
                 .insert("Students")
                 .atPosition(0, 0)
-                .transform(e -> TokenEditUtils.toTokenEdit(e, source1, target1))
-                .transform(Annotation::of)
-                .withError(GrammaticalError.MISSING_NOUN);
+                .transform(toTokenEdit(source, target))
+
+                .transform(annotate(GrammaticalError.MISSING_NOUN));
         Annotation expected2 = Edit.builder()
                 .insert("not", "always", "good")
                 .atPosition(1, 2)
-                .transform(e -> TokenEditUtils.toTokenEdit(e, source1, target1))
-                .transform(Annotation::of)
-                .withError(GrammaticalError.MISSING_OTHER);
+                .transform(toTokenEdit(source, target))
+
+                .transform(annotate(GrammaticalError.MISSING_OTHER));
         Annotation expected3 = Edit.builder()
                 .insert(".")
                 .atPosition(1, 5)
-                .transform(e -> TokenEditUtils.toTokenEdit(e, source1, target1))
-                .transform(Annotation::of)
-                .withError(GrammaticalError.MISSING_PUNCTUATION);
-        assertAllErrors(Arrays.asList(expected1, expected2, expected3), source1, target1);
+                .transform(toTokenEdit(source, target))
+
+                .transform(annotate(GrammaticalError.MISSING_PUNCTUATION));
+        assertAllErrors(Arrays.asList(expected1, expected2, expected3), source, target);
     }
 
     @Test
     void punctuationOverSpelling() {
-        Doc source1 = nlp("Am I early?");
-        Doc target1 = nlp("I am not early.");
+        Doc source = nlp("Am I early?");
+        Doc target = nlp("I am not early.");
         Annotation expected1 = Edit.builder()
                 .substitute("?")
                 .with(".")
                 .atPosition(3, 4)
-                .transform(e -> TokenEditUtils.toTokenEdit(e, source1, target1))
-                .transform(Annotation::of)
-                .withError(GrammaticalError.REPLACEMENT_PUNCTUATION);
+                .transform(toTokenEdit(source, target))
 
-        assertContainsError(expected1, source1, target1);
+                .transform(annotate(GrammaticalError.REPLACEMENT_PUNCTUATION));
+
+        assertContainsError(expected1, source, target);
     }
 
     /**
@@ -478,34 +463,34 @@ public class AnnotatorTest {
      */
     @Test
     void contractionOnMissingApostrophe() {
-        Doc source1 = nlp("I wont do that.");
-        Doc target1 = nlp("I won't do that.");
+        Doc source = nlp("I wont do that.");
+        Doc target = nlp("I won't do that.");
         Annotation expected1 = Edit.builder()
                 .substitute("wont")
                 .with("won't")
                 .atPosition(1, 1)
-                .transform(e -> TokenEditUtils.toTokenEdit(e, source1, target1))
-                .transform(Annotation::of)
-                .withError(GrammaticalError.REPLACEMENT_ORTHOGRAPHY);
+                .transform(toTokenEdit(source, target))
 
-        assertContainsError(expected1, source1, target1);
+                .transform(annotate(GrammaticalError.REPLACEMENT_ORTHOGRAPHY));
+
+        assertContainsError(expected1, source, target);
     }
 
     @Test
     void orth() {
-        Doc source1 = nlp("they will do no more");
-        Doc target1 = nlp("they won't do anymore work");
+        Doc source = nlp("they will do no more");
+        Doc target = nlp("they won't do anymore work");
         Annotation expected1 = Edit.builder()
                 .substitute("will")
                 .with("won't")
                 .atPosition(1, 1)
-                .transform(e -> TokenEditUtils.toTokenEdit(e, source1, target1))
-                .transform(Annotation::of)
-                .withError(GrammaticalError.REPLACEMENT_OTHER);
+                .transform(toTokenEdit(source, target))
 
-        assertContainsError(expected1, source1, target1);
+                .transform(annotate(GrammaticalError.REPLACEMENT_OTHER));
+
+        assertContainsError(expected1, source, target);
     }
-    
+
     void assertSingleError(Annotation expected, Doc source, Doc target) {
         List<Annotation> actual = annotate(source, target);
         assertEquals(List.of(expected), actual);
@@ -543,12 +528,23 @@ public class AnnotatorTest {
         return errant.parse(text);
     }
 
-    List<Annotation> annotate(Doc source, Doc target) {
+    private List<Annotation> annotate(Doc source, Doc target) {
         return errant
                 .annotate(source.tokens(), target.tokens())
                 .stream()
                 .filter(annotation -> !annotation.grammaticalError().isNoneOrIgnored())
                 .collect(Collectors.toList());
+    }
+
+    private Function<Edit<String>, Edit<Token>> toTokenEdit(Doc source, Doc target) {
+        return stringEdit -> stringEdit.mapSegments(
+                s -> s.mapWithIndex(source::token),
+                t -> t.mapWithIndex(target::token)
+        );
+    }
+
+    private Function<Edit<Token>, Annotation> annotate(GrammaticalError error) {
+        return tokenEdit -> Annotation.of(tokenEdit, error);
     }
 
 }
