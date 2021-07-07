@@ -41,8 +41,17 @@ List<Annotation> annotations = errant.annotate(source.tokens(), target.tokens())
 
 // Inspect annotations
 for (Annotation annotation : annotations) {
+    GrammaticalError error = annotation.grammaticalError();
+    String sourceText = annotation.sourceText();
+    String targetText = annotation.targetText();
     System.out.printf("Error: %s, sourceText: %s, targetText: %s%n",
-                      annotation.grammaticalError(), annotation.sourceText(), annotation.targetText());
+                      error,
+                      sourceText,
+                      targetText);
+    
+    // Inspect the underlying edit
+    Edit<Token> edit = annotation.edit();
+    // ...
 }
 ```
 
