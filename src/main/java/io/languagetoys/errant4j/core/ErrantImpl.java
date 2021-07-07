@@ -31,7 +31,7 @@ final class ErrantImpl implements Errant {
         Alignment<Token> alignment = align(source, target);
         List<Edit<Token>> merged = merge(alignment.edits());
         return merged.stream()
-                .map(edit -> Annotation.of(edit).setGrammaticalError(classify(edit)))
+                .map(edit -> Annotation.of(edit, classify(edit)))
                 .collect(Collectors.toList());
     }
 
