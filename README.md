@@ -1,6 +1,6 @@
 # Errant4J 🧑🏻‍🏫📝
 
-Errant4J is an unofficial Java port of [ERRANT](https://github.com/chrisjbryant/errant) that allows nlp researchers and developers to annotate grammatical mistakes in parallel text using [SpaCy4J](https://github.com/LanguageToys/spacy4j) as the NLP engine.
+Errant4J is an unofficial [ERRANT](https://github.com/chrisjbryant/errant) port that allows nlp researchers and Java developers to annotate grammatical mistakes in parallel text using [SpaCy4J](https://github.com/LanguageToys/spacy4j) as the NLP engine.
 
 ![maven](https://github.com/manzurola/errant-java/actions/workflows/maven.yml/badge.svg)
 
