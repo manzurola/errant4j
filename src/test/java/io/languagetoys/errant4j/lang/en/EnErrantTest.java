@@ -24,14 +24,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class AnnotatorTest {
+public class EnErrantTest {
 
-    private static final Logger logger = LoggerFactory.getLogger(AnnotatorTest.class);
+    private static final Logger logger = LoggerFactory.getLogger(EnErrantTest.class);
     private Errant errant;
 
     @BeforeAll
     void setup() {
-        this.errant = Errant.en(SpaCy.create(CoreNLPAdapter.create()));
+        this.errant = Errant.of(SpaCy.create(CoreNLPAdapter.create()), new EnAnnotator());
     }
 
     @Test
