@@ -308,7 +308,6 @@ public class AnnotatorTest {
                 .with("eating")
                 .atPosition(2, 2)
                 .transform(toTokenEdit(source, target))
-
                 .transform(annotate(GrammaticalError.REPLACEMENT_VERB_FORM));
         assertSingleError(expected1, source, target);
     }
@@ -321,7 +320,6 @@ public class AnnotatorTest {
                 .insert("to")
                 .atPosition(3, 3)
                 .transform(toTokenEdit(source, target))
-
                 .transform(annotate(GrammaticalError.MISSING_VERB_FORM));
         assertSingleError(expected1, source, target);
     }
@@ -334,7 +332,6 @@ public class AnnotatorTest {
                 .delete("to")
                 .atPosition(2, 2)
                 .transform(toTokenEdit(source, target))
-
                 .transform(annotate(GrammaticalError.UNNECESSARY_VERB_FORM));
         assertSingleError(expected1, source, target);
     }
@@ -348,7 +345,6 @@ public class AnnotatorTest {
                 .with("children")
                 .atPosition(3, 3)
                 .transform(toTokenEdit(source, target))
-
                 .transform(annotate(GrammaticalError.REPLACEMENT_NOUN_INFLECTION));
         assertSingleError(expected1, source, target);
     }
@@ -365,7 +361,6 @@ public class AnnotatorTest {
                 .with("got")
                 .atPosition(1, 1)
                 .transform(toTokenEdit(source, target))
-
                 .transform(annotate(GrammaticalError.REPLACEMENT_VERB_INFLECTION));
         assertSingleError(expected1, source, target);
     }
@@ -382,7 +377,6 @@ public class AnnotatorTest {
                 .with("have")
                 .atPosition(1, 1)
                 .transform(toTokenEdit(source, target))
-
                 .transform(annotate(GrammaticalError.REPLACEMENT_SUBJECT_VERB_AGREEMENT));
         assertSingleError(expected1, source, target);
     }
@@ -396,7 +390,6 @@ public class AnnotatorTest {
                 .with("likes")
                 .atPosition(1, 1)
                 .transform(toTokenEdit(source, target))
-
                 .transform(annotate(GrammaticalError.REPLACEMENT_SUBJECT_VERB_AGREEMENT));
         assertSingleError(expected1, source, target);
     }
@@ -410,7 +403,6 @@ public class AnnotatorTest {
                 .with("were")
                 .atPosition(2, 2)
                 .transform(toTokenEdit(source, target))
-
                 .transform(annotate(GrammaticalError.REPLACEMENT_SUBJECT_VERB_AGREEMENT));
         assertSingleError(expected1, source, target);
     }
@@ -426,19 +418,16 @@ public class AnnotatorTest {
                 .insert("Students")
                 .atPosition(0, 0)
                 .transform(toTokenEdit(source, target))
-
                 .transform(annotate(GrammaticalError.MISSING_NOUN));
         Annotation expected2 = Edit.builder()
                 .insert("not", "always", "good")
                 .atPosition(1, 2)
                 .transform(toTokenEdit(source, target))
-
                 .transform(annotate(GrammaticalError.MISSING_OTHER));
         Annotation expected3 = Edit.builder()
                 .insert(".")
                 .atPosition(1, 5)
                 .transform(toTokenEdit(source, target))
-
                 .transform(annotate(GrammaticalError.MISSING_PUNCTUATION));
         assertAllErrors(Arrays.asList(expected1, expected2, expected3), source, target);
     }
@@ -452,9 +441,7 @@ public class AnnotatorTest {
                 .with(".")
                 .atPosition(3, 4)
                 .transform(toTokenEdit(source, target))
-
                 .transform(annotate(GrammaticalError.REPLACEMENT_PUNCTUATION));
-
         assertContainsError(expected1, source, target);
     }
 
@@ -470,9 +457,7 @@ public class AnnotatorTest {
                 .with("won't")
                 .atPosition(1, 1)
                 .transform(toTokenEdit(source, target))
-
                 .transform(annotate(GrammaticalError.REPLACEMENT_ORTHOGRAPHY));
-
         assertContainsError(expected1, source, target);
     }
 
