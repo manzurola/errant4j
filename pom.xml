@@ -20,7 +20,7 @@
         <repository>
             <id>github</id>
             <name>errant4j</name>
-            <url>https://maven.pkg.github.com/LanguageToys/errant4j</url>
+            <url>https://maven.pkg.github.com/languagetoys/errant4j</url>
         </repository>
     </distributionManagement>
 
