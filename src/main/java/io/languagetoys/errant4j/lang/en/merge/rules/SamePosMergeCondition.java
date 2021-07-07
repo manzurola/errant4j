@@ -1,6 +1,7 @@
-package io.languagetoys.errant4j.lang.en.merge.conditions;
+package io.languagetoys.errant4j.lang.en.merge.rules;
 
 import io.languagetoys.aligner.edit.Edit;
+import io.languagetoys.errant4j.core.annotate.Merger;
 import io.languagetoys.spacy4j.api.containers.Token;
 import io.languagetoys.spacy4j.api.features.Pos;
 
@@ -10,10 +11,10 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
- * Merge any consecutive operations that involve tokens with the same POS;
- * e.g. [(look) at → (look) up] + [ε → to] = [(look) at → (look) up to].
+ * Merge any consecutive operations that involve tokens with the same POS; e.g. [(look) at → (look) up] + [ε → to] =
+ * [(look) at → (look) up to].
  */
-public class SamePosMergeCondition implements EditMergeCondition {
+public class SamePosMergeCondition implements Merger.Rule {
 
     private static final Set<Pos> expectedPos = new HashSet<>(Arrays.asList(Pos.AUX, Pos.PART, Pos.VERB));
 

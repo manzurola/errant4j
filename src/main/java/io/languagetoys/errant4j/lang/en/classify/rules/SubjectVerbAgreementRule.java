@@ -1,8 +1,8 @@
 package io.languagetoys.errant4j.lang.en.classify.rules;
 
 import io.languagetoys.aligner.edit.Edit;
-import io.languagetoys.errant4j.core.grammar.GrammaticalError;
-import io.languagetoys.errant4j.lang.en.classify.CategoryMatchRule;
+import io.languagetoys.errant4j.core.GrammaticalError;
+import io.languagetoys.errant4j.core.annotate.Classifier;
 import io.languagetoys.errant4j.lang.en.classify.rules.common.Predicates;
 import io.languagetoys.spacy4j.api.containers.Token;
 import io.languagetoys.spacy4j.api.features.Pos;
@@ -11,16 +11,14 @@ import io.languagetoys.spacy4j.api.features.Tag;
 import java.util.function.Predicate;
 
 /**
- * Subject-verb agreement errors involve edits where the grammatical number of the subject does not agree with the grammatical number of the verb; e.g. [(I) has → (I) have]. They are captured as follows:
- * 1. There is exactly one token on both sides of the edit, and
- * 2. Both tokens have the same lemma, and
- * 3.   (a) Both tokens are was and were, or
- * (b) i. Both tokens are POS tagged as VERB, and
- * ii. At least one token is POS tagged as a 3rd-person present tense verb form (VBZ), or
- * (c) i. Both tokens do not have the same POS tag, and
- * ii. The corrected token is POS tagged as 3rd-person present tense verb form (VBZ).
+ * Subject-verb agreement errors involve edits where the grammatical number of the subject does not agree with the
+ * grammatical number of the verb; e.g. [(I) has → (I) have]. They are captured as follows: 1. There is exactly one
+ * token on both sides of the edit, and 2. Both tokens have the same lemma, and 3.   (a) Both tokens are was and were,
+ * or (b) i. Both tokens are POS tagged as VERB, and ii. At least one token is POS tagged as a 3rd-person present tense
+ * verb form (VBZ), or (c) i. Both tokens do not have the same POS tag, and ii. The corrected token is POS tagged as
+ * 3rd-person present tense verb form (VBZ).
  */
-public class SubjectVerbAgreementRule extends CategoryMatchRule {
+public class SubjectVerbAgreementRule extends Classifier.Predicate {
 
     @Override
     public GrammaticalError.Category getCategory() {
@@ -28,7 +26,7 @@ public class SubjectVerbAgreementRule extends CategoryMatchRule {
     }
 
     @Override
-    public boolean isSatisfied(Edit<Token> edit) {
+    public boolean test(Edit<Token> edit) {
         return edit
                 .filter(Predicates.ofSizeOneToOne())
                 .filter(bothTokensAreWasAndWere().or(
@@ -42,7 +40,7 @@ public class SubjectVerbAgreementRule extends CategoryMatchRule {
             String source = edit.source().first().lower();
             String target = edit.target().first().lower();
             return source.equals("was") && target.equals("were") ||
-                    source.equals("were") && target.equals("was");
+                   source.equals("were") && target.equals("was");
         };
     }
 

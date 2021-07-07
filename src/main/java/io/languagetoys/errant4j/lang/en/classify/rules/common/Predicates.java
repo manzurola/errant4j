@@ -72,9 +72,9 @@ public class Predicates {
     public static Predicate<Token> isContentWord() {
         return word -> word
                 .matches(isAdjective()
-                        .or(isAdverb())
-                        .or(isNoun())
-                        .or(isVerb()));
+                                 .or(isAdverb())
+                                 .or(isNoun())
+                                 .or(isVerb()));
     }
 
     public static Predicate<Token> isAuxVerb() {
@@ -100,7 +100,7 @@ public class Predicates {
         return word -> Pos.NOUN.matches(word.pos());
     }
 
-    public static Predicate<? super Edit<Token>> lemmasIntersect(Lemmatizer lemmatizer) {
+    public static Predicate<Edit<Token>> lemmasIntersect(Lemmatizer lemmatizer) {
         return edit -> {
             Set<String> sourceLemmas = edit.source()
                     .stream()

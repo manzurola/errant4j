@@ -30,7 +30,7 @@ public final class CharOffset {
         if (o == null || getClass() != o.getClass()) return false;
         CharOffset that = (CharOffset) o;
         return start == that.start &&
-                end == that.end;
+               end == that.end;
     }
 
     @Override
@@ -41,9 +41,9 @@ public final class CharOffset {
     @Override
     public final String toString() {
         return "CharOffset{" +
-                "start=" + start +
-                ", end=" + end +
-                '}';
+               "start=" + start +
+               ", end=" + end +
+               '}';
     }
 
 

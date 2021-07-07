@@ -1,4 +1,4 @@
-package io.languagetoys.errant4j.core.grammar;
+package io.languagetoys.errant4j.core;
 
 import io.languagetoys.aligner.edit.Edit;
 

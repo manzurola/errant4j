@@ -1,19 +1,20 @@
-package io.languagetoys.errant4j.core.annotator;
+package io.languagetoys.errant4j.core;
 
 import io.languagetoys.aligner.edit.Edit;
-import io.languagetoys.errant4j.core.grammar.GrammaticalError;
-import io.languagetoys.errant4j.core.tools.TokenEditUtils;
 import io.languagetoys.errant4j.core.tools.mark.CharOffset;
 import io.languagetoys.errant4j.core.tools.mark.ErrorMarker;
+import io.languagetoys.spacy4j.api.containers.Doc;
 import io.languagetoys.spacy4j.api.containers.Token;
+import io.languagetoys.spacy4j.api.utils.TextUtils;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 /**
  * An Annotation matches an {@link Edit} with its associated {@link GrammaticalError}.
- *
  */
 public final class Annotation {
 
@@ -29,7 +30,7 @@ public final class Annotation {
         this.error = error;
     }
 
-    public static Annotation create(Edit<Token> edit, GrammaticalError error) {
+    public static Annotation of(Edit<Token> edit, GrammaticalError error) {
         return new Annotation(edit, error);
     }
 
@@ -37,16 +38,38 @@ public final class Annotation {
         return new Annotation(edit);
     }
 
+    public static Annotation of(Edit<String> edit, List<Token> source, List<Token> target, GrammaticalError error) {
+        Edit<Token> tokenEdit = edit.mapSegments(
+                s -> s.mapWithIndex(source::get),
+                t -> t.mapWithIndex(target::get)
+        );
+        return new Annotation(tokenEdit, error);
+    }
+
+    public static Annotation of(Edit<String> edit, Doc source, Doc target, GrammaticalError error) {
+        return of(edit, source.tokens(), target.tokens(), error);
+    }
+
     public final Edit<Token> edit() {
         return edit;
     }
 
     public final String sourceText() {
-        return TokenEditUtils.getSourceText(edit);
+        return TextUtils.writeTextWithoutWs(edit
+                                                    .source()
+                                                    .tokens()
+                                                    .stream()
+                                                    .map(Token::data)
+                                                    .collect(Collectors.toList()));
     }
 
     public final String targetText() {
-        return TokenEditUtils.getTargetText(edit);
+        return TextUtils.writeTextWithoutWs(edit
+                                                    .target()
+                                                    .tokens()
+                                                    .stream()
+                                                    .map(Token::data)
+                                                    .collect(Collectors.toList()));
     }
 
     public final boolean matches(Predicate<? super Annotation> predicate) {
@@ -57,20 +80,20 @@ public final class Annotation {
         return mapper.apply(this);
     }
 
-    public final Annotation withError(GrammaticalError error) {
-        return new Annotation(edit(), error);
-    }
-
     public final GrammaticalError grammaticalError() {
         return error;
     }
 
-    public final boolean hasError() {
+    public final Annotation setGrammaticalError(GrammaticalError error) {
+        return new Annotation(edit(), error);
+    }
+
+    public final boolean isError() {
         return !grammaticalError().isNone() && !grammaticalError().isIgnored();
     }
 
-    public final boolean hasNoError() {
-        return !hasError();
+    public final boolean isNotError() {
+        return !isError();
     }
 
     public final CharOffset markErrorInSource() {
@@ -93,8 +116,8 @@ public final class Annotation {
     @Override
     public final String toString() {
         return "Annotation{" +
-                "edit=" + edit +
-                "error=" + error +
-                "} ";
+               "edit=" + edit +
+               "error=" + error +
+               "} ";
     }
 }
