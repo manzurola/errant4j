@@ -1,24 +1,29 @@
 package io.languagetoys.errant4j.core.tools.mark;
 
 import io.languagetoys.aligner.edit.Edit;
-import io.languagetoys.errant4j.core.Errant;
-import io.languagetoys.errant4j.core.tools.mark.CharOffset;
-import io.languagetoys.errant4j.core.tools.mark.ErrorMarker;
 import io.languagetoys.spacy4j.adapters.corenlp.CoreNLPAdapter;
 import io.languagetoys.spacy4j.api.SpaCy;
 import io.languagetoys.spacy4j.api.containers.Doc;
 import io.languagetoys.spacy4j.api.containers.Token;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class ErrorMarkerTest {
 
-    private final static Errant errant = Errant.en(SpaCy.create(CoreNLPAdapter.create()));
+    private SpaCy spacy = SpaCy.create(CoreNLPAdapter.create());
+
+    @BeforeAll
+    void setup() {
+        this.spacy = SpaCy.create(CoreNLPAdapter.create());
+    }
 
     @Test
     void missingWordHasBeforeAndAfter() {
-        Doc source = errant.parse("My name guy.");
-        Doc target = errant.parse("My name is guy.");
+        Doc source = spacy.nlp("My name guy.");
+        Doc target = spacy.nlp("My name is guy.");
         Edit<Token> edit = Edit.builder()
                 .insert("is")
                 .atPosition(2, 2)
@@ -32,8 +37,8 @@ public class ErrorMarkerTest {
 
     @Test
     void missingWordEmptySentence() {
-        Doc source = errant.parse("");
-        Doc target = errant.parse("My name is guy.");
+        Doc source = spacy.nlp("");
+        Doc target = spacy.nlp("My name is guy.");
         Edit<Token> edit = Edit.builder()
                 .insert("is")
                 .atPosition(2, 2)

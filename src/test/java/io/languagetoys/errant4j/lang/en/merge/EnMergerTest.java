@@ -3,9 +3,8 @@ package io.languagetoys.errant4j.lang.en.merge;
 import io.languagetoys.aligner.Aligner;
 import io.languagetoys.aligner.Alignment;
 import io.languagetoys.aligner.edit.Edit;
-import io.languagetoys.errant4j.core.annotate.Merger;
-import io.languagetoys.errant4j.lang.en.align.EnAligner;
-import io.languagetoys.errant4j.lang.en.utils.lemmatize.WordNetLemmatizer;
+import io.languagetoys.errant4j.core.align.TokenAligner;
+import io.languagetoys.errant4j.core.merge.Merger;
 import io.languagetoys.spacy4j.adapters.corenlp.CoreNLPAdapter;
 import io.languagetoys.spacy4j.api.SpaCy;
 import io.languagetoys.spacy4j.api.containers.Doc;
@@ -29,7 +28,7 @@ public class EnMergerTest {
     @BeforeAll
     void setup() {
         this.spacy = SpaCy.create(CoreNLPAdapter.create());
-        this.aligner = new EnAligner(new WordNetLemmatizer());
+        this.aligner = new TokenAligner();
         this.merger = new EnMerger();
     }
 

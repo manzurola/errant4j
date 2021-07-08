@@ -31,7 +31,8 @@ public class EnErrantTest {
 
     @BeforeAll
     void setup() {
-        this.errant = Errant.of(SpaCy.create(CoreNLPAdapter.create()), new EnAnnotator());
+        SpaCy spacy = SpaCy.create(CoreNLPAdapter.create());
+        this.errant = Errant.of(spacy, new EnPipeline());
     }
 
     @Test

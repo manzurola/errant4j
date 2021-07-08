@@ -2,7 +2,7 @@ package io.languagetoys.errant4j.lang.en.classify.rules;
 
 import io.languagetoys.aligner.edit.Edit;
 import io.languagetoys.errant4j.core.GrammaticalError;
-import io.languagetoys.errant4j.core.annotate.Classifier;
+import io.languagetoys.errant4j.core.classify.Classifier;
 import io.languagetoys.spacy4j.api.containers.Token;
 
 public class IgnoreSpaceErrorRule extends Classifier.Predicate {
