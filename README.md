@@ -28,8 +28,8 @@ To use Errant4J in code, follow these steps:
 // Get a spaCy instance (from spacy4j)
 SpaCy spacy = SpaCy.create(CoreNLPAdapter.create());
 
-// Create an English Errant
-Errant errant = Errant.en(spacy);
+// Create an english annotator
+Errant errant = Errant.of(spacy, new EnPipeline());
 
 // Parse source and target sentences
 Doc source = errant.parse("Yesterday I went to see my therapist.");
@@ -47,10 +47,10 @@ for (Annotation annotation : annotations) {
                       error,
                       sourceText,
                       targetText);
-    
-    // Inspect the underlying edit
+
     Edit<Token> edit = annotation.edit();
-    // ...
+    // Inspect the classified edit...
+}
 }
 ```
 
