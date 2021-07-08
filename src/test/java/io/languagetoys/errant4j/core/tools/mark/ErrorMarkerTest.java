@@ -1,10 +1,6 @@
 package io.languagetoys.errant4j.core.tools.mark;
 
 import io.languagetoys.aligner.edit.Edit;
-import io.languagetoys.errant4j.core.Errant;
-import io.languagetoys.errant4j.core.tools.mark.CharOffset;
-import io.languagetoys.errant4j.core.tools.mark.ErrorMarker;
-import io.languagetoys.errant4j.lang.en.EnPipeline;
 import io.languagetoys.spacy4j.adapters.corenlp.CoreNLPAdapter;
 import io.languagetoys.spacy4j.api.SpaCy;
 import io.languagetoys.spacy4j.api.containers.Doc;
