@@ -1,4 +1,4 @@
-package io.languagetoys.errant4j.core.annotate;
+package io.languagetoys.errant4j.core.merge;
 
 import io.languagetoys.aligner.edit.Edit;
 import io.languagetoys.spacy4j.api.containers.Token;

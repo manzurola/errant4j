@@ -4,6 +4,7 @@ import io.languagetoys.aligner.edit.Edit;
 import io.languagetoys.errant4j.core.Annotation;
 import io.languagetoys.errant4j.core.Errant;
 import io.languagetoys.errant4j.core.GrammaticalError;
+import io.languagetoys.errant4j.lang.en.EnPipeline;
 import io.languagetoys.spacy4j.adapters.corenlp.CoreNLPAdapter;
 import io.languagetoys.spacy4j.api.SpaCy;
 import io.languagetoys.spacy4j.api.containers.Doc;
@@ -20,8 +21,9 @@ public class UsageExamples {
     void annotateParallelEnglishSentences() {
         // Get a spaCy instance (from spacy4j)
         SpaCy spacy = SpaCy.create(CoreNLPAdapter.create());
+
         // Create an english annotator
-        Errant errant = Errant.en(spacy);
+        Errant errant = Errant.of(spacy, new EnPipeline());
 
         // Parse source and target sentences
         Doc source = errant.parse("Yesterday I went to see my therapist.");

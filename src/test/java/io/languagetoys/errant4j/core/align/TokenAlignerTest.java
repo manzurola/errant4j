@@ -1,9 +1,8 @@
-package io.languagetoys.errant4j.lang.en.align;
+package io.languagetoys.errant4j.core.align;
 
 import io.languagetoys.aligner.Aligner;
 import io.languagetoys.aligner.Alignment;
 import io.languagetoys.aligner.edit.Edit;
-import io.languagetoys.errant4j.lang.en.utils.lemmatize.WordNetLemmatizer;
 import io.languagetoys.spacy4j.adapters.corenlp.CoreNLPAdapter;
 import io.languagetoys.spacy4j.api.SpaCy;
 import io.languagetoys.spacy4j.api.containers.Doc;
@@ -19,7 +18,7 @@ import java.util.stream.Collectors;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class EnAlignerTest {
+public class TokenAlignerTest {
 
     private SpaCy spacy;
     private Aligner<Token> aligner;
@@ -27,7 +26,7 @@ public class EnAlignerTest {
     @BeforeAll
     void setup() {
         this.spacy = SpaCy.create(CoreNLPAdapter.create());
-        this.aligner = new EnAligner(new WordNetLemmatizer());
+        this.aligner = new TokenAligner();
     }
 
     @Test

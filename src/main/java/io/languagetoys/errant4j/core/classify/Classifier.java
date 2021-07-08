@@ -1,4 +1,4 @@
-package io.languagetoys.errant4j.core.annotate;
+package io.languagetoys.errant4j.core.classify;
 
 import io.languagetoys.aligner.edit.Edit;
 import io.languagetoys.errant4j.core.GrammaticalError;
