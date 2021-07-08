@@ -51,7 +51,6 @@ for (Annotation annotation : annotations) {
     Edit<Token> edit = annotation.edit();
     // Inspect the classified edit...
 }
-}
 ```
 
 ## Contributions
