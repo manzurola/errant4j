@@ -1,6 +1,6 @@
 # Errant4J 🧑🏻‍🏫📝
 
-Errant4J is an unofficial [ERRANT](https://github.com/chrisjbryant/errant) port that allows nlp practitioners to annotate grammatical mistakes in parallel text in Java using [SpaCy4J](https://github.com/LanguageToys/spacy4j).
+Errant4J is an unofficial [ERRANT](https://github.com/chrisjbryant/errant) port that allows nlp practitioners to annotate grammatical mistakes in parallel text in Java using [spaCy4J](https://github.com/LanguageToys/spacy4j).
 
 From the official docs:
 > The main aim of ERRANT is to automatically annotate parallel English sentences with error type information. Specifically, given an original and corrected sentence pair, ERRANT will extract the edits that transform the former to the latter and classify them according to a rule-based error type framework.
@@ -25,7 +25,7 @@ See GitHub documentation on [installing a package](https://docs.github.com/en/pa
 To use Errant4J in code, follow these steps:
 
 ```java
-// Get a spaCy instance (from spacy4j)
+// Get a spaCy instance (from spaCy4j)
 SpaCy spacy = SpaCy.create(CoreNLPAdapter.create());
 
 // Create an english annotator
