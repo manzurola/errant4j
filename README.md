@@ -47,9 +47,10 @@ for (Annotation annotation : annotations) {
                       error,
                       sourceText,
                       targetText);
-
+                      
+    // Inspect the classified edit
     Edit<Token> edit = annotation.edit();
-    // Inspect the classified edit...
+    // ...
 }
 ```
 
