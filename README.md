@@ -12,7 +12,7 @@ From the official docs:
 Before you begin, ensure you have met the following requirements:
 
 * You have Java 11 installed.
-* You have the required dependencies and prerequisites for using [SpaCy4J](https://github.com/LanguageToys/spacy4j).
+* You have the required dependencies and prerequisites for using [spaCy4J](https://github.com/LanguageToys/spacy4j).
 
 ## Installing Errant4J
 
