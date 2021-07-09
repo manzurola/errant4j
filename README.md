@@ -56,7 +56,7 @@ for (Annotation annotation : annotations) {
 
 Errant4J is currently available only for English.
 
-## Development
+## Developing Errant4J
 
 If you wish to develop Errant4J for another language, start with the reference [English implementation](https://github.com/languagetoys/errant4j/tree/main/src/main/java/io/languagetoys/errant4j/lang/en).
 I suggest you copy that to a new package, i.e. `lang.he` for hebrew, as well as the relevant [test package](https://github.com/languagetoys/errant4j/tree/main/src/test/java/io/languagetoys/errant4j/lang/en).
