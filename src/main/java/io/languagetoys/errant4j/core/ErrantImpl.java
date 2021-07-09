@@ -34,17 +34,6 @@ final class ErrantImpl implements Errant {
         return spacy.nlp(text);
     }
 
-    /**
-     * Run the full pipeline given parsed source and target texts.
-     */
-    public final List<Annotation> annotate(List<Token> source, List<Token> target) {
-        Alignment<Token> alignment = align(source, target);
-        List<Edit<Token>> merged = merge(alignment.edits());
-        return merged.stream()
-                .map(edit -> Annotation.of(edit, classify(edit)))
-                .collect(Collectors.toList());
-    }
-
     @Override
     public final Alignment<Token> align(List<Token> source, List<Token> target) {
         return aligner.align(source, target);
