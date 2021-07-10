@@ -32,8 +32,8 @@ SpaCy spacy = SpaCy.create(CoreNLPAdapter.create());
 Errant errant = Errant.of(spacy, new EnPipeline());
 
 // Parse source and target sentences
-Doc source = errant.parse("Yesterday I went to see my therapist.");
-Doc target = errant.parse("Yesterday I go to see my therapist.");
+Doc source = errant.parse("Yesterday I go to see my therapist.");
+Doc target = errant.parse("Yesterday I went to see my therapist.");
 
 // Annotate grammatical errors
 List<Annotation> annotations = errant.annotate(source.tokens(), target.tokens());
