@@ -29,14 +29,14 @@ To use Errant4J in code, follow these steps:
 SpaCy spacy = SpaCy.create(CoreNLPAdapter.create());
 
 // Create an english annotator
-Errant errant = Errant.of(spacy, new EnPipeline());
+Annotator annotator = Errant.create().annotator("en", spacy);
 
 // Parse source and target sentences
-Doc source = errant.parse("Yesterday I go to see my therapist.");
-Doc target = errant.parse("Yesterday I went to see my therapist.");
+Doc source = annotator.parse("Yesterday I go to see my therapist.");
+Doc target = annotator.parse("Yesterday I went to see my therapist.");
 
 // Annotate grammatical errors
-List<Annotation> annotations = errant.annotate(source.tokens(), target.tokens());
+List<Annotation> annotations = annotator.annotate(source.tokens(), target.tokens());
 
 // Inspect annotations
 for (Annotation annotation : annotations) {
@@ -47,7 +47,7 @@ for (Annotation annotation : annotations) {
                       error,
                       sourceText,
                       targetText);
-                      
+
     // Inspect the classified edit
     Edit<Token> edit = annotation.edit();
     // ...
@@ -67,23 +67,21 @@ These two will then be provided via the base [Pipeline](https://github.com/langu
 I recommend starting with tests and then slowly develop the merger and classifier until they pass, like so:
 ```java
 // Prepare source and target docs
-Doc source = errant.parse("I am eat dinner.");
-Doc target = errant.parse("I am eating dinner.");
+Doc source = annotator.parse("I am eat dinner.");
+Doc target = annotator.parse("I am eating dinner.");
 
 // Create an expected string edit and transform it to a Token edit 
 Edit<Token> edit = Edit.builder()
         .substitute("eat")
         .with("eating")
         .atPosition(2, 2)
-        .transform(e -> e.mapSegments(
-                s -> s.mapWithIndex(source::token),
-                t -> t.mapWithIndex(target::token)));
+        .project(source.tokens(), target.tokens());
 
 // Create the expected annotation containing the Edit and GrammaticalError
 Annotation expected = Annotation.of(edit, GrammaticalError.REPLACEMENT_VERB_FORM);
 
 // Run Errant for the given source and target
-List<Annotation> actual = errant.annotate(source.tokens(), target.tokens());
+List<Annotation> actual = annotator.annotate(source.tokens(), target.tokens());
 
 // Assert that the actual errors contain our expected error
 Assertions.assertTrue(actual.contains(expected));
