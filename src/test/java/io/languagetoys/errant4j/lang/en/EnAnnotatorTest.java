@@ -2,8 +2,10 @@ package io.languagetoys.errant4j.lang.en;
 
 import io.languagetoys.aligner.edit.Edit;
 import io.languagetoys.errant4j.core.Annotation;
-import io.languagetoys.errant4j.core.Errant;
+import io.languagetoys.errant4j.core.Annotator;
 import io.languagetoys.errant4j.core.GrammaticalError;
+import io.languagetoys.errant4j.lang.en.classify.EnClassifier;
+import io.languagetoys.errant4j.lang.en.merge.EnMerger;
 import io.languagetoys.spacy4j.adapters.corenlp.CoreNLPAdapter;
 import io.languagetoys.spacy4j.api.SpaCy;
 import io.languagetoys.spacy4j.api.containers.Doc;
@@ -24,15 +26,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class EnErrantTest {
+public class EnAnnotatorTest {
 
-    private static final Logger logger = LoggerFactory.getLogger(EnErrantTest.class);
-    private Errant errant;
+    private static final Logger logger = LoggerFactory.getLogger(EnAnnotatorTest.class);
+    private Annotator annotator;
 
     @BeforeAll
     void setup() {
         SpaCy spacy = SpaCy.create(CoreNLPAdapter.create());
-        this.errant = Errant.of(spacy, new EnPipeline());
+        this.annotator = Annotator.of(spacy, new EnMerger(), new EnClassifier());
     }
 
     @Test
@@ -44,7 +46,7 @@ public class EnErrantTest {
                 .with("to", "eat")
                 .atPosition(2, 2)
                 .transform(toTokenEdit(source, target))
-                .transform(annotate(GrammaticalError.REPLACEMENT_VERB));
+                .transform(edit -> Annotation.of(edit, GrammaticalError.REPLACEMENT_VERB));
         List<Annotation> actual = annotate(source, target);
         assertEquals(List.of(expected), actual);
     }
@@ -58,7 +60,7 @@ public class EnErrantTest {
                 .with("to")
                 .atPosition(2, 2)
                 .transform(toTokenEdit(source, target))
-                .transform(annotate(GrammaticalError.REPLACEMENT_PARTICLE));
+                .transform(edit -> Annotation.of(edit, GrammaticalError.REPLACEMENT_PARTICLE));
         assertSingleError(expected, source, target);
     }
 
@@ -71,7 +73,7 @@ public class EnErrantTest {
                 .with(",", "because")
                 .atPosition(0, 0)
                 .transform(toTokenEdit(source, target))
-                .transform(annotate(GrammaticalError.REPLACEMENT_PUNCTUATION));
+                .transform(edit -> Annotation.of(edit, GrammaticalError.REPLACEMENT_PUNCTUATION));
         assertSingleError(expected, source, target);
     }
 
@@ -84,7 +86,7 @@ public class EnErrantTest {
                 .with("have")
                 .atPosition(1, 1)
                 .transform(toTokenEdit(source, target))
-                .transform(annotate(GrammaticalError.REPLACEMENT_CONTRACTION));
+                .transform(edit -> Annotation.of(edit, GrammaticalError.REPLACEMENT_CONTRACTION));
         assertSingleError(expected, source, target);
     }
 
@@ -97,7 +99,7 @@ public class EnErrantTest {
                 .with("home")
                 .atPosition(4, 4)
                 .transform(toTokenEdit(source, target))
-                .transform(annotate(GrammaticalError.REPLACEMENT_ORTHOGRAPHY));
+                .transform(edit -> Annotation.of(edit, GrammaticalError.REPLACEMENT_ORTHOGRAPHY));
         assertSingleError(expected1, source, target);
     }
 
@@ -110,7 +112,7 @@ public class EnErrantTest {
                 .with("friend", "sleeps")
                 .atPosition(1, 1)
                 .transform(toTokenEdit(source, target))
-                .transform(annotate(GrammaticalError.REPLACEMENT_ORTHOGRAPHY));
+                .transform(edit -> Annotation.of(edit, GrammaticalError.REPLACEMENT_ORTHOGRAPHY));
         assertSingleError(expected2, source, target);
     }
 
@@ -123,7 +125,7 @@ public class EnErrantTest {
                 .with("friend")
                 .atPosition(1, 1)
                 .transform(toTokenEdit(source, target))
-                .transform(annotate(GrammaticalError.REPLACEMENT_SPELLING));
+                .transform(edit -> Annotation.of(edit, GrammaticalError.REPLACEMENT_SPELLING));
         assertSingleError(expected1, source, target);
     }
 
@@ -136,7 +138,7 @@ public class EnErrantTest {
                 .to("is", "cute", "dog")
                 .atPosition(1, 1)
                 .transform(toTokenEdit(source, target))
-                .transform(annotate(GrammaticalError.REPLACEMENT_WORD_ORDER));
+                .transform(edit -> Annotation.of(edit, GrammaticalError.REPLACEMENT_WORD_ORDER));
         assertSingleError(expected1, source, target);
     }
 
@@ -149,7 +151,7 @@ public class EnErrantTest {
                 .with("smallest")
                 .atPosition(3, 3)
                 .transform(toTokenEdit(source, target))
-                .transform(annotate(GrammaticalError.REPLACEMENT_ADJECTIVE_FORM));
+                .transform(edit -> Annotation.of(edit, GrammaticalError.REPLACEMENT_ADJECTIVE_FORM));
         assertSingleError(expected2, source, target);
     }
 
@@ -162,7 +164,7 @@ public class EnErrantTest {
                 .with("biggest")
                 .atPosition(3, 3)
                 .transform(toTokenEdit(source, target))
-                .transform(annotate(GrammaticalError.REPLACEMENT_ADJECTIVE_FORM));
+                .transform(edit -> Annotation.of(edit, GrammaticalError.REPLACEMENT_ADJECTIVE_FORM));
         assertSingleError(expected1, source, target);
     }
 
@@ -175,7 +177,7 @@ public class EnErrantTest {
                 .with("dogs")
                 .atPosition(0, 0)
                 .transform(toTokenEdit(source, target))
-                .transform(annotate(GrammaticalError.REPLACEMENT_NOUN_NUMBER));
+                .transform(edit -> Annotation.of(edit, GrammaticalError.REPLACEMENT_NOUN_NUMBER));
         assertSingleError(expected1, source, target);
     }
 
@@ -187,7 +189,7 @@ public class EnErrantTest {
                 .insert("'s")
                 .atPosition(5, 5)
                 .transform(toTokenEdit(source, target))
-                .transform(annotate(GrammaticalError.MISSING_NOUN_POSSESSIVE));
+                .transform(edit -> Annotation.of(edit, GrammaticalError.MISSING_NOUN_POSSESSIVE));
         assertSingleError(expected1, source, target);
     }
 
@@ -200,7 +202,7 @@ public class EnErrantTest {
                 .with("river", "'s")
                 .atPosition(4, 4)
                 .transform(toTokenEdit(source, target))
-                .transform(annotate(GrammaticalError.REPLACEMENT_NOUN_POSSESSIVE));
+                .transform(edit -> Annotation.of(edit, GrammaticalError.REPLACEMENT_NOUN_POSSESSIVE));
         assertSingleError(expected2, source, target);
     }
 
@@ -214,7 +216,7 @@ public class EnErrantTest {
                 .with("become")
                 .atPosition(3, 3)
                 .transform(toTokenEdit(source1, target1))
-                .transform(annotate(GrammaticalError.REPLACEMENT_VERB_FORM));
+                .transform(edit3 -> Annotation.of(edit3, GrammaticalError.REPLACEMENT_VERB_FORM));
         assertSingleError(expected1, source1, target1);
 
         Doc source2 = nlp("is she go home?");
@@ -224,7 +226,7 @@ public class EnErrantTest {
                 .with("going")
                 .atPosition(2, 2)
                 .transform(toTokenEdit(source2, target2))
-                .transform(annotate(GrammaticalError.REPLACEMENT_VERB_FORM));
+                .transform(edit2 -> Annotation.of(edit2, GrammaticalError.REPLACEMENT_VERB_FORM));
         assertSingleError(expected2, source2, target2);
 
         Doc source3 = nlp("is she went home");
@@ -234,7 +236,7 @@ public class EnErrantTest {
                 .with("going")
                 .atPosition(2, 2)
                 .transform(toTokenEdit(source3, target3))
-                .transform(annotate(GrammaticalError.REPLACEMENT_VERB_FORM));
+                .transform(edit1 -> Annotation.of(edit1, GrammaticalError.REPLACEMENT_VERB_FORM));
         assertSingleError(expected3, source3, target3);
 
         Doc source4 = nlp("is she goes home");
@@ -244,7 +246,7 @@ public class EnErrantTest {
                 .with("going")
                 .atPosition(2, 2)
                 .transform(toTokenEdit(source4, target4))
-                .transform(annotate(GrammaticalError.REPLACEMENT_VERB_FORM));
+                .transform(edit -> Annotation.of(edit, GrammaticalError.REPLACEMENT_VERB_FORM));
         assertSingleError(expected4, source4, target4);
     }
 
@@ -257,7 +259,7 @@ public class EnErrantTest {
                 .with("await")
                 .atPosition(1, 1)
                 .transform(toTokenEdit(source, target))
-                .transform(annotate(GrammaticalError.REPLACEMENT_SUBJECT_VERB_AGREEMENT));
+                .transform(edit -> Annotation.of(edit, GrammaticalError.REPLACEMENT_SUBJECT_VERB_AGREEMENT));
         assertSingleError(expected1, source, target);
     }
 
@@ -270,7 +272,7 @@ public class EnErrantTest {
                 .with("go")
                 .atPosition(2, 2)
                 .transform(toTokenEdit(source, target))
-                .transform(annotate(GrammaticalError.REPLACEMENT_SUBJECT_VERB_AGREEMENT));
+                .transform(edit -> Annotation.of(edit, GrammaticalError.REPLACEMENT_SUBJECT_VERB_AGREEMENT));
         assertSingleError(expected2, source, target);
     }
 
@@ -283,7 +285,7 @@ public class EnErrantTest {
                 .with("tell")
                 .atPosition(2, 2)
                 .transform(toTokenEdit(source, target))
-                .transform(annotate(GrammaticalError.REPLACEMENT_SUBJECT_VERB_AGREEMENT));
+                .transform(edit -> Annotation.of(edit, GrammaticalError.REPLACEMENT_SUBJECT_VERB_AGREEMENT));
         assertSingleError(expected3, source, target);
     }
 
@@ -296,7 +298,7 @@ public class EnErrantTest {
                 .with("went")
                 .atPosition(1, 1)
                 .transform(toTokenEdit(source, target))
-                .transform(annotate(GrammaticalError.REPLACEMENT_VERB_TENSE));
+                .transform(edit -> Annotation.of(edit, GrammaticalError.REPLACEMENT_VERB_TENSE));
         assertSingleError(expected1, source, target);
     }
 
@@ -309,7 +311,7 @@ public class EnErrantTest {
                 .with("eating")
                 .atPosition(2, 2)
                 .transform(toTokenEdit(source, target))
-                .transform(annotate(GrammaticalError.REPLACEMENT_VERB_FORM));
+                .transform(edit -> Annotation.of(edit, GrammaticalError.REPLACEMENT_VERB_FORM));
         assertSingleError(expected1, source, target);
     }
 
@@ -321,7 +323,7 @@ public class EnErrantTest {
                 .insert("to")
                 .atPosition(3, 3)
                 .transform(toTokenEdit(source, target))
-                .transform(annotate(GrammaticalError.MISSING_VERB_FORM));
+                .transform(edit -> Annotation.of(edit, GrammaticalError.MISSING_VERB_FORM));
         assertSingleError(expected1, source, target);
     }
 
@@ -333,7 +335,7 @@ public class EnErrantTest {
                 .delete("to")
                 .atPosition(2, 2)
                 .transform(toTokenEdit(source, target))
-                .transform(annotate(GrammaticalError.UNNECESSARY_VERB_FORM));
+                .transform(edit -> Annotation.of(edit, GrammaticalError.UNNECESSARY_VERB_FORM));
         assertSingleError(expected1, source, target);
     }
 
@@ -346,7 +348,7 @@ public class EnErrantTest {
                 .with("children")
                 .atPosition(3, 3)
                 .transform(toTokenEdit(source, target))
-                .transform(annotate(GrammaticalError.REPLACEMENT_NOUN_INFLECTION));
+                .transform(edit -> Annotation.of(edit, GrammaticalError.REPLACEMENT_NOUN_INFLECTION));
         assertSingleError(expected1, source, target);
     }
 
@@ -362,7 +364,7 @@ public class EnErrantTest {
                 .with("got")
                 .atPosition(1, 1)
                 .transform(toTokenEdit(source, target))
-                .transform(annotate(GrammaticalError.REPLACEMENT_VERB_INFLECTION));
+                .transform(edit -> Annotation.of(edit, GrammaticalError.REPLACEMENT_VERB_INFLECTION));
         assertSingleError(expected1, source, target);
     }
 
@@ -378,7 +380,7 @@ public class EnErrantTest {
                 .with("have")
                 .atPosition(1, 1)
                 .transform(toTokenEdit(source, target))
-                .transform(annotate(GrammaticalError.REPLACEMENT_SUBJECT_VERB_AGREEMENT));
+                .transform(edit -> Annotation.of(edit, GrammaticalError.REPLACEMENT_SUBJECT_VERB_AGREEMENT));
         assertSingleError(expected1, source, target);
     }
 
@@ -391,7 +393,7 @@ public class EnErrantTest {
                 .with("likes")
                 .atPosition(1, 1)
                 .transform(toTokenEdit(source, target))
-                .transform(annotate(GrammaticalError.REPLACEMENT_SUBJECT_VERB_AGREEMENT));
+                .transform(edit -> Annotation.of(edit, GrammaticalError.REPLACEMENT_SUBJECT_VERB_AGREEMENT));
         assertSingleError(expected1, source, target);
     }
 
@@ -404,7 +406,7 @@ public class EnErrantTest {
                 .with("were")
                 .atPosition(2, 2)
                 .transform(toTokenEdit(source, target))
-                .transform(annotate(GrammaticalError.REPLACEMENT_SUBJECT_VERB_AGREEMENT));
+                .transform(edit -> Annotation.of(edit, GrammaticalError.REPLACEMENT_SUBJECT_VERB_AGREEMENT));
         assertSingleError(expected1, source, target);
     }
 
@@ -419,17 +421,17 @@ public class EnErrantTest {
                 .insert("Students")
                 .atPosition(0, 0)
                 .transform(toTokenEdit(source, target))
-                .transform(annotate(GrammaticalError.MISSING_NOUN));
+                .transform(edit2 -> Annotation.of(edit2, GrammaticalError.MISSING_NOUN));
         Annotation expected2 = Edit.builder()
                 .insert("not", "always", "good")
                 .atPosition(1, 2)
                 .transform(toTokenEdit(source, target))
-                .transform(annotate(GrammaticalError.MISSING_OTHER));
+                .transform(edit1 -> Annotation.of(edit1, GrammaticalError.MISSING_OTHER));
         Annotation expected3 = Edit.builder()
                 .insert(".")
                 .atPosition(1, 5)
                 .transform(toTokenEdit(source, target))
-                .transform(annotate(GrammaticalError.MISSING_PUNCTUATION));
+                .transform(edit -> Annotation.of(edit, GrammaticalError.MISSING_PUNCTUATION));
         assertAllErrors(Arrays.asList(expected1, expected2, expected3), source, target);
     }
 
@@ -442,7 +444,7 @@ public class EnErrantTest {
                 .with(".")
                 .atPosition(3, 4)
                 .transform(toTokenEdit(source, target))
-                .transform(annotate(GrammaticalError.REPLACEMENT_PUNCTUATION));
+                .transform(edit -> Annotation.of(edit, GrammaticalError.REPLACEMENT_PUNCTUATION));
         assertContainsError(expected1, source, target);
     }
 
@@ -458,7 +460,7 @@ public class EnErrantTest {
                 .with("won't")
                 .atPosition(1, 1)
                 .transform(toTokenEdit(source, target))
-                .transform(annotate(GrammaticalError.REPLACEMENT_ORTHOGRAPHY));
+                .transform(edit -> Annotation.of(edit, GrammaticalError.REPLACEMENT_ORTHOGRAPHY));
         assertContainsError(expected1, source, target);
     }
 
@@ -471,8 +473,7 @@ public class EnErrantTest {
                 .with("won't")
                 .atPosition(1, 1)
                 .transform(toTokenEdit(source, target))
-
-                .transform(annotate(GrammaticalError.REPLACEMENT_OTHER));
+                .transform(edit -> Annotation.of(edit, GrammaticalError.REPLACEMENT_OTHER));
 
         assertContainsError(expected1, source, target);
     }
@@ -521,11 +522,11 @@ public class EnErrantTest {
     }
 
     final Doc nlp(String text) {
-        return errant.parse(text);
+        return annotator.parse(text);
     }
 
     private List<Annotation> annotate(Doc source, Doc target) {
-        return errant
+        return annotator
                 .annotate(source.tokens(), target.tokens())
                 .stream()
                 .filter(annotation -> !annotation.grammaticalError().isNoneOrIgnored())
@@ -537,10 +538,6 @@ public class EnErrantTest {
                 s -> s.mapWithIndex(source::token),
                 t -> t.mapWithIndex(target::token)
         );
-    }
-
-    private Function<Edit<Token>, Annotation> annotate(GrammaticalError error) {
-        return tokenEdit -> Annotation.of(tokenEdit, error);
     }
 
 }

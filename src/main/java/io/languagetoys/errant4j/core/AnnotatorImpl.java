@@ -11,27 +11,27 @@ import io.languagetoys.spacy4j.api.containers.Token;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
-final class ErrantImpl implements Errant {
+final class AnnotatorImpl implements Annotator {
 
-    private final SpaCy spacy;
-    private final Aligner<Token> aligner;
-    private final Merger merger;
-    private final Classifier classifier;
+    protected final SpaCy spaCy;
+    protected final Aligner<Token> aligner;
+    protected final Merger merger;
+    protected final Classifier classifier;
 
-    public ErrantImpl(SpaCy spacy,
-                      Aligner<Token> aligner,
-                      Merger merger,
-                      Classifier classifier) {
-        this.spacy = Objects.requireNonNull(spacy);
+    public AnnotatorImpl(SpaCy spaCy,
+                         Aligner<Token> aligner,
+                         Merger merger,
+                         Classifier classifier) {
+        this.spaCy = Objects.requireNonNull(spaCy);
         this.aligner = Objects.requireNonNull(aligner);
         this.merger = Objects.requireNonNull(merger);
         this.classifier = Objects.requireNonNull(classifier);
     }
 
+    @Override
     public final Doc parse(String text) {
-        return spacy.nlp(text);
+        return spaCy.nlp(text);
     }
 
     @Override
@@ -50,17 +50,12 @@ final class ErrantImpl implements Errant {
     }
 
     @Override
-    public Errant setAligner(Aligner<Token> aligner) {
-        return new ErrantImpl(spacy, aligner, merger, classifier);
+    public final Builder toBuilder() {
+        return Annotator.builder()
+                .setSpaCy(spaCy)
+                .setAligner(aligner)
+                .setMerger(merger)
+                .setClassifier(classifier);
     }
 
-    @Override
-    public Errant setMerger(Merger merger) {
-        return new ErrantImpl(spacy, aligner, merger, classifier);
-    }
-
-    @Override
-    public Errant setClassifier(Classifier classifier) {
-        return new ErrantImpl(spacy, aligner, merger, classifier);
-    }
 }
