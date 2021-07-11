@@ -25,18 +25,18 @@ See GitHub documentation on [installing a package](https://docs.github.com/en/pa
 To use Errant4J in code, follow these steps:
 
 ```java
-// Get a spaCy instance (from spaCy4j)
+// Get a spaCy instance (from spacy4j)
 SpaCy spacy = SpaCy.create(CoreNLPAdapter.create());
 
 // Create an english annotator
-Errant errant = Errant.of(spacy, new EnPipeline());
+Annotator annotator = Errant.create().annotator("en", spacy);
 
 // Parse source and target sentences
-Doc source = errant.parse("Yesterday I went to see my therapist.");
-Doc target = errant.parse("Yesterday I go to see my therapist.");
+Doc source = annotator.parse("Yesterday I went to see my therapist.");
+Doc target = annotator.parse("Yesterday I go to see my therapist.");
 
 // Annotate grammatical errors
-List<Annotation> annotations = errant.annotate(source.tokens(), target.tokens());
+List<Annotation> annotations = annotator.annotate(source.tokens(), target.tokens());
 
 // Inspect annotations
 for (Annotation annotation : annotations) {
@@ -47,10 +47,9 @@ for (Annotation annotation : annotations) {
                       error,
                       sourceText,
                       targetText);
-                      
-    // Inspect the classified edit
+
     Edit<Token> edit = annotation.edit();
-    // ...
+    // Inspect the classified edit...
 }
 ```
 
