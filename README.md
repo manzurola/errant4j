@@ -25,15 +25,15 @@ See GitHub documentation on [installing a package](https://docs.github.com/en/pa
 To use Errant4J in code, follow these steps:
 
 ```java
-// Get a spaCy instance (from spacy4j)
+// Get a spaCy instance (from spaCy4j)
 SpaCy spacy = SpaCy.create(CoreNLPAdapter.create());
 
 // Create an english annotator
 Annotator annotator = Errant.create().annotator("en", spacy);
 
 // Parse source and target sentences
-Doc source = annotator.parse("Yesterday I went to see my therapist.");
-Doc target = annotator.parse("Yesterday I go to see my therapist.");
+Doc source = annotator.parse("Yesterday I go to see my therapist.");
+Doc target = annotator.parse("Yesterday I went to see my therapist.");
 
 // Annotate grammatical errors
 List<Annotation> annotations = annotator.annotate(source.tokens(), target.tokens());
@@ -48,10 +48,50 @@ for (Annotation annotation : annotations) {
                       sourceText,
                       targetText);
 
+    // Inspect the classified edit
     Edit<Token> edit = annotation.edit();
-    // Inspect the classified edit...
+    // ...
 }
 ```
+
+Errant4J is currently available only for English.
+
+## Developing Errant4J
+
+If you wish to develop Errant4J for another language, start with the reference [English implementation](https://github.com/languagetoys/errant4j/tree/main/src/main/java/io/languagetoys/errant4j/lang/en).
+I suggest you copy that to a new package, i.e. `lang.he` for hebrew, as well as the relevant [test package](https://github.com/languagetoys/errant4j/tree/main/src/test/java/io/languagetoys/errant4j/lang/en).
+
+As per the current design, you will be required to implement a custom [Merger](https://github.com/languagetoys/errant4j/blob/21139f09d0f53a3f91a995b07df3ef9870e4646d/src/main/java/io/languagetoys/errant4j/core/merge/Merger.java) and [Classifier](https://github.com/languagetoys/errant4j/blob/21139f09d0f53a3f91a995b07df3ef9870e4646d/src/main/java/io/languagetoys/errant4j/core/classify/Classifier.java). 
+These two will then be provided via the base [Pipeline](https://github.com/languagetoys/errant4j/blob/main/src/main/java/io/languagetoys/errant4j/core/Pipeline.java) which provides a preconfigured [TokenAligner](https://github.com/languagetoys/errant4j/blob/main/src/main/java/io/languagetoys/errant4j/core/align/TokenAligner.java) as the first step in the pipeline.
+
+I recommend starting with tests and then slowly develop the merger and classifier until they pass, like so:
+```java
+// Prepare source and target docs
+Doc source = errant.parse("I am eat dinner.");
+Doc target = errant.parse("I am eating dinner.");
+
+// Create an expected string edit and transform it to a Token edit 
+Edit<Token> edit = Edit.builder()
+        .substitute("eat")
+        .with("eating")
+        .atPosition(2, 2)
+        .transform(e -> e.mapSegments(
+                s -> s.mapWithIndex(source::token),
+                t -> t.mapWithIndex(target::token)));
+
+// Create the expected annotation containing the Edit and GrammaticalError
+Annotation expected = Annotation.of(edit, GrammaticalError.REPLACEMENT_VERB_FORM);
+
+// Run Errant for the given source and target
+List<Annotation> actual = errant.annotate(source.tokens(), target.tokens());
+
+// Assert that the actual errors contain our expected error
+Assertions.assertTrue(actual.contains(expected));
+
+```
+
+Alternatively, contact me directly and I'll help you get started fast.
+
 
 ## Contributions
 
