@@ -27,7 +27,7 @@ public class ErrorMarkerTest {
         Edit<Token> edit = Edit.builder()
                 .insert("is")
                 .atPosition(2, 2)
-                .transform(e -> tokenize(e, source, target));
+                .project(source.tokens(), target.tokens());
 
         ErrorMarker marker = new ErrorMarker(source.tokens());
         CharOffset actual = edit.accept(marker);
@@ -42,7 +42,7 @@ public class ErrorMarkerTest {
         Edit<Token> edit = Edit.builder()
                 .insert("is")
                 .atPosition(2, 2)
-                .transform(e -> tokenize(e, source, target));
+                .project(source.tokens(), target.tokens());
 
         ErrorMarker marker = new ErrorMarker(source.tokens());
         CharOffset actual = edit.accept(marker);
@@ -50,10 +50,4 @@ public class ErrorMarkerTest {
         Assertions.assertEquals(expected, actual);
     }
 
-    private Edit<Token> tokenize(Edit<String> edit, Doc sourceDoc, Doc targetDoc) {
-        return edit.mapSegments(
-                source -> source.mapWithIndex(sourceDoc::token),
-                target -> target.mapWithIndex(targetDoc::token)
-        );
-    }
 }

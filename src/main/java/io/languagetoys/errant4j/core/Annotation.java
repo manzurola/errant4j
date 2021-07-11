@@ -38,18 +38,6 @@ public final class Annotation {
         return new Annotation(edit);
     }
 
-    public static Annotation of(Edit<String> edit, List<Token> source, List<Token> target, GrammaticalError error) {
-        Edit<Token> tokenEdit = edit.mapSegments(
-                s -> s.mapWithIndex(source::get),
-                t -> t.mapWithIndex(target::get)
-        );
-        return new Annotation(tokenEdit, error);
-    }
-
-    public static Annotation of(Edit<String> edit, Doc source, Doc target, GrammaticalError error) {
-        return of(edit, source.tokens(), target.tokens(), error);
-    }
-
     public final Edit<Token> edit() {
         return edit;
     }

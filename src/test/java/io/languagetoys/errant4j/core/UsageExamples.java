@@ -65,8 +65,7 @@ public class UsageExamples {
                 .substitute("eat")
                 .with("eating")
                 .atPosition(2, 2)
-                .mapSegments(s -> s.mapWithIndex(source::token),
-                             t -> t.mapWithIndex(target::token));
+                .project(source.tokens(), target.tokens());
 
         // Create the expected annotation containing the Edit and GrammaticalError
         Annotation expected = Annotation.of(edit, GrammaticalError.REPLACEMENT_VERB_FORM);
