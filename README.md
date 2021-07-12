@@ -66,6 +66,11 @@ These two will then be provided via the base [Pipeline](https://github.com/langu
 
 I recommend starting with tests and then slowly develop the merger and classifier until they pass, like so:
 ```java
+
+// Create a custom in-development Annotator.
+// The first pipeline component, the Token Aligner, comes preconfigured in the created Annotator.
+Annotator annotator = Annotator.of(new EnMerger(), new EnClassifier());
+
 // Prepare source and target docs
 Doc source = annotator.parse("I am eat dinner.");
 Doc target = annotator.parse("I am eating dinner.");
