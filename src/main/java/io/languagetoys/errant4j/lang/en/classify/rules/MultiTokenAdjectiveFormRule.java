@@ -37,19 +37,15 @@ public class MultiTokenAdjectiveFormRule extends Classifier.Predicate {
         return edit
                 .filter(Predicates.isSubstitute())
                 .filter(Predicates.ofMaxSize(2, 2))
-                .filter(firstTokensAnyMatch(moreOrMost()))
+                .filter(firstTokenIsMoreOrMost())
                 .filter(lastTokensHasSameLemma())
                 .isPresent();
     }
 
-    public Predicate<Token> moreOrMost() {
-        return word -> Set.of("more", "most").contains(word.lower());
-    }
-
-    public Predicate<Edit<Token>> firstTokensAnyMatch(Predicate<Token> condition) {
+    public Predicate<Edit<Token>> firstTokenIsMoreOrMost() {
         return edit -> edit
                 .streamSegments(Segment::first, Segment::first)
-                .anyMatch(condition);
+                .anyMatch(token -> Set.of("more", "most").contains(token.lower()));
     }
 
     public Predicate<Edit<Token>> lastTokensHasSameLemma() {
