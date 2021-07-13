@@ -38,7 +38,7 @@ public class MultiTokenAdjectiveFormRule extends Classifier.Predicate {
                 .filter(Predicates.isSubstitute())
                 .filter(Predicates.ofMaxSize(2, 2))
                 .filter(firstTokenIsMoreOrMost())
-                .filter(lastTokensHasSameLemma())
+                .filter(lastTokenHasSameLemma())
                 .isPresent();
     }
 
@@ -48,7 +48,7 @@ public class MultiTokenAdjectiveFormRule extends Classifier.Predicate {
                 .anyMatch(token -> Set.of("more", "most").contains(token.lower()));
     }
 
-    public Predicate<Edit<Token>> lastTokensHasSameLemma() {
+    public Predicate<Edit<Token>> lastTokenHasSameLemma() {
         return edit -> {
             Set<String> sourceLemmas = lemmatizer.lemmas(edit.source().last().text());
             Set<String> targetLemmas = lemmatizer.lemmas(edit.target().last().text());
