@@ -17,12 +17,12 @@ public class UsageExamples {
 
     @Disabled
     @Test
-    void newAnnotateParallelEnglishSentences() {
+    void annotateEnglish() {
         // Get a spaCy instance (from spacy4j)
         SpaCy spacy = SpaCy.create(CoreNLPAdapter.create());
 
         // Create an english annotator
-        Annotator annotator = Errant.create().annotator("en", spacy);
+        Annotator annotator = Errant.newAnnotator("en", spacy);
 
         // Parse source and target sentences
         Doc source = annotator.parse("Yesterday I went to see my therapist.");
@@ -48,7 +48,7 @@ public class UsageExamples {
 
     @Disabled
     @Test
-    void howToTestExpectedError() {
+    void testAndDevelopNewAnnotator() {
 
         // Get a spaCy instance (from spacy4j)
         SpaCy spacy = SpaCy.create(CoreNLPAdapter.create());
