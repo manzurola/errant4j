@@ -14,13 +14,13 @@ public final class Errant {
 
     private static final Map<String, Function<SpaCy, Annotator>> annotators;
 
-    private Errant() {
-    }
-
     static {
         annotators = Map.of(
                 "en", spaCy -> Annotator.of(spaCy, new EnMerger(), new EnClassifier())
         );
+    }
+
+    private Errant() {
     }
 
     public static Annotator newAnnotator(String language, SpaCy spaCy) {
