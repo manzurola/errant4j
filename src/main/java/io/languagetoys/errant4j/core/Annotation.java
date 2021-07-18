@@ -1,13 +1,9 @@
 package io.languagetoys.errant4j.core;
 
 import io.languagetoys.aligner.edit.Edit;
-import io.languagetoys.errant4j.core.tools.mark.CharOffset;
-import io.languagetoys.errant4j.core.tools.mark.ErrorMarker;
-import io.languagetoys.spacy4j.api.containers.Doc;
 import io.languagetoys.spacy4j.api.containers.Token;
 import io.languagetoys.spacy4j.api.utils.TextUtils;
 
-import java.util.List;
 import java.util.Objects;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -74,18 +70,6 @@ public final class Annotation {
 
     public final Annotation setGrammaticalError(GrammaticalError error) {
         return new Annotation(edit(), error);
-    }
-
-    public final boolean isError() {
-        return !grammaticalError().isNone() && !grammaticalError().isIgnored();
-    }
-
-    public final boolean isNotError() {
-        return !isError();
-    }
-
-    public final CharOffset markErrorInSource() {
-        return edit.accept(new ErrorMarker(edit.source().tokens()));
     }
 
     @Override

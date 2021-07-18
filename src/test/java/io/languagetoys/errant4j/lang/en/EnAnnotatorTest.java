@@ -527,7 +527,8 @@ public class EnAnnotatorTest {
         return annotator
                 .annotate(source.tokens(), target.tokens())
                 .stream()
-                .filter(annotation -> !annotation.grammaticalError().isNoneOrIgnored())
+                .filter(annotation -> !annotation.grammaticalError().isNone())
+                .filter(annotation -> !annotation.grammaticalError().isIgnored())
                 .collect(Collectors.toList());
     }
 
