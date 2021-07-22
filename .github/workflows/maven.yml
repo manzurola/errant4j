@@ -25,4 +25,4 @@ jobs:
         run: mvn -s $GITHUB_WORKSPACE/.github/workflows/settings.xml -B package --file pom.xml
         env:
           USER_NAME: ${{ secrets.USER_NAME }}
-          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}"
+          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
