@@ -12,13 +12,18 @@ From the official docs:
 Before you begin, ensure you have met the following requirements:
 
 * You have Java 11 installed.
-* You have the required dependencies and prerequisites for using [spaCy4J](https://github.com/manzurola/spacy4j).
+* You have access to Github Packages Maven registry as described [here](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-apache-maven-registry#authenticating-to-github-packages).
 
 ## Installing Errant4J
 
-Available as Maven dependencies via [GitHub Packages](https://github.com/manzurola/errant4j/packages).
-
-See GitHub documentation on [installing a package](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-apache-maven-registry#installing-a-package).
+Add this to the dependencies section of your `pom.xml`:
+```xml
+<dependency>
+  <groupId>com.github.manzurola</groupId>
+  <artifactId>errant4j</artifactId>
+  <version>0.3.0</version>
+</dependency>
+```
 
 ## Using Errant4J
 
