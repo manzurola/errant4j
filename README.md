@@ -5,7 +5,7 @@ Errant4J is an unofficial [ERRANT](https://github.com/chrisjbryant/errant) port 
 From the official docs:
 > The main aim of ERRANT is to automatically annotate parallel English sentences with error type information. Specifically, given an original and corrected sentence pair, ERRANT will extract the edits that transform the former to the latter and classify them according to a rule-based error type framework.
 
-![maven](https://github.com/manzurola/errant-java/actions/workflows/maven.yml/badge.svg)
+![maven](https://github.com/manzurola/errant4j/actions/workflows/maven.yml/badge.svg)
 
 ## Prerequisits
 
@@ -58,11 +58,11 @@ Errant4J is currently available only for English.
 
 ## Developing Errant4J
 
-If you wish to develop Errant4J for another language, start with the reference [English implementation](https://github.com/manzurola/errant4j/tree/main/src/main/java/io/languagetoys/errant4j/lang/en).
+If you wish to develop Errant4J for another language, start with the reference [English implementation](https://github.com/manzurola/errant4j/tree/main/src/main/java/com/github/manzurola/errant4j/lang/en).
 I suggest you copy that to a new package, i.e. `lang.he` for hebrew, as well as the relevant [test package](https://github.com/manzurola/errant4j/tree/main/src/test/java/io/languagetoys/errant4j/lang/en).
 
 As per the current design, you will be required to implement a custom [Merger](https://github.com/manzurola/errant4j/blob/21139f09d0f53a3f91a995b07df3ef9870e4646d/src/main/java/io/languagetoys/errant4j/core/merge/Merger.java) and [Classifier](https://github.com/languagetoys/errant4j/blob/21139f09d0f53a3f91a995b07df3ef9870e4646d/src/main/java/io/languagetoys/errant4j/core/classify/Classifier.java). 
-These two will then be provided via the base [Pipeline](https://github.com/languagetoys/errant4j/blob/main/src/main/java/io/manzurola/errant4j/core/Pipeline.java) which provides a preconfigured [TokenAligner](https://github.com/languagetoys/errant4j/blob/main/src/main/java/io/languagetoys/errant4j/core/align/TokenAligner.java) as the first step in the pipeline.
+These two will then be provided via the base [Pipeline](https://github.com/manzurola/errant4j/blob/main/src/main/java/com/github/manzurola/errant4j/core/Pipeline.java) which provides a preconfigured [TokenAligner](https://github.com/manzurola/errant4j/blob/main/src/main/java/com/github/manzurola/errant4j/core/align/TokenAligner.java) as the first step in the pipeline.
 
 I recommend starting with tests and then slowly develop the merger and classifier until they pass, like so:
 ```java
@@ -121,4 +121,4 @@ If you want to contact me you can reach me at [guy.manzurola@gmail.com](guy.manz
 
 ## License
         
-This project uses the following license: [MIT](https://github.com/LanguageToys/aligner/blob/555fd35e842feb8d899d7197a1965ea01bc74c95/LICENSE).
+This project uses the following license: [MIT](https://github.com/manzurola/errant4j/blob/main/LICENSE).
