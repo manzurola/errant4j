@@ -1,6 +1,6 @@
 # Errant4J 🧑🏻‍🏫📝
 
-Errant4J is an unofficial [ERRANT](https://github.com/chrisjbryant/errant) port that allows nlp practitioners to annotate grammatical mistakes in parallel text in Java using [spaCy4J](https://github.com/LanguageToys/spacy4j).
+Errant4J is an unofficial [ERRANT](https://github.com/chrisjbryant/errant) port that allows nlp practitioners to annotate grammatical mistakes in parallel text in Java using [spaCy4J](https://github.com/manzurola/spacy4j).
 
 From the official docs:
 > The main aim of ERRANT is to automatically annotate parallel English sentences with error type information. Specifically, given an original and corrected sentence pair, ERRANT will extract the edits that transform the former to the latter and classify them according to a rule-based error type framework.
@@ -12,11 +12,11 @@ From the official docs:
 Before you begin, ensure you have met the following requirements:
 
 * You have Java 11 installed.
-* You have the required dependencies and prerequisites for using [spaCy4J](https://github.com/LanguageToys/spacy4j).
+* You have the required dependencies and prerequisites for using [spaCy4J](https://github.com/manzurola/spacy4j).
 
 ## Installing Errant4J
 
-Available as Maven dependencies via [GitHub Packages](https://github.com/LanguageToys/errant4j/packages).
+Available as Maven dependencies via [GitHub Packages](https://github.com/manzurola/errant4j/packages).
 
 See GitHub documentation on [installing a package](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-apache-maven-registry#installing-a-package).
 
@@ -58,11 +58,11 @@ Errant4J is currently available only for English.
 
 ## Developing Errant4J
 
-If you wish to develop Errant4J for another language, start with the reference [English implementation](https://github.com/languagetoys/errant4j/tree/main/src/main/java/io/languagetoys/errant4j/lang/en).
-I suggest you copy that to a new package, i.e. `lang.he` for hebrew, as well as the relevant [test package](https://github.com/languagetoys/errant4j/tree/main/src/test/java/io/languagetoys/errant4j/lang/en).
+If you wish to develop Errant4J for another language, start with the reference [English implementation](https://github.com/manzurola/errant4j/tree/main/src/main/java/io/languagetoys/errant4j/lang/en).
+I suggest you copy that to a new package, i.e. `lang.he` for hebrew, as well as the relevant [test package](https://github.com/manzurola/errant4j/tree/main/src/test/java/io/languagetoys/errant4j/lang/en).
 
-As per the current design, you will be required to implement a custom [Merger](https://github.com/languagetoys/errant4j/blob/21139f09d0f53a3f91a995b07df3ef9870e4646d/src/main/java/io/languagetoys/errant4j/core/merge/Merger.java) and [Classifier](https://github.com/languagetoys/errant4j/blob/21139f09d0f53a3f91a995b07df3ef9870e4646d/src/main/java/io/languagetoys/errant4j/core/classify/Classifier.java). 
-These two will then be provided via the base [Pipeline](https://github.com/languagetoys/errant4j/blob/main/src/main/java/io/languagetoys/errant4j/core/Pipeline.java) which provides a preconfigured [TokenAligner](https://github.com/languagetoys/errant4j/blob/main/src/main/java/io/languagetoys/errant4j/core/align/TokenAligner.java) as the first step in the pipeline.
+As per the current design, you will be required to implement a custom [Merger](https://github.com/manzurola/errant4j/blob/21139f09d0f53a3f91a995b07df3ef9870e4646d/src/main/java/io/languagetoys/errant4j/core/merge/Merger.java) and [Classifier](https://github.com/languagetoys/errant4j/blob/21139f09d0f53a3f91a995b07df3ef9870e4646d/src/main/java/io/languagetoys/errant4j/core/classify/Classifier.java). 
+These two will then be provided via the base [Pipeline](https://github.com/languagetoys/errant4j/blob/main/src/main/java/io/manzurola/errant4j/core/Pipeline.java) which provides a preconfigured [TokenAligner](https://github.com/languagetoys/errant4j/blob/main/src/main/java/io/languagetoys/errant4j/core/align/TokenAligner.java) as the first step in the pipeline.
 
 I recommend starting with tests and then slowly develop the merger and classifier until they pass, like so:
 ```java
