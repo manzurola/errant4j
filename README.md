@@ -62,7 +62,7 @@ If you wish to develop Errant4J for another language, start with the reference [
 I suggest you copy that to a new package, i.e. `lang.he` for hebrew, as well as the relevant [test package](https://github.com/manzurola/errant4j/tree/main/src/test/java/io/languagetoys/errant4j/lang/en).
 
 As per the current design, you will be required to implement a custom [Merger](https://github.com/manzurola/errant4j/blob/21139f09d0f53a3f91a995b07df3ef9870e4646d/src/main/java/io/languagetoys/errant4j/core/merge/Merger.java) and [Classifier](https://github.com/languagetoys/errant4j/blob/21139f09d0f53a3f91a995b07df3ef9870e4646d/src/main/java/io/languagetoys/errant4j/core/classify/Classifier.java). 
-These two will then be provided via the base [Pipeline](https://github.com/manzurola/errant4j/blob/main/src/main/java/com/github/manzurola/errant4j/core/Pipeline.java) which provides a preconfigured [TokenAligner](https://github.com/manzurola/errant4j/blob/main/src/main/java/com/github/manzurola/errant4j/core/align/TokenAligner.java) as the first step in the pipeline.
+Then proceed to create a custom [Annotator](https://github.com/manzurola/errant4j/blob/main/src/main/java/com/github/manzurola/errant4j/core/Annotator.java) which provides a default [TokenAligner](https://github.com/manzurola/errant4j/blob/main/src/main/java/com/github/manzurola/errant4j/core/align/TokenAligner.java) as the first step in the pipeline.
 
 I recommend starting with tests and then slowly develop the merger and classifier until they pass, like so:
 ```java
