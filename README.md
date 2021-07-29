@@ -13,6 +13,7 @@ Before you begin, ensure you have met the following requirements:
 
 * You have Java 11 installed.
 * You have access to Github Packages Maven registry as described [here](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-apache-maven-registry#authenticating-to-github-packages).
+* You have installed spaCy4j as described [here](https://github.com/manzurola/spaCy4j#installing-spacy4j)
 
 ## Installing Errant4J
 
