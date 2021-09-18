@@ -204,19 +204,8 @@ public class EnAnnotatorTest {
         assertSingleError(expected2, source, target);
     }
 
-    @Disabled("there is a collision between tense and form rules")
     @Test
     public void morphTier_verbFormSubstitutionError() {
-        Doc source1 = nlp("Brent would often became stunned");
-        Doc target1 = nlp("Brent would often become stunned");
-        Annotation expected1 = Edit.builder()
-                .substitute("became")
-                .with("become")
-                .atPosition(3, 3)
-                .project(source1.tokens(), target1.tokens())
-                .transform(edit3 -> Annotation.of(edit3, GrammaticalError.REPLACEMENT_VERB_FORM));
-        assertSingleError(expected1, source1, target1);
-
         Doc source2 = nlp("is she go home?");
         Doc target2 = nlp("is she going home?");
         Annotation expected2 = Edit.builder()
@@ -226,26 +215,6 @@ public class EnAnnotatorTest {
                 .project(source2.tokens(), target2.tokens())
                 .transform(edit2 -> Annotation.of(edit2, GrammaticalError.REPLACEMENT_VERB_FORM));
         assertSingleError(expected2, source2, target2);
-
-        Doc source3 = nlp("is she went home");
-        Doc target3 = nlp("is she going home");
-        Annotation expected3 = Edit.builder()
-                .substitute("went")
-                .with("going")
-                .atPosition(2, 2)
-                .project(source3.tokens(), target3.tokens())
-                .transform(edit1 -> Annotation.of(edit1, GrammaticalError.REPLACEMENT_VERB_FORM));
-        assertSingleError(expected3, source3, target3);
-
-        Doc source4 = nlp("is she goes home");
-        Doc target4 = nlp("is she going home");
-        Annotation expected4 = Edit.builder()
-                .substitute("goes")
-                .with("going")
-                .atPosition(2, 2)
-                .project(source4.tokens(), target4.tokens())
-                .transform(edit -> Annotation.of(edit, GrammaticalError.REPLACEMENT_VERB_FORM));
-        assertSingleError(expected4, source4, target4);
     }
 
     @Test
@@ -288,6 +257,19 @@ public class EnAnnotatorTest {
     }
 
     @Test
+    public void morphTier_verbAgreementSubstitutionError_4() {
+        Doc source = nlp("is she goes home");
+        Doc target = nlp("is she going home");
+        Annotation expected = Edit.builder()
+                .substitute("goes")
+                .with("going")
+                .atPosition(2, 2)
+                .project(source.tokens(), target.tokens())
+                .transform(edit -> Annotation.of(edit, GrammaticalError.REPLACEMENT_SUBJECT_VERB_AGREEMENT));
+        assertSingleError(expected, source, target);
+    }
+
+    @Test
     public void morphTier_verbTenseError() {
         Doc source = nlp("I go to see him yesterday.");
         Doc target = nlp("I went to see him yesterday.");
@@ -298,6 +280,19 @@ public class EnAnnotatorTest {
                 .project(source.tokens(), target.tokens())
                 .transform(edit -> Annotation.of(edit, GrammaticalError.REPLACEMENT_VERB_TENSE));
         assertSingleError(expected1, source, target);
+    }
+
+    @Test
+    public void morphTier_verbTenseError2() {
+        Doc source = nlp("Brent would often became stunned");
+        Doc target = nlp("Brent would often become stunned");
+        Annotation expected = Edit.builder()
+                .substitute("became")
+                .with("become")
+                .atPosition(3, 3)
+                .project(source.tokens(), target.tokens())
+                .transform(edit3 -> Annotation.of(edit3, GrammaticalError.REPLACEMENT_VERB_TENSE));
+        assertSingleError(expected, source, target);
     }
 
     @Test
@@ -474,6 +469,28 @@ public class EnAnnotatorTest {
                 .transform(edit -> Annotation.of(edit, GrammaticalError.REPLACEMENT_OTHER));
 
         assertContainsError(expected1, source, target);
+    }
+
+    @Test
+    void demuu() {
+        Doc source = nlp("If I were you, I woulds go home.");
+        Doc target = nlp("If I were you, I would go home.");
+
+        List<Annotation> annotate = annotate(source, target);
+        for (Annotation annotation : annotate) {
+            System.out.println(annotation);
+        }
+    }
+
+    @Test
+    void name() {
+        Doc source = nlp("I like cake two.");
+        Doc target = nlp("I like cake too.");
+
+        List<Annotation> annotate = annotate(source, target);
+        for (Annotation annotation : annotate) {
+            System.out.println(annotation);
+        }
     }
 
     void assertSingleError(Annotation expected, Doc source, Doc target) {
