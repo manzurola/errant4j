@@ -42,9 +42,10 @@ public class SubjectVerbAgreementRule extends Classifier.Predicate {
         return edit
                 .filter(Predicates.ofSizeOneToOne())
                 .filter(bothTokensHaveSameLemma())
-                .filter(bothTokensAreWasAndWere().or(
-                        bothTokensAreVerbAndOneIsVbz().or(targetTokenIsVbz())
-                ))
+                .filter(bothTokensAreWasAndWere()
+                                .or(bothTokensAreVerbAndOneIsVbz())
+                                .or(targetTokenIsVbz())
+                )
                 .isPresent();
     }
 
