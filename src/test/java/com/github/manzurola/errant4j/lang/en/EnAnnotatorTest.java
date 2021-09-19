@@ -471,28 +471,6 @@ public class EnAnnotatorTest {
         assertContainsError(expected1, source, target);
     }
 
-    @Test
-    void demuu() {
-        Doc source = nlp("If I were you, I woulds go home.");
-        Doc target = nlp("If I were you, I would go home.");
-
-        List<Annotation> annotate = annotate(source, target);
-        for (Annotation annotation : annotate) {
-            System.out.println(annotation);
-        }
-    }
-
-    @Test
-    void name() {
-        Doc source = nlp("I like cake two.");
-        Doc target = nlp("I like cake too.");
-
-        List<Annotation> annotate = annotate(source, target);
-        for (Annotation annotation : annotate) {
-            System.out.println(annotation);
-        }
-    }
-
     void assertSingleError(Annotation expected, Doc source, Doc target) {
         List<Annotation> actual = annotate(source, target);
         assertEquals(List.of(expected), actual);
