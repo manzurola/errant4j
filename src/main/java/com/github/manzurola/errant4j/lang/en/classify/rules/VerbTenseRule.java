@@ -18,12 +18,29 @@ import java.util.function.Predicate;
  * being (eaten)] and [(it) are (eaten) → (it) is (eaten)]. The majority of tense errors are hence captured by the
  * following rules:
  * <p>
- * 1. There is exactly one token on both sides of the edit, and 2. (a)   i. Both tokens have the same lemma, and ii.
- * Both tokens are POS tagged as VERB, and iii. At least one token is POS tagged as a past tense verb form (VBD), or (b)
- * i. Both tokens have the same lemma, and ii. Both tokens are POS tagged as VERB, and iii. Both tokens are parsed as an
- * auxiliary verb (aux or auxpass), or (c)      i. Both tokens have the same lemma, and ii. Both tokens do not have the
- * same POS tag, and iii. The corrected token is POS tagged as a past tense verb form (VBD), or (d)      i. Both tokens
- * do not have the same lemma, and ii. Both tokens are parsed as an auxiliary verb (aux or auxpass).
+ * 1. There is exactly one token on both sides of the edit, and
+ *
+ * 2. (a)   i. Both tokens have the same lemma, and
+ *
+ *          ii.Both tokens are POS tagged as VERB, and
+ *
+ *          iii. At least one token is POS tagged as a past tense verb form (VBD), or
+ *
+ *    (b)   i. Both tokens have the same lemma, and
+ *
+ *          ii. Both tokens are POS tagged as VERB, and
+ *
+ *          iii. Both tokens are parsed as an auxiliary verb (aux or auxpass), or
+ *
+ *    (c)   i. Both tokens have the same lemma, and
+ *
+ *          ii. Both tokens do not have the same POS tag, and
+ *
+ *          iii. The corrected token is POS tagged as a past tense verb form (VBD), or
+ *
+ *    (d)   i. Both tokens do not have the same lemma, and
+ *
+ *          ii. Both tokens are parsed as an auxiliary verb (aux or auxpass).
  */
 public class VerbTenseRule extends Classifier.Predicate {
 
