@@ -8,16 +8,14 @@ import com.github.manzurola.spacy4j.api.containers.Token;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
 
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class ErrorMarkerTest {
 
-    private SpaCy spacy = SpaCy.create(CoreNLPAdapter.create());
+    private static SpaCy spacy = SpaCy.create(CoreNLPAdapter.create());
 
     @BeforeAll
-    void setup() {
-        this.spacy = SpaCy.create(CoreNLPAdapter.create());
+    static void setup() {
+        spacy = SpaCy.create(CoreNLPAdapter.create());
     }
 
     @Test

@@ -9,7 +9,6 @@ import com.github.manzurola.spacy4j.api.containers.Doc;
 import com.github.manzurola.spacy4j.api.containers.Token;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,16 +16,15 @@ import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class TokenAlignerTest {
 
-    private SpaCy spacy;
-    private Aligner<Token> aligner;
+    private static SpaCy spacy;
+    private static Aligner<Token> aligner;
 
     @BeforeAll
-    void setup() {
-        this.spacy = SpaCy.create(CoreNLPAdapter.create());
-        this.aligner = new TokenAligner();
+    static void setup() {
+        spacy = SpaCy.create(CoreNLPAdapter.create());
+        aligner = new TokenAligner();
     }
 
     @Test

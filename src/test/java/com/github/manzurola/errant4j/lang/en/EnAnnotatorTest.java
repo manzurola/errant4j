@@ -10,9 +10,7 @@ import com.github.manzurola.spacy4j.adapters.corenlp.CoreNLPAdapter;
 import com.github.manzurola.spacy4j.api.SpaCy;
 import com.github.manzurola.spacy4j.api.containers.Doc;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,16 +21,15 @@ import java.util.stream.Collectors;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class EnAnnotatorTest {
 
     private static final Logger logger = LoggerFactory.getLogger(EnAnnotatorTest.class);
-    private Annotator annotator;
+    private static Annotator annotator;
 
     @BeforeAll
-    void setup() {
+    static void setup() {
         SpaCy spacy = SpaCy.create(CoreNLPAdapter.create());
-        this.annotator = Annotator.of(spacy, new EnMerger(), new EnClassifier());
+        annotator = Annotator.of(spacy, new EnMerger(), new EnClassifier());
     }
 
     @Test
@@ -479,7 +476,7 @@ public class EnAnnotatorTest {
     void assertContainsError(Annotation expected, Doc source, Doc target) {
         List<Annotation> actual = annotate(source, target);
         if (actual.isEmpty()) {
-            throw new AssertionError("Could not matchError expected " +
+            throw new AssertionError("Could not match Error expected " +
                                      expected +
                                      ".\nSource: " +
                                      source +
@@ -498,7 +495,7 @@ public class EnAnnotatorTest {
     void assertAllErrors(List<Annotation> expected, Doc source, Doc target) {
         List<Annotation> actual = annotate(source, target);
         if (actual.isEmpty()) {
-            throw new AssertionError("Could not matchError expected " +
+            throw new AssertionError("Could not match Error expected " +
                                      expected +
                                      ".\nSource: " +
                                      source +
