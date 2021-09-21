@@ -87,9 +87,6 @@ public final class Annotation {
 
     @Override
     public final String toString() {
-        return "Annotation{" +
-               "edit=" + edit +
-               "error=" + error +
-               "} ";
+        return error + ", " + edit;
     }
 }
