@@ -33,6 +33,12 @@ public class EnAnnotatorWithCoreNlpTest {
     }
 
     @Test
+    void emptyLists() {
+        List<Annotation> annotations = annotator.annotate(List.of(), List.of());
+        assertEquals(List.of(), annotations);
+    }
+
+    @Test
     void posTier_Verb() {
         Doc source = nlp("  I   like consume food.");
         Doc target = nlp("I like to eat food.");
