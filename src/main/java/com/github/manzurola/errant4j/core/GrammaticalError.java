@@ -135,14 +135,6 @@ public enum GrammaticalError {
         return type;
     }
 
-    public boolean isNone() {
-        return GrammaticalError.NONE.equals(this);
-    }
-
-    public boolean isOther() {
-        return Category.OTHER.equals(category);
-    }
-
     public enum Type {
         MISSING("M"),
         UNNECESSARY("U"),

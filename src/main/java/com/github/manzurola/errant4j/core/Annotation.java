@@ -61,7 +61,7 @@ public final class Annotation {
     }
 
     public final boolean hasError() {
-        return !grammaticalError().isNone();
+        return !GrammaticalError.NONE.equals(grammaticalError());
     }
 
     @Override

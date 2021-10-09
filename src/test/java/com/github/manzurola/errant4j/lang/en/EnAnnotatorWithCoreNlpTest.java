@@ -519,7 +519,7 @@ public class EnAnnotatorWithCoreNlpTest {
         return annotator
                 .annotate(source.tokens(), target.tokens())
                 .stream()
-                .filter(annotation -> !annotation.grammaticalError().isNone())
+                .filter(Annotation::hasError)
                 .collect(Collectors.toList());
     }
 
