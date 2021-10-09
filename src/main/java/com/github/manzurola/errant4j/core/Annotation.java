@@ -68,10 +68,6 @@ public final class Annotation {
         return error;
     }
 
-    public final Annotation setGrammaticalError(GrammaticalError error) {
-        return new Annotation(edit(), error);
-    }
-
     public final boolean hasError() {
         return !grammaticalError().isNone();
     }
