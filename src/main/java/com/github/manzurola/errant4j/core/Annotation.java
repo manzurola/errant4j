@@ -72,6 +72,10 @@ public final class Annotation {
         return new Annotation(edit(), error);
     }
 
+    public final boolean hasError() {
+        return !grammaticalError().isNone();
+    }
+
     @Override
     public final boolean equals(Object o) {
         if (this == o) return true;
