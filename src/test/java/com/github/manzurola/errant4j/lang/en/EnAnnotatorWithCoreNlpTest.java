@@ -21,9 +21,9 @@ import java.util.stream.Collectors;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class EnAnnotatorTest {
+public class EnAnnotatorWithCoreNlpTest {
 
-    private static final Logger logger = LoggerFactory.getLogger(EnAnnotatorTest.class);
+    private static final Logger logger = LoggerFactory.getLogger(EnAnnotatorWithCoreNlpTest.class);
     private static Annotator annotator;
 
     @BeforeAll
@@ -520,7 +520,6 @@ public class EnAnnotatorTest {
                 .annotate(source.tokens(), target.tokens())
                 .stream()
                 .filter(annotation -> !annotation.grammaticalError().isNone())
-                .filter(annotation -> !annotation.grammaticalError().isIgnored())
                 .collect(Collectors.toList());
     }
 

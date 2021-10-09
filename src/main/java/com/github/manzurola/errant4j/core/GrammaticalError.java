@@ -143,14 +143,6 @@ public enum GrammaticalError {
         return Category.OTHER.equals(category);
     }
 
-    public boolean isIgnored() {
-        return Category.IGNORED.equals(category);
-    }
-
-    public boolean isNoneOrIgnored() {
-        return isNone() || isIgnored();
-    }
-
     public enum Type {
         MISSING("M"),
         UNNECESSARY("U"),
