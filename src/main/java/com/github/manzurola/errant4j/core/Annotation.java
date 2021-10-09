@@ -56,10 +56,6 @@ public final class Annotation {
                                                     .collect(Collectors.toList()));
     }
 
-    public final boolean matches(Predicate<? super Annotation> predicate) {
-        return predicate.test(this);
-    }
-
     public final <R> R transform(Function<? super Annotation, ? extends R> mapper) {
         return mapper.apply(this);
     }
