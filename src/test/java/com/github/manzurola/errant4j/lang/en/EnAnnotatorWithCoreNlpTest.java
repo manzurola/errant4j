@@ -57,8 +57,8 @@ public class EnAnnotatorWithCoreNlpTest {
         Doc source = nlp("I want in fly");
         Doc target = nlp("I want to fly");
         Annotation expected = Edit.builder()
-                .substitute("in")
-                .with("to")
+                .substitute(source.spanOf(2, 3).tokens())
+                .with(target.spanOf(2, 3).tokens())
                 .atPosition(2, 2)
                 .project(source.tokens(), target.tokens())
                 .transform(edit -> Annotation.of(edit, GrammaticalError.REPLACEMENT_PARTICLE));
@@ -108,13 +108,13 @@ public class EnAnnotatorWithCoreNlpTest {
     void tokenTier_Orthography_whitespace() {
         Doc source = nlp("My friendsleeps at home.");
         Doc target = nlp("My friend sleeps at home.");
-        Annotation expected2 = Edit.builder()
+        Annotation expected = Edit.builder()
                 .substitute("friendsleeps")
                 .with("friend", "sleeps")
                 .atPosition(1, 1)
                 .project(source.tokens(), target.tokens())
                 .transform(edit -> Annotation.of(edit, GrammaticalError.REPLACEMENT_ORTHOGRAPHY));
-        assertSingleError(expected2, source, target);
+        assertSingleError(expected, source, target);
     }
 
     @Test
@@ -147,13 +147,13 @@ public class EnAnnotatorWithCoreNlpTest {
     void morphTier_AdjectiveForm() {
         Doc source = nlp("This is the most small computer I have ever seen!");
         Doc target = nlp("This is the smallest computer I have ever seen!");
-        Annotation expected2 = Edit.builder()
+        Annotation expected = Edit.builder()
                 .substitute("most", "small")
                 .with("smallest")
                 .atPosition(3, 3)
                 .project(source.tokens(), target.tokens())
                 .transform(edit -> Annotation.of(edit, GrammaticalError.REPLACEMENT_ADJECTIVE_FORM));
-        assertSingleError(expected2, source, target);
+        assertSingleError(expected, source, target);
     }
 
     @Test
@@ -198,52 +198,52 @@ public class EnAnnotatorWithCoreNlpTest {
     void morphTier_nounPossessive_plural() {
         Doc source = nlp("It is at the rivers edge");
         Doc target = nlp("It is at the river's edge");
-        Annotation expected2 = Edit.builder()
+        Annotation expected = Edit.builder()
                 .substitute("rivers")
                 .with("river", "'s")
                 .atPosition(4, 4)
                 .project(source.tokens(), target.tokens())
                 .transform(edit -> Annotation.of(edit, GrammaticalError.REPLACEMENT_NOUN_POSSESSIVE));
-        assertSingleError(expected2, source, target);
+        assertSingleError(expected, source, target);
     }
 
     @Test
     public void morphTier_verbFormSubstitutionError() {
         Doc source2 = nlp("is she go home?");
         Doc target2 = nlp("is she going home?");
-        Annotation expected2 = Edit.builder()
+        Annotation expected = Edit.builder()
                 .substitute("go")
                 .with("going")
                 .atPosition(2, 2)
                 .project(source2.tokens(), target2.tokens())
                 .transform(edit2 -> Annotation.of(edit2, GrammaticalError.REPLACEMENT_VERB_FORM));
-        assertSingleError(expected2, source2, target2);
+        assertSingleError(expected, source2, target2);
     }
 
     @Test
     public void morphTier_verbAgreementSubstitutionError_1() {
         Doc source = nlp("I awaits your response.");
         Doc target = nlp("I await your response.");
-        Annotation expected1 = Edit.builder()
+        Annotation expected = Edit.builder()
                 .substitute("awaits")
                 .with("await")
                 .atPosition(1, 1)
                 .project(source.tokens(), target.tokens())
                 .transform(edit -> Annotation.of(edit, GrammaticalError.REPLACEMENT_SUBJECT_VERB_AGREEMENT));
-        assertSingleError(expected1, source, target);
+        assertSingleError(expected, source, target);
     }
 
     @Test
     public void morphTier_verbAgreementSubstitutionError_2() {
         Doc source = nlp("does she goes home?");
         Doc target = nlp("does she go home?");
-        Annotation expected2 = Edit.builder()
+        Annotation expected = Edit.builder()
                 .substitute("goes")
                 .with("go")
                 .atPosition(2, 2)
                 .project(source.tokens(), target.tokens())
                 .transform(edit -> Annotation.of(edit, GrammaticalError.REPLACEMENT_SUBJECT_VERB_AGREEMENT));
-        assertSingleError(expected2, source, target);
+        assertSingleError(expected, source, target);
     }
 
     @Test
@@ -435,13 +435,13 @@ public class EnAnnotatorWithCoreNlpTest {
     void punctuationOverSpelling() {
         Doc source = nlp("Am I early?");
         Doc target = nlp("I am not early.");
-        Annotation expected1 = Edit.builder()
+        Annotation expected = Edit.builder()
                 .substitute("?")
                 .with(".")
                 .atPosition(3, 4)
                 .project(source.tokens(), target.tokens())
                 .transform(edit -> Annotation.of(edit, GrammaticalError.REPLACEMENT_PUNCTUATION));
-        assertContainsError(expected1, source, target);
+        assertContainsError(expected, source, target);
     }
 
     /**
@@ -451,27 +451,27 @@ public class EnAnnotatorWithCoreNlpTest {
     void contractionOnMissingApostrophe() {
         Doc source = nlp("I wont do that.");
         Doc target = nlp("I won't do that.");
-        Annotation expected1 = Edit.builder()
+        Annotation expected = Edit.builder()
                 .substitute("wont")
                 .with("won't")
                 .atPosition(1, 1)
                 .project(source.tokens(), target.tokens())
                 .transform(edit -> Annotation.of(edit, GrammaticalError.REPLACEMENT_ORTHOGRAPHY));
-        assertContainsError(expected1, source, target);
+        assertContainsError(expected, source, target);
     }
 
     @Test
     void orth() {
         Doc source = nlp("they will do no more");
         Doc target = nlp("they won't do anymore work");
-        Annotation expected1 = Edit.builder()
+        Annotation expected = Edit.builder()
                 .substitute("will")
                 .with("won't")
                 .atPosition(1, 1)
                 .project(source.tokens(), target.tokens())
                 .transform(edit -> Annotation.of(edit, GrammaticalError.REPLACEMENT_OTHER));
 
-        assertContainsError(expected1, source, target);
+        assertContainsError(expected, source, target);
     }
 
     void assertSingleError(Annotation expected, Doc source, Doc target) {
@@ -525,7 +525,7 @@ public class EnAnnotatorWithCoreNlpTest {
         return annotator
                 .annotate(source.tokens(), target.tokens())
                 .stream()
-                .filter(Annotation::hasError)
+                .filter(annotation -> !annotation.grammaticalError().isNone())
                 .collect(Collectors.toList());
     }
 
