@@ -276,13 +276,13 @@ public class EnAnnotatorWithCoreNlpTest {
     public void morphTier_verbTenseError() {
         Doc source = nlp("I go to see him yesterday.");
         Doc target = nlp("I went to see him yesterday.");
-        Annotation expected1 = Edit.builder()
+        Annotation expected = Edit.builder()
                 .substitute("go")
                 .with("went")
                 .atPosition(1, 1)
                 .project(source.tokens(), target.tokens())
                 .transform(edit -> Annotation.of(edit, GrammaticalError.REPLACEMENT_VERB_TENSE));
-        assertSingleError(expected1, source, target);
+        assertSingleError(expected, source, target);
     }
 
     @Test
@@ -302,50 +302,50 @@ public class EnAnnotatorWithCoreNlpTest {
     public void morphTier_verbFormError_basic() {
         Doc source = nlp("I am eat dinner.");
         Doc target = nlp("I am eating dinner.");
-        Annotation expected1 = Edit.builder()
+        Annotation expected = Edit.builder()
                 .substitute("eat")
                 .with("eating")
                 .atPosition(2, 2)
                 .project(source.tokens(), target.tokens())
                 .transform(edit -> Annotation.of(edit, GrammaticalError.REPLACEMENT_VERB_FORM));
-        assertSingleError(expected1, source, target);
+        assertSingleError(expected, source, target);
     }
 
     @Test
     public void morphTier_verbFormError_missingInfinitivalTo() {
         Doc source = nlp("I would like go home please!");
         Doc target = nlp("I would like to go home please!");
-        Annotation expected1 = Edit.builder()
+        Annotation expected = Edit.builder()
                 .insert("to")
                 .atPosition(3, 3)
                 .project(source.tokens(), target.tokens())
                 .transform(edit -> Annotation.of(edit, GrammaticalError.MISSING_VERB_FORM));
-        assertSingleError(expected1, source, target);
+        assertSingleError(expected, source, target);
     }
 
     @Test
     public void morphTier_verbFormError_unnecessaryInfinitivalTo() {
         Doc source = nlp("I must to eat now.");
         Doc target = nlp("I must eat now.");
-        Annotation expected1 = Edit.builder()
+        Annotation expected = Edit.builder()
                 .delete("to")
                 .atPosition(2, 2)
                 .project(source.tokens(), target.tokens())
                 .transform(edit -> Annotation.of(edit, GrammaticalError.UNNECESSARY_VERB_FORM));
-        assertSingleError(expected1, source, target);
+        assertSingleError(expected, source, target);
     }
 
     @Test
     public void morphTier_nounInflection() {
         Doc source = nlp("I have five childs.");
         Doc target = nlp("I have five children.");
-        Annotation expected1 = Edit.builder()
+        Annotation expected = Edit.builder()
                 .substitute("childs")
                 .with("children")
                 .atPosition(3, 3)
                 .project(source.tokens(), target.tokens())
                 .transform(edit -> Annotation.of(edit, GrammaticalError.REPLACEMENT_NOUN_INFLECTION));
-        assertSingleError(expected1, source, target);
+        assertSingleError(expected, source, target);
     }
 
     /**
@@ -355,13 +355,13 @@ public class EnAnnotatorWithCoreNlpTest {
     public void morphTier_verbInflection() {
         Doc source = nlp("I getted the money!");
         Doc target = nlp("I got the money!");
-        Annotation expected1 = Edit.builder()
+        Annotation expected = Edit.builder()
                 .substitute("getted")
                 .with("got")
                 .atPosition(1, 1)
                 .project(source.tokens(), target.tokens())
                 .transform(edit -> Annotation.of(edit, GrammaticalError.REPLACEMENT_VERB_INFLECTION));
-        assertSingleError(expected1, source, target);
+        assertSingleError(expected, source, target);
     }
 
     /**
@@ -371,39 +371,39 @@ public class EnAnnotatorWithCoreNlpTest {
     public void morphTier_subjectVerbAgreement() {
         Doc source = nlp("I has the money!");
         Doc target = nlp("I have the money!");
-        Annotation expected1 = Edit.builder()
+        Annotation expected = Edit.builder()
                 .substitute("has")
                 .with("have")
                 .atPosition(1, 1)
                 .project(source.tokens(), target.tokens())
                 .transform(edit -> Annotation.of(edit, GrammaticalError.REPLACEMENT_SUBJECT_VERB_AGREEMENT));
-        assertSingleError(expected1, source, target);
+        assertSingleError(expected, source, target);
     }
 
     @Test
     public void morphTier_subjectVerbAgreement2() {
         Doc source = nlp("Matt like fish.");
         Doc target = nlp("Matt likes fish.");
-        Annotation expected1 = Edit.builder()
+        Annotation expected = Edit.builder()
                 .substitute("like")
                 .with("likes")
                 .atPosition(1, 1)
                 .project(source.tokens(), target.tokens())
                 .transform(edit -> Annotation.of(edit, GrammaticalError.REPLACEMENT_SUBJECT_VERB_AGREEMENT));
-        assertSingleError(expected1, source, target);
+        assertSingleError(expected, source, target);
     }
 
     @Test
     void morphTier_subjectVerbAgreement3() {
         Doc source = nlp("If I was you, I would go home.");
         Doc target = nlp("If I were you, I would go home.");
-        Annotation expected1 = Edit.builder()
+        Annotation expected = Edit.builder()
                 .substitute("was")
                 .with("were")
                 .atPosition(2, 2)
                 .project(source.tokens(), target.tokens())
                 .transform(edit -> Annotation.of(edit, GrammaticalError.REPLACEMENT_SUBJECT_VERB_AGREEMENT));
-        assertSingleError(expected1, source, target);
+        assertSingleError(expected, source, target);
     }
 
     /**
@@ -445,7 +445,7 @@ public class EnAnnotatorWithCoreNlpTest {
     }
 
     /**
-     * This test fails on spacy-server because wont is split to wo + nt.
+     * This test fails on spacy-server because won't is split to wo + nt.
      */
     @Test
     void contractionOnMissingApostrophe() {
