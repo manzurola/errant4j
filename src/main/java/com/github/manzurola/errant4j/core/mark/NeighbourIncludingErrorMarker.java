@@ -2,6 +2,7 @@ package com.github.manzurola.errant4j.core.mark;
 
 import com.github.manzurola.errant4j.core.Annotation;
 import com.github.manzurola.spacy4j.api.containers.Token;
+import com.github.manzurola.spacy4j.api.utils.TextUtils;
 
 import java.util.List;
 import java.util.Objects;
@@ -25,7 +26,7 @@ public class NeighbourIncludingErrorMarker implements ErrorMarker {
         List<Token> sourceTokens = source.subList(firstTokenPos, lastTokenPos);
         int start = sourceTokens.get(0).charStart();
         int end = sourceTokens.get(sourceTokens.size() - 1).charEnd();
-        String original = Token.getTextRaw(sourceTokens).trim();
+        String original = TextUtils.concatTokenTextWithWs(sourceTokens).trim();
         String replacement = annotation.targetText();
         return new MarkedError(start, end, original, replacement);
     }
@@ -64,8 +65,8 @@ public class NeighbourIncludingErrorMarker implements ErrorMarker {
             )
             .collect(Collectors.toList());
 
-        String original = Token.getTextRaw(originalTokens).trim();
-        String replacement = Token.getTextRaw(replacementTokens).trim();
+        String original = TextUtils.concatTokenTextWithWs(originalTokens).trim();
+        String replacement = TextUtils.concatTokenTextWithWs(replacementTokens).trim();
 
         int charStart = originalTokens.isEmpty() ?
                         0 :

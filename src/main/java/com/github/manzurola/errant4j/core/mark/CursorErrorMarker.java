@@ -2,6 +2,7 @@ package com.github.manzurola.errant4j.core.mark;
 
 import com.github.manzurola.errant4j.core.Annotation;
 import com.github.manzurola.spacy4j.api.containers.Token;
+import com.github.manzurola.spacy4j.api.utils.TextUtils;
 
 import java.util.List;
 import java.util.Objects;
@@ -32,7 +33,7 @@ public class CursorErrorMarker implements ErrorMarker {
         List<Token> sourceTokens = source.subList(firstTokenPos, lastTokenPos);
         int start = sourceTokens.get(0).charStart();
         int end = sourceTokens.get(sourceTokens.size() - 1).charEnd();
-        String original = Token.getTextRaw(sourceTokens).trim();
+        String original = TextUtils.concatTokenTextWithWs(sourceTokens).trim();
         String replacement = annotation.targetText();
         return new MarkedError(start, end, original, replacement);
     }
@@ -50,7 +51,7 @@ public class CursorErrorMarker implements ErrorMarker {
         int charOffset = sourceToken.map(Token::charStart).orElse(0);
 
         String original = "";
-        String replacement = Token.getTextRaw(annotation.targetTokens()).trim();
+        String replacement = TextUtils.concatTokenTextWithWs(annotation.targetTokens()).trim();
         if (source.isEmpty()) {
             return new MarkedError(0, 0, "", replacement);
         }
