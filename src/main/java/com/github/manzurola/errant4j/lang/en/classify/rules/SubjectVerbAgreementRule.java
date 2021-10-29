@@ -1,8 +1,8 @@
 package com.github.manzurola.errant4j.lang.en.classify.rules;
 
 import com.github.manzurola.aligner.edit.Edit;
-import com.github.manzurola.errant4j.core.GrammaticalError;
-import com.github.manzurola.errant4j.core.classify.Classifier;
+import com.github.manzurola.errant4j.core.classify.ClassificationPredicate;
+import com.github.manzurola.errant4j.core.errors.ErrorCategory;
 import com.github.manzurola.errant4j.lang.en.classify.rules.common.Predicates;
 import com.github.manzurola.spacy4j.api.containers.Token;
 import com.github.manzurola.spacy4j.api.features.Pos;
@@ -30,11 +30,11 @@ import java.util.function.Predicate;
  * <p>
  * (c) ii. The corrected token is POS tagged as 3rd-person present tense verb form (VBZ).
  */
-public class SubjectVerbAgreementRule extends Classifier.Predicate {
+public class SubjectVerbAgreementRule extends ClassificationPredicate {
 
     @Override
-    public GrammaticalError.Category getCategory() {
-        return GrammaticalError.Category.VERB_SVA;
+    public ErrorCategory getErrorCategory() {
+        return ErrorCategory.VERB_SVA;
     }
 
     @Override

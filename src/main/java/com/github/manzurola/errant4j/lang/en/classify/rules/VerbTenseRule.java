@@ -1,8 +1,8 @@
 package com.github.manzurola.errant4j.lang.en.classify.rules;
 
 import com.github.manzurola.aligner.edit.Edit;
-import com.github.manzurola.errant4j.core.GrammaticalError;
-import com.github.manzurola.errant4j.core.classify.Classifier;
+import com.github.manzurola.errant4j.core.classify.ClassificationPredicate;
+import com.github.manzurola.errant4j.core.errors.ErrorCategory;
 import com.github.manzurola.errant4j.lang.en.classify.rules.common.Predicates;
 import com.github.manzurola.errant4j.lang.en.utils.lemmatize.Lemmatizer;
 import com.github.manzurola.spacy4j.api.containers.Token;
@@ -42,7 +42,7 @@ import java.util.function.Predicate;
  *
  *          ii. Both tokens are parsed as an auxiliary verb (aux or auxpass).
  */
-public class VerbTenseRule extends Classifier.Predicate {
+public class VerbTenseRule extends ClassificationPredicate {
 
     private final Lemmatizer lemmatizer;
 
@@ -51,8 +51,8 @@ public class VerbTenseRule extends Classifier.Predicate {
     }
 
     @Override
-    public GrammaticalError.Category getCategory() {
-        return GrammaticalError.Category.VERB_TENSE;
+    public ErrorCategory getErrorCategory() {
+        return ErrorCategory.VERB_TENSE;
     }
 
     @Override

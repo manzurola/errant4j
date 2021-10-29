@@ -1,8 +1,8 @@
 package com.github.manzurola.errant4j.lang.en.classify.rules;
 
 import com.github.manzurola.aligner.edit.Edit;
-import com.github.manzurola.errant4j.core.GrammaticalError;
-import com.github.manzurola.errant4j.core.classify.Classifier;
+import com.github.manzurola.errant4j.core.classify.ClassificationPredicate;
+import com.github.manzurola.errant4j.core.errors.ErrorCategory;
 import com.github.manzurola.errant4j.lang.en.classify.rules.common.Predicates;
 import com.github.manzurola.spacy4j.api.containers.Token;
 import com.github.manzurola.spacy4j.api.features.Pos;
@@ -14,11 +14,11 @@ import com.github.manzurola.spacy4j.api.features.Pos;
  * 1. There is exactly one token on both sides of the edit, and 2. (a) The set of POS tags for these tokens is PREP and
  * PART, or (b) The set of dependency labels for these tokens is prep and part.
  */
-public class PartRule extends Classifier.Predicate {
+public class PartRule extends ClassificationPredicate {
 
     @Override
-    public GrammaticalError.Category getCategory() {
-        return GrammaticalError.Category.PART;
+    public ErrorCategory getErrorCategory() {
+        return ErrorCategory.PART;
     }
 
     @Override

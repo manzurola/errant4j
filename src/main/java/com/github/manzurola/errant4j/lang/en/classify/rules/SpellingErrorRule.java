@@ -2,8 +2,8 @@ package com.github.manzurola.errant4j.lang.en.classify.rules;
 
 import com.github.manzurola.aligner.edit.Edit;
 import com.github.manzurola.aligner.utils.AlignerUtils;
-import com.github.manzurola.errant4j.core.GrammaticalError;
-import com.github.manzurola.errant4j.core.classify.Classifier;
+import com.github.manzurola.errant4j.core.classify.ClassificationPredicate;
+import com.github.manzurola.errant4j.core.errors.ErrorCategory;
 import com.github.manzurola.errant4j.lang.en.classify.rules.common.Predicates;
 import com.github.manzurola.errant4j.lang.en.utils.wordlist.WordList;
 import com.github.manzurola.spacy4j.api.containers.Token;
@@ -17,7 +17,7 @@ import com.github.manzurola.spacy4j.api.containers.Token;
  * not in the Hunspell word list, and 5. The original and corrected tokens do not have the same lemma, and 6. The
  * original and corrected tokens share at least 50% of the same characters in the same relative order.
  */
-public class SpellingErrorRule extends Classifier.Predicate {
+public class SpellingErrorRule extends ClassificationPredicate {
 
     private final WordList wordList;
 
@@ -26,8 +26,8 @@ public class SpellingErrorRule extends Classifier.Predicate {
     }
 
     @Override
-    public GrammaticalError.Category getCategory() {
-        return GrammaticalError.Category.SPELL;
+    public ErrorCategory getErrorCategory() {
+        return ErrorCategory.SPELL;
     }
 
     @Override

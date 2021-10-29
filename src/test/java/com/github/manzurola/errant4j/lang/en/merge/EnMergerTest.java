@@ -25,7 +25,7 @@ public class EnMergerTest {
 
     @BeforeAll
     static void setup() {
-        spacy = SpaCy.create(CoreNLPAdapter.create());
+        spacy = SpaCy.create(CoreNLPAdapter.forEnglish());
         aligner = new TokenAligner();
         merger = new EnMerger();
     }

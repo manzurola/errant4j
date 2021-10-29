@@ -1,10 +1,10 @@
 package com.github.manzurola.errant4j.lang.en.classify.rules;
 
 import com.github.manzurola.aligner.edit.Edit;
-import com.github.manzurola.errant4j.core.GrammaticalError;
-import com.github.manzurola.errant4j.core.classify.Classifier;
-import com.github.manzurola.errant4j.core.tools.Collectors;
+import com.github.manzurola.errant4j.core.classify.ClassificationPredicate;
+import com.github.manzurola.errant4j.core.errors.ErrorCategory;
 import com.github.manzurola.errant4j.lang.en.classify.rules.common.Predicates;
+import com.github.manzurola.errant4j.lang.en.utils.Collectors;
 import com.github.manzurola.spacy4j.api.containers.Token;
 import com.github.manzurola.spacy4j.api.features.Pos;
 import com.github.manzurola.spacy4j.api.features.Tag;
@@ -18,11 +18,11 @@ import java.util.function.Predicate;
  * tagged as ADJ, and 4. The corrected token is POS tagged as a plural noun (NNS). Note that this second rule was only
  * found to be effective in the singular to plural direction and not the other way around.
  */
-public class NounNumberAdjConfusion extends Classifier.Predicate {
+public class NounNumberAdjConfusion extends ClassificationPredicate {
 
     @Override
-    public GrammaticalError.Category getCategory() {
-        return GrammaticalError.Category.NOUN_NUM;
+    public ErrorCategory getErrorCategory() {
+        return ErrorCategory.NOUN_NUM;
     }
 
     @Override

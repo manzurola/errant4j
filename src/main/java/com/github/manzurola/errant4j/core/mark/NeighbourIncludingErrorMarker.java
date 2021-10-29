@@ -3,12 +3,13 @@ package com.github.manzurola.errant4j.core.mark;
 import com.github.manzurola.errant4j.core.Annotation;
 import com.github.manzurola.spacy4j.api.containers.Token;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
-public class WideInsertErrorMarker implements ErrorMarker {
+public class NeighbourIncludingErrorMarker implements ErrorMarker {
     @Override
     public MarkedError markError(Annotation annotation, List<Token> source) {
         if (annotation.sourceTokens().isEmpty()) {
@@ -33,45 +34,46 @@ public class WideInsertErrorMarker implements ErrorMarker {
         Annotation annotation,
         List<Token> source
     ) {
-        // source in edit is empty
-        int beforeIndex = annotation.sourcePosition() - 1;
-        int afterIndex = annotation.sourcePosition();
 
-        Optional<Token> before = getOptionalToken(beforeIndex, source);
-        Optional<Token> after = getOptionalToken(afterIndex, source);
+        Optional<Token> before = getOptionalToken(annotation.sourcePosition() -
+                                                  1, source);
+        Optional<Token> after = getOptionalToken(
+            annotation.sourcePosition(),
+            source
+        );
 
-        // if has before and after tokens, mark both
-        // else if has before, get before
-        // else if has whitespaceAfter, get whitespaceAfter
-        // else - empty source sentence, return 0,0
+        List<Token> originalTokens = Stream
+            .of(before, after)
+            .filter(Optional::isPresent)
+            .map(Optional::get)
+            .collect(Collectors.toList());
 
-        List<Token> originalTokens = new ArrayList<>();
-        List<Token> replacementTokens =
-            new ArrayList<>(annotation.targetTokens());
-
-        int charStart = 0;
-        int charEnd = 0;
-
-        if (before.isPresent() && after.isPresent()) {
-            charStart = before.get().charStart();
-            charEnd = after.get().charEnd();
-            replacementTokens.add(0, before.get());
-            replacementTokens.add(after.get());
-            originalTokens.addAll(List.of(before.get(), after.get()));
-        } else if (before.isPresent()) {
-            charStart = before.get().charStart();
-            charEnd = before.get().charEnd();
-            replacementTokens.add(0, before.get());
-            originalTokens.add(before.get());
-        } else if (after.isPresent()) {
-            charStart = after.get().charStart();
-            charEnd = after.get().charEnd();
-            replacementTokens.add(after.get());
-            originalTokens.add(after.get());
-        }
+        List<Token> replacementTokens = Stream.concat(
+                Stream
+                    .of(before)
+                    .filter(Optional::isPresent)
+                    .map(Optional::get),
+                Stream
+                    .concat(
+                        annotation.targetTokens().stream(),
+                        Stream
+                            .of(after)
+                            .filter(Optional::isPresent)
+                            .map(Optional::get)
+                    )
+            )
+            .collect(Collectors.toList());
 
         String original = Token.getTextRaw(originalTokens).trim();
         String replacement = Token.getTextRaw(replacementTokens).trim();
+
+        int charStart = originalTokens.isEmpty() ?
+                        0 :
+                        originalTokens.get(0).charStart();
+
+        int charEnd = originalTokens.isEmpty() ?
+                      0 :
+                      originalTokens.get(originalTokens.size() - 1).charEnd();
 
         return new MarkedError(charStart, charEnd, original, replacement);
     }

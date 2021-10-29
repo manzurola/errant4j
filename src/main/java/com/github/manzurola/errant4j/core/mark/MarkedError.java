@@ -6,14 +6,19 @@ public class MarkedError {
 
     private final int charStart;
     private final int charEnd;
-    private final String source;
-    private final String target;
+    private final String original;
+    private final String corrected;
 
-    public MarkedError(int charStart, int charEnd, String source, String replacement) {
+    public MarkedError(
+        int charStart,
+        int charEnd,
+        String original,
+        String corrected
+    ) {
         this.charStart = charStart;
         this.charEnd = charEnd;
-        this.source = source;
-        this.target = Objects.requireNonNull(replacement);
+        this.original = original;
+        this.corrected = Objects.requireNonNull(corrected);
     }
 
     public int charStart() {
@@ -25,11 +30,11 @@ public class MarkedError {
     }
 
     public String source() {
-        return source;
+        return original;
     }
 
     public String target() {
-        return target;
+        return corrected;
     }
 
     @Override
@@ -43,13 +48,13 @@ public class MarkedError {
         MarkedError that = (MarkedError) o;
         return charStart == that.charStart &&
                charEnd == that.charEnd &&
-               source.equals(that.source) &&
-               target.equals(that.target);
+               original.equals(that.original) &&
+               corrected.equals(that.corrected);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(charStart, charEnd, source, target);
+        return Objects.hash(charStart, charEnd, original, corrected);
     }
 
     @Override
@@ -57,8 +62,8 @@ public class MarkedError {
         return "MarkedError{" +
                "charStart=" + charStart +
                ", charEnd=" + charEnd +
-               ", source='" + source + '\'' +
-               ", target='" + target + '\'' +
+               ", source='" + original + '\'' +
+               ", target='" + corrected + '\'' +
                '}';
     }
 

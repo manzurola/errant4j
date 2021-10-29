@@ -1,8 +1,8 @@
 package com.github.manzurola.errant4j.lang.en.classify.rules;
 
 import com.github.manzurola.aligner.edit.Edit;
-import com.github.manzurola.errant4j.core.GrammaticalError;
-import com.github.manzurola.errant4j.core.classify.Classifier;
+import com.github.manzurola.errant4j.core.classify.ClassificationPredicate;
+import com.github.manzurola.errant4j.core.errors.ErrorCategory;
 import com.github.manzurola.errant4j.lang.en.classify.rules.common.Predicates;
 import com.github.manzurola.spacy4j.api.containers.Token;
 
@@ -16,11 +16,11 @@ import java.util.stream.Collectors;
  * errors, the following rule captures cases such as [can → ca] or [wo → will]. 1. There is exactly one token on both
  * sides of the edit, and 2. The set of strings for these tokens is ca and can, sha and shall, or wo and will.
  */
-public class ContractionAuxRule extends Classifier.Predicate {
+public class ContractionAuxRule extends ClassificationPredicate {
 
     @Override
-    public GrammaticalError.Category getCategory() {
-        return GrammaticalError.Category.CONTR;
+    public ErrorCategory getErrorCategory() {
+        return ErrorCategory.CONTR;
     }
 
     @Override

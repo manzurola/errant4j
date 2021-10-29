@@ -1,8 +1,8 @@
 package com.github.manzurola.errant4j.lang.en.classify.rules;
 
 import com.github.manzurola.aligner.edit.Edit;
-import com.github.manzurola.errant4j.core.GrammaticalError;
-import com.github.manzurola.errant4j.core.classify.Classifier;
+import com.github.manzurola.errant4j.core.classify.ClassificationPredicate;
+import com.github.manzurola.errant4j.core.errors.ErrorCategory;
 import com.github.manzurola.errant4j.lang.en.classify.rules.common.Predicates;
 import com.github.manzurola.spacy4j.api.containers.Token;
 import com.github.manzurola.spacy4j.api.features.Pos;
@@ -22,11 +22,12 @@ import java.util.function.Predicate;
  * 1. There is only one token on one side of the edit, and 2. That token is to, and 3. That token is POS tagged as PART,
  * and 4. That token is not parsed as prep.
  */
-public class MissingOrUnnecessaryVerbFormInfinitivalToRule extends Classifier.Predicate {
+public class MissingOrUnnecessaryVerbFormInfinitivalToRule extends
+    ClassificationPredicate {
 
     @Override
-    public GrammaticalError.Category getCategory() {
-        return GrammaticalError.Category.VERB_FORM;
+    public ErrorCategory getErrorCategory() {
+        return ErrorCategory.VERB_FORM;
     }
 
     @Override
