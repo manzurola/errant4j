@@ -1,11 +1,11 @@
 # Errant4J 🧑🏻‍🏫📝
 
+![maven](https://github.com/manzurola/errant4j/actions/workflows/maven.yml/badge.svg)
+
 Errant4J is an unofficial [ERRANT](https://github.com/chrisjbryant/errant) port that allows nlp practitioners to annotate grammatical mistakes in parallel text in Java using [spaCy4J](https://github.com/manzurola/spacy4j).
 
 From the official docs:
 > The main aim of ERRANT is to automatically annotate parallel English sentences with error type information. Specifically, given an original and corrected sentence pair, ERRANT will extract the edits that transform the former to the latter and classify them according to a rule-based error type framework.
-
-![maven](https://github.com/manzurola/errant4j/actions/workflows/maven.yml/badge.svg)
 
 ## Prerequisits
 
@@ -22,7 +22,7 @@ Add this to the dependencies section of your `pom.xml`:
 <dependency>
   <groupId>com.github.manzurola</groupId>
   <artifactId>errant4j</artifactId>
-  <version>0.3.0</version>
+  <version>0.4.0</version>
 </dependency>
 ```
 
