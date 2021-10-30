@@ -1,8 +1,8 @@
 package com.github.manzurola.errant4j.lang.en.classify.rules;
 
 import com.github.manzurola.aligner.edit.Edit;
-import com.github.manzurola.errant4j.core.GrammaticalError;
-import com.github.manzurola.errant4j.core.classify.Classifier;
+import com.github.manzurola.errant4j.core.classify.ClassificationPredicate;
+import com.github.manzurola.errant4j.core.errors.ErrorCategory;
 import com.github.manzurola.errant4j.lang.en.classify.rules.common.Predicates;
 import com.github.manzurola.errant4j.lang.en.utils.wordlist.WordList;
 import com.github.manzurola.spacy4j.api.containers.Token;
@@ -17,7 +17,7 @@ import java.util.function.Predicate;
  * not in the Hunspell word list, and 5. The original and corrected tokens have the same lemma, and 6. The original and
  * corrected tokens are both POS tagged as VERB.
  */
-public class VerbInflectionRule extends Classifier.Predicate {
+public class VerbInflectionRule extends ClassificationPredicate {
 
     private final WordList wordList;
 
@@ -26,8 +26,8 @@ public class VerbInflectionRule extends Classifier.Predicate {
     }
 
     @Override
-    public GrammaticalError.Category getCategory() {
-        return GrammaticalError.Category.VERB_INFL;
+    public ErrorCategory getErrorCategory() {
+        return ErrorCategory.VERB_INFL;
     }
 
     @Override

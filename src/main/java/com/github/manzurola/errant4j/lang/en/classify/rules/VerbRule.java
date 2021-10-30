@@ -2,8 +2,8 @@ package com.github.manzurola.errant4j.lang.en.classify.rules;
 
 import com.github.manzurola.aligner.edit.Edit;
 import com.github.manzurola.aligner.edit.Segment;
-import com.github.manzurola.errant4j.core.GrammaticalError;
-import com.github.manzurola.errant4j.core.classify.Classifier;
+import com.github.manzurola.errant4j.core.classify.ClassificationPredicate;
+import com.github.manzurola.errant4j.core.errors.ErrorCategory;
 import com.github.manzurola.spacy4j.api.containers.Token;
 import com.github.manzurola.spacy4j.api.features.Pos;
 
@@ -20,11 +20,11 @@ import static com.github.manzurola.errant4j.lang.en.classify.rules.common.Predic
  * 1. All tokens on both sides of the edit are either PART or VERB, and 2. The last token on each side has a different
  * lemma.
  */
-public class VerbRule extends Classifier.Predicate {
+public class VerbRule extends ClassificationPredicate {
 
     @Override
-    public GrammaticalError.Category getCategory() {
-        return GrammaticalError.Category.VERB;
+    public ErrorCategory getErrorCategory() {
+        return ErrorCategory.VERB;
     }
 
     @Override

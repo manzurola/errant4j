@@ -4,6 +4,7 @@ import com.github.manzurola.aligner.Aligner;
 import com.github.manzurola.aligner.Alignment;
 import com.github.manzurola.aligner.edit.Edit;
 import com.github.manzurola.errant4j.core.classify.Classifier;
+import com.github.manzurola.errant4j.core.errors.GrammaticalError;
 import com.github.manzurola.errant4j.core.merge.Merger;
 import com.github.manzurola.spacy4j.api.SpaCy;
 import com.github.manzurola.spacy4j.api.containers.Doc;
@@ -14,10 +15,10 @@ import java.util.Objects;
 
 final class AnnotatorImpl implements Annotator {
 
-    protected final SpaCy spaCy;
-    protected final Aligner<Token> aligner;
-    protected final Merger merger;
-    protected final Classifier classifier;
+    private final SpaCy spaCy;
+    private final Aligner<Token> aligner;
+    private final Merger merger;
+    private final Classifier classifier;
 
     public AnnotatorImpl(SpaCy spaCy,
                           Aligner<Token> aligner,

@@ -5,6 +5,7 @@ import com.github.manzurola.aligner.Alignment;
 import com.github.manzurola.aligner.edit.Edit;
 import com.github.manzurola.errant4j.core.align.TokenAligner;
 import com.github.manzurola.errant4j.core.classify.Classifier;
+import com.github.manzurola.errant4j.core.errors.GrammaticalError;
 import com.github.manzurola.errant4j.core.merge.Merger;
 import com.github.manzurola.spacy4j.api.SpaCy;
 import com.github.manzurola.spacy4j.api.containers.Doc;
@@ -19,7 +20,10 @@ public interface Annotator {
         return of(spaCy, new TokenAligner(), merger, classifier);
     }
 
-    static Annotator of(SpaCy spaCy, Aligner<Token> aligner, Merger merger, Classifier classifier) {
+    static Annotator of(SpaCy spaCy,
+                        Aligner<Token> aligner,
+                        Merger merger,
+                        Classifier classifier) {
         return new AnnotatorImpl(spaCy, aligner, merger, classifier);
     }
 
@@ -31,9 +35,10 @@ public interface Annotator {
     default List<Annotation> annotate(List<Token> source, List<Token> target) {
         Alignment<Token> alignment = align(source, target);
         List<Edit<Token>> merged = merge(alignment.edits());
-        return merged.stream()
-                .map(edit -> Annotation.of(edit, classify(edit)))
-                .collect(Collectors.toList());
+        return merged
+            .stream()
+            .map(edit -> Annotation.of(edit, classify(edit)))
+            .collect(Collectors.toList());
     }
 
     /**

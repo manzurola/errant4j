@@ -1,8 +1,8 @@
 package com.github.manzurola.errant4j.lang.en.classify.rules;
 
 import com.github.manzurola.aligner.edit.Edit;
-import com.github.manzurola.errant4j.core.GrammaticalError;
-import com.github.manzurola.errant4j.core.classify.Classifier;
+import com.github.manzurola.errant4j.core.classify.ClassificationPredicate;
+import com.github.manzurola.errant4j.core.errors.ErrorCategory;
 import com.github.manzurola.errant4j.lang.en.classify.rules.common.Predicates;
 import com.github.manzurola.spacy4j.api.containers.Token;
 import com.github.manzurola.spacy4j.api.features.Tag;
@@ -22,11 +22,11 @@ import static java.util.stream.Collectors.toList;
  * tagged sequentially as NOUN and PART, or (b) The corrected tokens are POS tagged sequentially as NOUN and PART, and
  * 3. The first token on both sides of the edit has the same lemma.
  */
-public class NounPossessiveRule extends Classifier.Predicate {
+public class NounPossessiveRule extends ClassificationPredicate {
 
     @Override
-    public GrammaticalError.Category getCategory() {
-        return GrammaticalError.Category.NOUN_POSS;
+    public ErrorCategory getErrorCategory() {
+        return ErrorCategory.NOUN_POSS;
     }
 
     @Override

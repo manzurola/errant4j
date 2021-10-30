@@ -1,8 +1,8 @@
 package com.github.manzurola.errant4j.lang.en.classify.rules;
 
 import com.github.manzurola.aligner.edit.Edit;
-import com.github.manzurola.errant4j.core.GrammaticalError;
-import com.github.manzurola.errant4j.core.classify.Classifier;
+import com.github.manzurola.errant4j.core.classify.ClassificationPredicate;
+import com.github.manzurola.errant4j.core.errors.ErrorCategory;
 import com.github.manzurola.errant4j.lang.en.classify.rules.common.Predicates;
 import com.github.manzurola.spacy4j.api.containers.Token;
 
@@ -13,11 +13,11 @@ import java.util.stream.Collectors;
  * The following special PUNCT rule captures edits where a change in punctuation also affects the case of the following
  * word; e.g. [. Because → , because] and [Because → , because].
  */
-public class PunctuationEffectRule extends Classifier.Predicate {
+public class PunctuationEffectRule extends ClassificationPredicate {
 
     @Override
-    public GrammaticalError.Category getCategory() {
-        return GrammaticalError.Category.PUNCT;
+    public ErrorCategory getErrorCategory() {
+        return ErrorCategory.PUNCT;
     }
 
     @Override

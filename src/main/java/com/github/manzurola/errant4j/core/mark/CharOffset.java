@@ -1,4 +1,4 @@
-package com.github.manzurola.errant4j.core.tools.mark;
+package com.github.manzurola.errant4j.core.mark;
 
 import java.util.Objects;
 

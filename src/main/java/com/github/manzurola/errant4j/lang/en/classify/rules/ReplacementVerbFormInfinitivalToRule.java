@@ -1,8 +1,8 @@
 package com.github.manzurola.errant4j.lang.en.classify.rules;
 
 import com.github.manzurola.aligner.edit.Edit;
-import com.github.manzurola.errant4j.core.GrammaticalError;
-import com.github.manzurola.errant4j.core.classify.Classifier;
+import com.github.manzurola.errant4j.core.classify.ClassificationPredicate;
+import com.github.manzurola.errant4j.core.errors.ErrorCategory;
 import com.github.manzurola.errant4j.lang.en.classify.rules.common.Predicates;
 import com.github.manzurola.spacy4j.api.containers.Token;
 import com.github.manzurola.spacy4j.api.features.Pos;
@@ -19,11 +19,12 @@ import java.util.function.Predicate;
  * captured by the following rule: 1. All tokens on both sides of the edit are POS tagged as PART or VERB, and 2. The
  * last token on both sides has the same lemma.
  */
-public class ReplacementVerbFormInfinitivalToRule extends Classifier.Predicate {
+public class ReplacementVerbFormInfinitivalToRule extends
+    ClassificationPredicate {
 
     @Override
-    public GrammaticalError.Category getCategory() {
-        return GrammaticalError.Category.VERB_FORM;
+    public ErrorCategory getErrorCategory() {
+        return ErrorCategory.VERB_FORM;
     }
 
     @Override

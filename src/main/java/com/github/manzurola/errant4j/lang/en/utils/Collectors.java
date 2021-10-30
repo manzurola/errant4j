@@ -1,4 +1,4 @@
-package com.github.manzurola.errant4j.core.tools;
+package com.github.manzurola.errant4j.lang.en.utils;
 
 import java.util.Optional;
 import java.util.stream.Collector;

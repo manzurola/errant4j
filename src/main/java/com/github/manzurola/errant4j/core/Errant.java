@@ -31,4 +31,8 @@ public final class Errant {
         }
     }
 
+    public static Annotator forEnglish(SpaCy spaCy) {
+        return newAnnotator("en", spaCy);
+    }
+
 }

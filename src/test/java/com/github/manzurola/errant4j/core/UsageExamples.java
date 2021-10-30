@@ -1,6 +1,7 @@
 package com.github.manzurola.errant4j.core;
 
 import com.github.manzurola.aligner.edit.Edit;
+import com.github.manzurola.errant4j.core.errors.GrammaticalError;
 import com.github.manzurola.errant4j.lang.en.classify.EnClassifier;
 import com.github.manzurola.errant4j.lang.en.merge.EnMerger;
 import com.github.manzurola.spacy4j.adapters.corenlp.CoreNLPAdapter;
@@ -19,27 +20,32 @@ public class UsageExamples {
     @Test
     void annotateEnglish() {
         // Get a spaCy instance (from spacy4j)
-        SpaCy spacy = SpaCy.create(CoreNLPAdapter.create());
+        SpaCy spacy = SpaCy.create(CoreNLPAdapter.forEnglish());
 
         // Create an english annotator
-        Annotator annotator = Errant.newAnnotator("en", spacy);
+        Annotator annotator = Errant.forEnglish(spacy);
 
         // Parse source and target sentences
         Doc source = annotator.parse("Yesterday I went to see my therapist.");
         Doc target = annotator.parse("Yesterday I go to see my therapist.");
 
         // Annotate grammatical errors
-        List<Annotation> annotations = annotator.annotate(source.tokens(), target.tokens());
+        List<Annotation> annotations = annotator.annotate(
+            source.tokens(),
+            target.tokens()
+        );
 
         // Inspect annotations
         for (Annotation annotation : annotations) {
-            GrammaticalError error = annotation.grammaticalError();
+            GrammaticalError error = annotation.error();
             String sourceText = annotation.sourceText();
             String targetText = annotation.targetText();
-            System.out.printf("Error: %s, sourceText: %s, targetText: %s%n",
-                              error,
-                              sourceText,
-                              targetText);
+            System.out.printf(
+                "Error: %s, sourceText: %s, targetText: %s%n",
+                error,
+                sourceText,
+                targetText
+            );
 
             Edit<Token> edit = annotation.edit();
             // Inspect the classified edit...
@@ -51,29 +57,49 @@ public class UsageExamples {
     void testAndDevelopNewAnnotator() {
 
         // Get a spaCy instance (from spacy4j)
-        SpaCy spacy = SpaCy.create(CoreNLPAdapter.create());
+        SpaCy spacy = SpaCy.create(CoreNLPAdapter.forEnglish());
 
         // Create an english annotator
-        Annotator annotator = Annotator.of(spacy, new EnMerger(), new EnClassifier());
+        Annotator annotator = Annotator.of(
+            spacy,
+            new EnMerger(),
+            new EnClassifier()
+        );
 
         // Prepare source and target docs
         Doc source = annotator.parse("I am eat dinner.");
         Doc target = annotator.parse("I am eating dinner.");
 
-        // We create an expected string edit and transform it to a Token edit
-        Edit<Token> edit = Edit.builder()
-                .substitute("eat")
-                .with("eating")
-                .atPosition(2, 2)
-                .project(source.tokens(), target.tokens());
+        // We create an expected string edit and transform it to a
+        // Token edit.
+        // The string tokens "eat" and "eating" are unnecessary
+        // since the Edit projects
+        // tokens based on index positions and ignores the values.
+        // But it helps with
+        // visibility.
+        Edit<Token> edit = Edit
+            .builder()
+            .substitute("eat")
+            .with("eating")
+            .atPosition(2, 2)
+            .project(source.tokens(), target.tokens());
 
-        // Create the expected annotation containing the Edit and GrammaticalError
-        Annotation expected = Annotation.of(edit, GrammaticalError.REPLACEMENT_VERB_FORM);
+        // Create the expected annotation containing the Edit and
+        // GrammaticalError
+        Annotation expected = Annotation.of(
+            edit,
+            GrammaticalError.REPLACEMENT_VERB_FORM
+        );
+
 
         // Annotated source and target for grammatical errors
-        List<Annotation> actual = annotator.annotate(source.tokens(), target.tokens());
+        List<Annotation> actual = annotator.annotate(
+            source.tokens(),
+            target.tokens()
+        );
 
-        // Assert that the actual annotations contain our expected error
+        // Assert that the actual annotations contain our expected
+        // error
         Assertions.assertTrue(actual.contains(expected));
     }
 }
