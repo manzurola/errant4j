@@ -126,4 +126,4 @@ If you want to contact me you can reach me at [guy.manzurola@gmail.com](guy.manz
 
 ## License
         
-This project uses the following license: [GPL-3.0](https://github.com/manzurola/errant4j/blob/main/LICENSE).
+This project uses the following license: [MIT](https://github.com/manzurola/errant4j/blob/main/LICENSE).
