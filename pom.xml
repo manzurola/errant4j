@@ -12,6 +12,30 @@
     <description>An unofficial Java port of ERRANT, the parallel text grammatical error annotator</description>
     <url>https://github.com/manzurola/errant4j</url>
 
+    <developers>
+        <developer>
+            <name>Guy Manzurola</name>
+            <email>guy.manzurola@gmail.com</email>
+            <roles>
+                <role>developer</role>
+            </roles>
+        </developer>
+    </developers>
+
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>https://github.com/manzurola/errant4j/blob/main/LICENSE</url>
+        </license>
+    </licenses>
+
+    <scm>
+        <connection>scm:git:git://github.com/manzurola/errant4j.git</connection>
+        <developerConnection>scm:git:git@github.com:manzurola/errant4j.git</developerConnection>
+        <url>https://github.com/manzurola/errant4j</url>
+        <tag>HEAD</tag>
+    </scm>
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>11</maven.compiler.source>
