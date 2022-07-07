@@ -4,31 +4,38 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.github.manzurola</groupId>
+    <groupId>io.github.manzurola</groupId>
     <artifactId>errant4j</artifactId>
-    <version>0.4.0</version>
+    <version>0.5.0</version>
+
+    <name>errant4j</name>
+    <description>An unofficial Java port of ERRANT, the parallel text grammatical error annotator</description>
+    <url>https://github.com/manzurola/errant4j</url>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
-        <junit-jupiter.version>5.5.2</junit-jupiter.version>
-        <logback.version>1.1.7</logback.version>
+        <junit-jupiter.version>5.8.2</junit-jupiter.version>
+        <logback.version>1.2.11</logback.version>
         <aligner.version>0.3.0</aligner.version>
-        <spacy4j.version>0.3.0</spacy4j.version>
+        <spacy4j.version>0.4.0</spacy4j.version>
     </properties>
 
     <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
         <repository>
-            <id>github</id>
-            <name>errant4j</name>
-            <url>https://maven.pkg.github.com/manzurola/errant4j</url>
+            <id>ossrh</id>
+            <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
         </repository>
     </distributionManagement>
 
     <dependencies>
         <dependency>
-            <groupId>com.github.manzurola</groupId>
+            <groupId>io.github.manzurola</groupId>
             <artifactId>spacy4j-api</artifactId>
             <version>${spacy4j.version}</version>
         </dependency>
@@ -40,7 +47,7 @@
         <dependency>
             <groupId>net.sf.extjwnl</groupId>
             <artifactId>extjwnl</artifactId>
-            <version>2.0.2</version>
+            <version>2.0.5</version>
         </dependency>
         <dependency>
             <groupId>net.sf.extjwnl</groupId>
@@ -59,13 +66,13 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>com.github.manzurola</groupId>
+            <groupId>io.github.manzurola</groupId>
             <artifactId>spacy4j-adapters-corenlp</artifactId>
             <version>${spacy4j.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>com.github.manzurola</groupId>
+            <groupId>io.github.manzurola</groupId>
             <artifactId>spacy4j-adapters-spacy-server</artifactId>
             <version>${spacy4j.version}</version>
             <scope>test</scope>
@@ -83,10 +90,14 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>3.3.0</version>
-                <configuration>
-                    <show>private</show>
-                    <nohelp>true</nohelp>
-                </configuration>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -95,7 +106,6 @@
                 <executions>
                     <execution>
                         <id>attach-sources</id>
-                        <phase>verify</phase>
                         <goals>
                             <goal>jar-no-fork</goal>
                         </goals>
@@ -106,6 +116,35 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.22.2</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>3.0.1</version>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <keyname>${gpg.keyname}</keyname>
+                    <passphraseServerId>${gpg.passphrase}</passphraseServerId>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.sonatype.plugins</groupId>
+                <artifactId>nexus-staging-maven-plugin</artifactId>
+                <version>1.6.7</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <serverId>ossrh</serverId>
+                    <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
+                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
