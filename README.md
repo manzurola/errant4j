@@ -12,7 +12,6 @@ From the official ERRANT docs:
 Before you begin, ensure you have met the following requirements:
 
 * You have Java 11 installed.
-* You have access to Github Packages Maven registry as described [here](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-apache-maven-registry#authenticating-to-github-packages).
 * You have installed spaCy4j as described [here](https://github.com/manzurola/spaCy4j#installing-spacy4j)
 
 ## Installing Errant4J
@@ -20,9 +19,9 @@ Before you begin, ensure you have met the following requirements:
 Add this to the dependencies section of your `pom.xml`:
 ```xml
 <dependency>
-  <groupId>com.github.manzurola</groupId>
+  <groupId>io.github.manzurola</groupId>
   <artifactId>errant4j</artifactId>
-  <version>0.4.0</version>
+  <version>0.5.0</version>
 </dependency>
 ```
 
@@ -127,4 +126,4 @@ If you want to contact me you can reach me at [guy.manzurola@gmail.com](guy.manz
 
 ## License
         
-This project uses the following license: [GPL-3.0](https://github.com/manzurola/errant4j/blob/main/LICENSE).
+This project uses the following license: [MIT](https://github.com/manzurola/errant4j/blob/main/LICENSE).
