@@ -1,12 +1,13 @@
 package io.github.manzurola.errant4j.lang.en.merge.rules;
 
-import com.github.manzurola.aligner.edit.Edit;
+import io.github.manzurola.aligner.edit.Edit;
+import io.github.manzurola.errant4j.core.merge.MergePredicate;
 import io.github.manzurola.errant4j.core.merge.Merger;
 import io.github.manzurola.spacy4j.api.containers.Token;
 
 import java.util.List;
 
-public class WhiteSpaceDifferenceMergeCondition implements Merger.Rule {
+public class WhiteSpaceDifferenceMergeCondition implements MergePredicate<Token> {
 
     // TODO - this can only handle max 2 words
     @Override

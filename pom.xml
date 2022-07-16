@@ -42,7 +42,7 @@
         <maven.compiler.target>11</maven.compiler.target>
         <junit-jupiter.version>5.8.2</junit-jupiter.version>
         <logback.version>1.2.11</logback.version>
-        <aligner.version>0.3.0</aligner.version>
+        <aligner.version>0.4.0-SNAPSHOT</aligner.version>
         <spacy4j.version>0.4.0</spacy4j.version>
     </properties>
 
@@ -64,7 +64,7 @@
             <version>${spacy4j.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.github.manzurola</groupId>
+            <groupId>io.github.manzurola</groupId>
             <artifactId>aligner</artifactId>
             <version>${aligner.version}</version>
         </dependency>

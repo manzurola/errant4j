@@ -1,11 +1,9 @@
 package io.github.manzurola.errant4j.lang.en;
 
-import com.github.manzurola.aligner.edit.Edit;
+import io.github.manzurola.aligner.edit.Edit;
 import io.github.manzurola.errant4j.core.Annotation;
 import io.github.manzurola.errant4j.core.Annotator;
 import io.github.manzurola.errant4j.core.errors.GrammaticalError;
-import io.github.manzurola.errant4j.lang.en.classify.EnClassifier;
-import io.github.manzurola.errant4j.lang.en.merge.EnMerger;
 import io.github.manzurola.spacy4j.adapters.corenlp.CoreNLPAdapter;
 import io.github.manzurola.spacy4j.api.SpaCy;
 import io.github.manzurola.spacy4j.api.containers.Doc;
@@ -30,7 +28,7 @@ public class EnAnnotatorWithCoreNlpTest {
     @BeforeAll
     static void setup() {
         SpaCy spacy = SpaCy.create(CoreNLPAdapter.forEnglish());
-        annotator = Annotator.of(spacy, new EnMerger(), new EnClassifier());
+        annotator = new EnAnnotatorFactory().create(spacy);
     }
 
     @Test

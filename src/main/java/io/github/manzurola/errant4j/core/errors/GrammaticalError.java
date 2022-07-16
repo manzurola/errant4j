@@ -1,6 +1,6 @@
 package io.github.manzurola.errant4j.core.errors;
 
-import com.github.manzurola.aligner.edit.Edit;
+import io.github.manzurola.aligner.edit.Edit;
 
 public enum GrammaticalError {
 

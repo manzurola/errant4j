@@ -1,6 +1,7 @@
 package io.github.manzurola.errant4j.lang.en.merge.rules;
 
-import com.github.manzurola.aligner.edit.Edit;
+import io.github.manzurola.aligner.edit.Edit;
+import io.github.manzurola.errant4j.core.merge.MergePredicate;
 import io.github.manzurola.errant4j.core.merge.Merger;
 import io.github.manzurola.errant4j.lang.en.classify.rules.common.Predicates;
 import io.github.manzurola.spacy4j.api.containers.Token;
@@ -9,7 +10,7 @@ import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-public class PunctuationAndCaseChangeMergeCondition implements Merger.Rule {
+public class PunctuationAndCaseChangeMergeCondition implements MergePredicate<Token> {
 
     @Override
     public boolean test(Edit<Token> left, Edit<Token> right) {

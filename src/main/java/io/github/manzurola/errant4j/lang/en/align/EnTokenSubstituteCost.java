@@ -1,12 +1,12 @@
-package io.github.manzurola.errant4j.core.align;
+package io.github.manzurola.errant4j.lang.en.align;
 
-import com.github.manzurola.aligner.metrics.SubstituteCost;
-import com.github.manzurola.aligner.utils.AlignerUtils;
+import io.github.manzurola.aligner.metrics.SubstituteCost;
+import io.github.manzurola.aligner.utils.AlignerUtils;
 import io.github.manzurola.errant4j.lang.en.classify.rules.common.Predicates;
 import io.github.manzurola.spacy4j.api.containers.Token;
 import io.github.manzurola.spacy4j.api.features.Pos;
 
-class TokenSubstituteCost implements SubstituteCost<Token> {
+public class EnTokenSubstituteCost implements SubstituteCost<Token> {
 
     @Override
     public final double getCost(Token source, Token target) {

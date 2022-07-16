@@ -1,4 +1,4 @@
-package io.github.manzurola.errant4j.core.classify;
+package io.github.manzurola.errant4j.lang.en.classify;
 
 import io.github.manzurola.aligner.edit.Edit;
 import io.github.manzurola.errant4j.core.errors.GrammaticalError;

@@ -1,7 +1,7 @@
 package io.github.manzurola.errant4j.lang.en.classify.rules.common;
 
-import com.github.manzurola.aligner.edit.Edit;
-import com.github.manzurola.aligner.edit.Operation;
+import io.github.manzurola.aligner.edit.Edit;
+import io.github.manzurola.aligner.edit.Operation;
 import io.github.manzurola.errant4j.lang.en.utils.lemmatize.Lemmatizer;
 import io.github.manzurola.spacy4j.api.containers.Token;
 import io.github.manzurola.spacy4j.api.features.Dependency;

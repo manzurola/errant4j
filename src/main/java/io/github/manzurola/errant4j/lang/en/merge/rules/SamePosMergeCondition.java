@@ -1,6 +1,7 @@
 package io.github.manzurola.errant4j.lang.en.merge.rules;
 
-import com.github.manzurola.aligner.edit.Edit;
+import io.github.manzurola.aligner.edit.Edit;
+import io.github.manzurola.errant4j.core.merge.MergePredicate;
 import io.github.manzurola.errant4j.core.merge.Merger;
 import io.github.manzurola.spacy4j.api.containers.Token;
 import io.github.manzurola.spacy4j.api.features.Pos;
@@ -14,7 +15,7 @@ import java.util.stream.Collectors;
  * Merge any consecutive operations that involve tokens with the same POS; e.g. [(look) at → (look) up] + [ε → to] =
  * [(look) at → (look) up to].
  */
-public class SamePosMergeCondition implements Merger.Rule {
+public class SamePosMergeCondition implements MergePredicate<Token> {
 
     private static final Set<Pos> expectedPos = new HashSet<>(Arrays.asList(Pos.AUX, Pos.PART, Pos.VERB));
 

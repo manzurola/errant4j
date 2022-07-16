@@ -1,9 +1,8 @@
 package io.github.manzurola.errant4j.core;
 
-import com.github.manzurola.aligner.edit.Edit;
+import io.github.manzurola.aligner.edit.Edit;
 import io.github.manzurola.errant4j.core.errors.GrammaticalError;
-import io.github.manzurola.errant4j.lang.en.classify.EnClassifier;
-import io.github.manzurola.errant4j.lang.en.merge.EnMerger;
+import io.github.manzurola.errant4j.lang.en.EnAnnotatorFactory;
 import io.github.manzurola.spacy4j.adapters.corenlp.CoreNLPAdapter;
 import io.github.manzurola.spacy4j.api.SpaCy;
 import io.github.manzurola.spacy4j.api.containers.Doc;
@@ -60,11 +59,7 @@ public class UsageExamples {
         SpaCy spacy = SpaCy.create(CoreNLPAdapter.forEnglish());
 
         // Create an english annotator
-        Annotator annotator = Annotator.of(
-            spacy,
-            new EnMerger(),
-            new EnClassifier()
-        );
+        Annotator annotator = new EnAnnotatorFactory().create(spacy);
 
         // Prepare source and target docs
         Doc source = annotator.parse("I am eat dinner.");

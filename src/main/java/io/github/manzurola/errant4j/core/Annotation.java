@@ -1,6 +1,6 @@
 package io.github.manzurola.errant4j.core;
 
-import com.github.manzurola.aligner.edit.Edit;
+import io.github.manzurola.aligner.edit.Edit;
 import io.github.manzurola.errant4j.core.errors.GrammaticalError;
 import io.github.manzurola.spacy4j.api.containers.Token;
 
@@ -8,8 +8,7 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * An Annotation matches an {@link Edit} with its associated {@link
- * GrammaticalError}.
+ * An Annotation matches an {@link Edit} with its associated {@link GrammaticalError}.
  */
 public final class Annotation {
 
@@ -25,53 +24,53 @@ public final class Annotation {
         return new Annotation(edit, error);
     }
 
-    public final Edit<Token> edit() {
+    public Edit<Token> edit() {
         return edit;
     }
 
-    public final GrammaticalError error() {
+    public GrammaticalError error() {
         return error;
     }
 
-    public final int sourcePosition() {
+    public int sourcePosition() {
         return edit.source().position();
     }
 
-    public final List<Token> sourceTokens() {
+    public List<Token> sourceTokens() {
         return edit.source().tokens();
     }
 
-    public final String sourceText() {
+    public String sourceText() {
         return concatTokenText(edit.source().tokens());
     }
 
     private String concatTokenText(List<Token> tokens) {
         return tokens
-            .stream()
-            .map(Token::textWithWs)
-            .reduce("", String::concat)
-            .trim();
+                .stream()
+                .map(Token::textWithWs)
+                .reduce("", String::concat)
+                .trim();
     }
 
-    public final int targetPosition() {
+    public int targetPosition() {
         return edit.target().position();
     }
 
-    public final List<Token> targetTokens() {
+    public List<Token> targetTokens() {
         return edit.target().tokens();
     }
 
-    public final String targetText() {
+    public String targetText() {
         return concatTokenText(edit.target().tokens());
     }
 
     @Deprecated
-    public final boolean hasError() {
+    public boolean hasError() {
         return !GrammaticalError.NONE.equals(error());
     }
 
     @Override
-    public final boolean equals(Object o) {
+    public boolean equals(Object o) {
         if (this == o) {
             return true;
         }
@@ -83,12 +82,12 @@ public final class Annotation {
     }
 
     @Override
-    public final int hashCode() {
+    public int hashCode() {
         return Objects.hash(error);
     }
 
     @Override
-    public final String toString() {
+    public String toString() {
         return error + ", " + edit;
     }
 
